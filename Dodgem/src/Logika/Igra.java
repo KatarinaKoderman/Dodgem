@@ -42,6 +42,9 @@ public class Igra {
 	 * @return seznam možnih potez. LinkedList bo sestavljen iz 4-ih komponent: izvorno stanje (x, y) ter možna poteza, zopet z dvema koordinatama.
 	 */
 	
-	
+/*		public List<Poteza> poteze() {
+			LinkedList<Poteza> ps = new LinkedList<Poteza>;
+			
+		}*/
 
 }
