@@ -13,8 +13,4 @@ public enum Polje {
 		default: return "?";
 		}
 	}
-	
-/*	private boolean jePrazno(){
-		return 
-	}*/
 }
