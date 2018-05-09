@@ -44,50 +44,50 @@ public class Igra {
 	 * Pazi na orientacijo osi!
 	 */
 
-    public List<Poteza> poteze() {
-        LinkedList<Poteza> psX = new LinkedList<Poteza>();
-        LinkedList<Poteza> psY = new LinkedList<Poteza>();
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                if (plosca[i][j] == Polje.X) {
-                    if (i > 0 && plosca[i-1][j] == Polje.PRAZNO) {
-                        psX.add(new Poteza(i-1, j, Smer.DESNO));
-                    }
-                    if (i<N-1 && plosca[i+1][j] == Polje.PRAZNO) {
-                        psX.add(new Poteza(i+1, j, Smer.LEVO));
-                    }
-                    if (j<N-1 && plosca[i][j+1] == Polje.PRAZNO) { 
-                        psX.add(new Poteza(i, j+1, Smer.NAPREJ));
-                    }
-                    if (j==N) {
-                    	psX.add(new Poteza(i, j+1, Smer.NAPREJ));
-                    }
-                }
-                if (plosca[i][j] == Polje.Y) {
-                    if (j>0 && plosca[i][j-1] == Polje.PRAZNO) {
-                        psY.add(new Poteza(i, j-1, Smer.LEVO));
-                    }
-                    if (j<N-1 && plosca[i][j+1] == Polje.PRAZNO) {
-                        psY.add(new Poteza(i, j+1, Smer.DESNO));
-                    }
-                    if (i<N-1 && plosca[i+1][j] == Polje.PRAZNO) {
-                        psY.add(new Poteza(i+1, j, Smer.NAPREJ));
-                    }
-                    if (i==N) {
-                    	psY.add(new Poteza(i+1, j, Smer.NAPREJ));
-                    }
-                }
-            }
-        }
-        if (naPotezi == Igralec.X) {
-            return psX;
-        }
-        else {    // na potezi je Y
-            return psY;
-        }
-    }
+	public List<Poteza> poteze() {
+		LinkedList<Poteza> psX = new LinkedList<Poteza>();
+		LinkedList<Poteza> psY = new LinkedList<Poteza>();
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				if (plosca[i][j] == Polje.X) {
+					if (i > 0 && plosca[i-1][j] == Polje.PRAZNO) {
+						psX.add(new Poteza(i-1, j, Smer.DESNO));
+					}
+					if (i<N-1 && plosca[i+1][j] == Polje.PRAZNO) {
+						psX.add(new Poteza(i+1, j, Smer.LEVO));
+					}
+					if (j<N-1 && plosca[i][j+1] == Polje.PRAZNO) { 
+						psX.add(new Poteza(i, j+1, Smer.NAPREJ));
+					}
+					if (j==N) {
+						psX.add(new Poteza(i, j+1, Smer.NAPREJ));
+					}
+				}
+				if (plosca[i][j] == Polje.Y) {
+					if (j>0 && plosca[i][j-1] == Polje.PRAZNO) {
+						psY.add(new Poteza(i, j-1, Smer.LEVO));
+					}
+					if (j<N-1 && plosca[i][j+1] == Polje.PRAZNO) {
+						psY.add(new Poteza(i, j+1, Smer.DESNO));
+					}
+					if (i<N-1 && plosca[i+1][j] == Polje.PRAZNO) {
+						psY.add(new Poteza(i+1, j, Smer.NAPREJ));
+					}
+					if (i==N) {
+						psY.add(new Poteza(i+1, j, Smer.NAPREJ));
+					}
+				}
+			}
+		}
+		if (naPotezi == Igralec.X) {
+			return psX;
+		}
+		else {    // na potezi je Y
+			return psY;
+		}
+	}
 
-	
+
 	/**
 	 * @return stanje igre
 	 */
@@ -122,16 +122,36 @@ public class Igra {
 			}
 		}
 	}
-	
-/*
+
+
 	/**
 	 * Odigraj potezo p.
+	 * 
 	 * @param p
 	 * @return true, èe je bila poteza uspešno odigrana
-	 *//*
+	 */
 	public boolean odigraj(Poteza p) {
-		
+		if (plosca[p.getX()][p.getY()] != Polje.PRAZNO) {
+			int x = p.getX();
+			int y = p.getY();
+			if (naPotezi == Igralec.X) {
+				if(p.getSmer() == Smer.LEVO) x -= 1;
+				if(p.getSmer() == Smer.NAPREJ) y += 1;
+				else x += 1;
+			}
+			else {  
+				if(p.getSmer() == Smer.LEVO) y += 1;
+				if(p.getSmer() == Smer.NAPREJ) x += 1;
+				else y -= 1;	
+			}
+			plosca[x][y] = plosca[p.getX()][p.getY()];
+			plosca[p.getX()][p.getY()] = Polje.PRAZNO;
+			naPotezi = naPotezi.nasprotnik();
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
-
-*/
 }
+
