@@ -17,17 +17,19 @@ public class Igra {
 	private Igralec naPotezi;
 
 	/**
-	 * Nova igra, v zaèetnem stanju so figurice v hiši.
+	 * Nova igra, v zaèetnem stanju so figurice prvega igralca (igralec X) 
+	 * postavljene na dnu plošèe, figurice drugega igralca (igralec Y)
+	 * pa na levi strani plošèe.
 	 */
 	public Igra() {
 		plosca = new Polje[N][N];
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
-				if (i == 0 && j != 0) {
+				if (j == (N-1) && i != 0) {
 					plosca[i][j] = Polje.X;
 				}
 				else {
-					if (j == 0 && i != 0) {
+					if (i == 0 && j != (N-1)) {
 						plosca[i][j] = Polje.Y;
 					}
 					else {
@@ -53,16 +55,15 @@ public class Igra {
 		this.naPotezi = igra.naPotezi;
 	}
 	
+	public Polje[][] getPlosca() {
+		return plosca; 
+	}
+	
+	
 	/**
 	 * @return seznam možnih potez za X in Y glede na igralca, ki je na potezi
 	 * Pazi na orientacijo osi!
 	 */
-
-
-	public Polje[][] getPlosca() {
-		return plosca; 
-	}
-
 	public List<Poteza> poteze() {
 		LinkedList<Poteza> psX = new LinkedList<Poteza>();
 		LinkedList<Poteza> psY = new LinkedList<Poteza>();
@@ -70,16 +71,16 @@ public class Igra {
 			for (int j = 0; j < N; j++) {
 				if (plosca[i][j] == Polje.X) {
 					if (i > 0 && plosca[i-1][j] == Polje.PRAZNO) {
-						psX.add(new Poteza(i-1, j, Smer.DESNO));
+						psX.add(new Poteza(i-1, j, Smer.LEVO));
 					}
 					if (i<N-1 && plosca[i+1][j] == Polje.PRAZNO) {
-						psX.add(new Poteza(i+1, j, Smer.LEVO));
+						psX.add(new Poteza(i+1, j, Smer.DESNO));
 					}
-					if (j<N-1 && plosca[i][j+1] == Polje.PRAZNO) { 
-						psX.add(new Poteza(i, j+1, Smer.NAPREJ));
+					if (j>0 && plosca[i][j-1] == Polje.PRAZNO) { 
+						psX.add(new Poteza(i, j-1, Smer.NAPREJ));
 					}
-					if (j==N) {
-						psX.add(new Poteza(i, j+1, Smer.NAPREJ));
+					if (j==0) {
+						psX.add(new Poteza(i, j-1, Smer.ODSTRANI));
 					}
 				}
 				if (plosca[i][j] == Polje.Y) {
@@ -92,8 +93,8 @@ public class Igra {
 					if (i<N-1 && plosca[i+1][j] == Polje.PRAZNO) {
 						psY.add(new Poteza(i+1, j, Smer.NAPREJ));
 					}
-					if (i==N) {
-						psY.add(new Poteza(i+1, j, Smer.NAPREJ));
+					if (i==N-1) {
+						psY.add(new Poteza(i+1, j, Smer.ODSTRANI));
 					}
 				}
 			}
@@ -115,7 +116,7 @@ public class Igra {
 		int steviloAvtomobilovY = 0;
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) { 
-				//takoj, ko se eno od števil steviloAvtomobilov poveèa, ga ne rabimo veè šteti, naprej bi lahko pregledovali le za drugega igralca
+				// takoj, ko se eno od števil steviloAvtomobilov poveèa, ga ne rabimo veè šteti, naprej bi lahko pregledovali le za drugega igralca
 				if (plosca[i][j] == Polje.X) {
 					steviloAvtomobilovX += 1;
 				}
@@ -155,16 +156,23 @@ public class Igra {
 			int y = p.getY();
 			if (naPotezi == Igralec.X) {
 				if(p.getSmer() == Smer.LEVO) x -= 1;
-				if(p.getSmer() == Smer.NAPREJ) y += 1;
-				else x += 1;
+				if(p.getSmer() == Smer.NAPREJ) y -= 1;
+				if(p.getSmer() == Smer.DESNO) x += 1;
+				else; // Smer.ODSTRANI
 			}
 			else {  
-				if(p.getSmer() == Smer.LEVO) y += 1;
+				if(p.getSmer() == Smer.LEVO) y -= 1;
 				if(p.getSmer() == Smer.NAPREJ) x += 1;
-				else y -= 1;	
+				if(p.getSmer() == Smer.DESNO) y += 1;
+				else;	//Smer.ODSTRANI
 			}
+			if (x == p.getX() && y == p.getY()) {
+				plosca[x][y] = Polje.PRAZNO;
+			}
+			else {
 			plosca[x][y] = plosca[p.getX()][p.getY()];
 			plosca[p.getX()][p.getY()] = Polje.PRAZNO;
+			}
 			naPotezi = naPotezi.nasprotnik();
 			return true;
 		}
