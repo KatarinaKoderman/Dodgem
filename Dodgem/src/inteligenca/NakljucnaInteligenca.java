@@ -3,7 +3,6 @@ package inteligenca;
 import java.util.List;
 import java.util.Random;
 import javax.swing.SwingWorker;
-
 import gui.GlavnoOkno;
 import logika.Igra;
 import logika.Poteza;

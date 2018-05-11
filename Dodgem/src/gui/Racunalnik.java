@@ -1,8 +1,5 @@
 package gui;
 
-import java.util.List;
-import java.util.Random;
-
 import javax.swing.SwingWorker;
 
 import inteligenca.NakljucnaInteligenca;
