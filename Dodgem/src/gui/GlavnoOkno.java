@@ -12,10 +12,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import Logika.Igra;
-import Logika.Polje;
-import Logika.Poteza;
-import Logika.Smer;
+import logika.Igra;
+import logika.Polje;
+import logika.Poteza;
+import logika.Smer;
 
 @SuppressWarnings("serial")
 public class GlavnoOkno extends JFrame implements ActionListener {

@@ -6,8 +6,8 @@ import java.util.Random;
 import javax.swing.SwingWorker;
 
 import inteligenca.NakljucnaInteligenca;
-import Logika.Igra;
-import Logika.Poteza;
+import logika.Igra;
+import logika.Poteza;
 
 public class Racunalnik extends Strateg {
 	private GlavnoOkno master;

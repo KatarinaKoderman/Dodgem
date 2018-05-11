@@ -7,8 +7,8 @@ import java.util.concurrent.ExecutionException;
 import javax.swing.SwingWorker;
 
 import gui.GlavnoOkno;
-import Logika.Igra;
-import Logika.Poteza;
+import logika.Igra;
+import logika.Poteza;
 
 public class NakljucnaInteligenca extends SwingWorker<Poteza, Object> {
 

@@ -12,9 +12,9 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-import Logika.Igra;
-import Logika.Polje;
-import Logika.Smer;
+import logika.Igra;
+import logika.Polje;
+import logika.Smer;
 
 @SuppressWarnings("serial")
 public class IgralnoPolje extends JPanel implements MouseListener {

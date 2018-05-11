@@ -1,7 +1,7 @@
 package gui;
 
-import Logika.Poteza;
-import Logika.Smer;
+import logika.Poteza;
+import logika.Smer;
 
 public class Clovek extends Strateg {
 	private GlavnoOkno master;
