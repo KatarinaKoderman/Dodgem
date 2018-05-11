@@ -38,11 +38,30 @@ public class Igra {
 		}
 		naPotezi = Igralec.X;
 	}
+	
 
+	/**
+	 * @param igra nova kopija dane igre
+	 */
+	public Igra(Igra igra) {
+		plosca = new Polje[N][N];
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				plosca[i][j] = igra.plosca[i][j];
+			}
+		}
+		this.naPotezi = igra.naPotezi;
+	}
+	
 	/**
 	 * @return seznam možnih potez za X in Y glede na igralca, ki je na potezi
 	 * Pazi na orientacijo osi!
 	 */
+
+
+	public Polje[][] getPlosca() {
+		return plosca; 
+	}
 
 	public List<Poteza> poteze() {
 		LinkedList<Poteza> psX = new LinkedList<Poteza>();
@@ -153,5 +172,6 @@ public class Igra {
 			return false;
 		}
 	}
-}
-
+} 
+      
+ 
