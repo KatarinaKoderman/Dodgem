@@ -57,7 +57,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		g2.drawLine((int)(x + r), (int)y, (int)x, (int)(y + r));
 	}
 	
-	private void paintO(Graphics2D g2, int i, int j) {
+	private void paintY(Graphics2D g2, int i, int j) {
 		double w = squareWidth();
 		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer Y
 		double x = w * (i + 0.5 * LINE_WIDTH + PADDING);
@@ -87,14 +87,14 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 					    (int)(i * w));
 		}
 		
-		// križci in krožci
+		// križci in krožci (za igralca X in Y)
 		Polje[][] plosca = master.getPlosca();
 		if (plosca != null) {
 			for (int i = 0; i < Igra.N; i++) {
 				for (int j = 0; j < Igra.N; j++) {
 					switch(plosca[i][j]) {
 					case X: paintX(g2, i, j); break;
-					case Y: paintO(g2, i, j); break;
+					case Y: paintY(g2, i, j); break;
 					default: break;
 					}
 				}
@@ -135,7 +135,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	public void mouseExited(MouseEvent e) {		
 }
 
-	
+	// TODO: levo naj bo levo, ne glede na igralca paè pa glede na prikaz na zaslonu
 	public void keyPressed(KeyEvent e) {
 
 	    int key = e.getKeyCode();
