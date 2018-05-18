@@ -141,21 +141,23 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	public void mouseExited(MouseEvent e) {		
 }
 
-	// TODO: levo naj bo levo, ne glede na igralca paè pa glede na prikaz na zaslonu
 	public void keyPressed(KeyEvent e) {
 
 	    int key = e.getKeyCode();
 
 	    if (key == KeyEvent.VK_LEFT) {
-	        Smer l = Smer.LEVO;
+	        Smer levo = Smer.LEVO;
 	    }
 
 	    if (key == KeyEvent.VK_DOWN) {
-	        Smer n = Smer.NAPREJ;
+	        Smer gor = Smer.GOR;
 	    }
 
 	    if (key == KeyEvent.VK_RIGHT) {
-	        Smer d = Smer.DESNO;
+	        Smer desno = Smer.DESNO;
+	    }
+	    if (key == KeyEvent.VK_DOWN) {
+	    	Smer dol = Smer.DOL;
 	    }
 
 	}
