@@ -77,7 +77,7 @@ public class Igra {
 						psX.add(new Poteza(i+1, j, Smer.DESNO));
 					}
 					if (j>0 && plosca[i][j-1] == Polje.PRAZNO) { 
-						psX.add(new Poteza(i, j-1, Smer.NAPREJ));
+						psX.add(new Poteza(i, j-1, Smer.GOR));
 					}
 					if (j==0) {
 						psX.add(new Poteza(i, j-1, Smer.ODSTRANI));
@@ -85,13 +85,13 @@ public class Igra {
 				}
 				if (plosca[i][j] == Polje.Y) {
 					if (j>0 && plosca[i][j-1] == Polje.PRAZNO) {
-						psY.add(new Poteza(i, j-1, Smer.LEVO));
+						psY.add(new Poteza(i, j-1, Smer.GOR));
 					}
 					if (j<N-1 && plosca[i][j+1] == Polje.PRAZNO) {
-						psY.add(new Poteza(i, j+1, Smer.DESNO));
+						psY.add(new Poteza(i, j+1, Smer.DOL));
 					}
 					if (i<N-1 && plosca[i+1][j] == Polje.PRAZNO) {
-						psY.add(new Poteza(i+1, j, Smer.NAPREJ));
+						psY.add(new Poteza(i+1, j, Smer.DESNO));
 					}
 					if (i==N-1) {
 						psY.add(new Poteza(i+1, j, Smer.ODSTRANI));
@@ -156,14 +156,14 @@ public class Igra {
 			int y = p.getY();
 			if (naPotezi == Igralec.X) {
 				if(p.getSmer() == Smer.LEVO) x -= 1;
-				if(p.getSmer() == Smer.NAPREJ) y -= 1;
+				if(p.getSmer() == Smer.GOR) y -= 1;
 				if(p.getSmer() == Smer.DESNO) x += 1;
 				else; // Smer.ODSTRANI
 			}
 			else {  
-				if(p.getSmer() == Smer.LEVO) y -= 1;
-				if(p.getSmer() == Smer.NAPREJ) x += 1;
-				if(p.getSmer() == Smer.DESNO) y += 1;
+				if(p.getSmer() == Smer.GOR) y -= 1;
+				if(p.getSmer() == Smer.DESNO) x += 1;
+				if(p.getSmer() == Smer.DOL) y += 1;
 				else;	//Smer.ODSTRANI
 			}
 			if (x == p.getX() && y == p.getY()) {

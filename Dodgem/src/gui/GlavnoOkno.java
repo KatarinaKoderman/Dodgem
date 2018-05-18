@@ -100,7 +100,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		this.igra = new Igra();
 		strategY = new Clovek(this);
 		strategX = new Racunalnik(this);
-		// Tistemu, ki je na potezi, to povemo
+		// Tistemu, ki je na potezi, to povemo.
 		switch (igra.stanje()) {
 		case NA_POTEZI_Y: strategY.na_potezi(); break;
 		case NA_POTEZI_X: strategX.na_potezi(); break;
@@ -134,10 +134,10 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		}
 		else {
 			switch(igra.stanje()) {
-			case NA_POTEZI_Y: status.setText("Na potezi je Y"); break;
-			case NA_POTEZI_X: status.setText("Na potezi je X"); break;
-			case ZMAGA_Y: status.setText("Zmagal je Y"); break;
-			case ZMAGA_X: status.setText("Zmagal je X"); break;
+			case NA_POTEZI_Y: status.setText("Na potezi je Y."); break;
+			case NA_POTEZI_X: status.setText("Na potezi je X."); break;
+			case ZMAGA_Y: status.setText("Zmagal je Y."); break;
+			case ZMAGA_X: status.setText("Zmagal je X."); break;
 			}
 		}
 		polje.repaint();
