@@ -3,14 +3,16 @@ package logika;
 public enum Smer {
 	LEVO,
 	DESNO,
-	NAPREJ,
+	GOR,
+	DOL,
 	ODSTRANI;
 
 	public String toString() {
 		switch (this) {
 		case LEVO: return "levo";
 		case DESNO: return "desno";
-		case NAPREJ: return "naprej";
+		case GOR: return "gor";
+		case DOL: return "dol";
 		case ODSTRANI: return "odstrani";
 		
 		default: return "?";
