@@ -13,7 +13,7 @@ public enum Smer {
 		case DESNO: return "desno";
 		case GOR: return "gor";
 		case DOL: return "dol";
-		case ODSTRANI: return "odstrani";
+		case ODSTRANI: return "odstrani"; 
 		
 		default: return "?";
 		}
