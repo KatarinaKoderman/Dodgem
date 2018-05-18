@@ -154,18 +154,21 @@ public class Igra {
 		if (plosca[p.getX()][p.getY()] != Polje.PRAZNO) {
 			int x = p.getX();
 			int y = p.getY();
+			
 			if (naPotezi == Igralec.X) {
 				if(p.getSmer() == Smer.LEVO) x -= 1;
 				if(p.getSmer() == Smer.GOR) y -= 1;
 				if(p.getSmer() == Smer.DESNO) x += 1;
-				else; // Smer.ODSTRANI
+				else; // Smer.ODSTRANI -> koordinat ne spremenimo, polje samo spraznimo
 			}
+			
 			else {  
 				if(p.getSmer() == Smer.GOR) y -= 1;
 				if(p.getSmer() == Smer.DESNO) x += 1;
 				if(p.getSmer() == Smer.DOL) y += 1;
-				else;	//Smer.ODSTRANI
+				else;	// Smer.ODSTRANI
 			}
+			
 			if (x == p.getX() && y == p.getY()) {
 				plosca[x][y] = Polje.PRAZNO;
 			}
@@ -173,6 +176,7 @@ public class Igra {
 			plosca[x][y] = plosca[p.getX()][p.getY()];
 			plosca[p.getX()][p.getY()] = Polje.PRAZNO;
 			}
+			
 			naPotezi = naPotezi.nasprotnik();
 			return true;
 		}
