@@ -21,7 +21,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	private GlavnoOkno master;
 
 	/**
-	 * Relativna širina èrte
+	 * Relativna širina èrte.
 	 */
 	private final static double LINE_WIDTH = 0.05;
 
