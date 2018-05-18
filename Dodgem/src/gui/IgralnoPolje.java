@@ -93,7 +93,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 					    (int)(i * w));
 		}
 		
-		// aqvtomobilèki (za igralca X in Y)
+		// avtomobilèki (za igralca X in Y)
 		Polje[][] plosca = master.getPlosca();
 		if (plosca != null) {
 			for (int i = 0; i < Igra.N; i++) {
