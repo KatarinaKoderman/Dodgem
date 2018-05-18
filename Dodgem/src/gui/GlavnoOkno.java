@@ -99,7 +99,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		if (strategX != null) { strategX.prekini(); }
 		this.igra = new Igra();
 		strategY = new Clovek(this);
-		strategX = new Racunalnik(this);
+		strategX = new Clovek(this);
 		// Tistemu, ki je na potezi, to povemo
 		switch (igra.stanje()) {
 		case NA_POTEZI_Y: strategY.na_potezi(); break;

@@ -23,7 +23,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	/**
 	 * Relativna širina èrte
 	 */
-	private final static double LINE_WIDTH = 0.1;
+	private final static double LINE_WIDTH = 0.05;
 
 	/**
 	 * Relativni prostor okoli avtomobilckov
@@ -53,8 +53,10 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		double y = w * (j + 0.5 * LINE_WIDTH + PADDING);
 		g2.setColor(Color.orange);
 		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
-		g2.drawLine((int)x, (int)y, (int)(x + r), (int)(y + r));
-		g2.drawLine((int)(x + r), (int)y, (int)x, (int)(y + r));
+	    int xpoints[] = {(int) (x), (int) (x+r), (int) (x+r*0.5)};
+	    int ypoints[] = {(int) (y+r*0.9), (int) (y+r*0.9), (int) (y)};
+	    int npoints = 3;
+	    g2.fillPolygon(xpoints, ypoints, npoints);
 	}
 	
 	private void paintY(Graphics2D g2, int i, int j) {
@@ -64,7 +66,11 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		double y = w * (j + 0.5 * LINE_WIDTH + PADDING);
 		g2.setColor(Color.red);
 		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
-		g2.drawOval((int)x, (int)y, (int)r , (int)r);
+		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
+	    int xpoints[] = {(int) (x), (int) (x), (int) (x+r*0.9)};
+	    int ypoints[] = {(int) (y), (int) (y+r), (int) (y+r*0.5)};
+	    int npoints = 3;
+	    g2.fillPolygon(xpoints, ypoints, npoints);
 	}
 	
 	@Override
@@ -87,7 +93,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 					    (int)(i * w));
 		}
 		
-		// križci in krožci (za igralca X in Y)
+		// aqvtomobilèki (za igralca X in Y)
 		Polje[][] plosca = master.getPlosca();
 		if (plosca != null) {
 			for (int i = 0; i < Igra.N; i++) {
