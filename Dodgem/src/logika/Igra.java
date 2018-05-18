@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Igra {
 	/**
-	 * Velikost igralne plošèe N x N.
+	 * Velikost igralne ploï¿½ï¿½e N x N.
 	 */
 	public static final int N = 5;
 
@@ -17,9 +17,9 @@ public class Igra {
 	private Igralec naPotezi;
 
 	/**
-	 * Nova igra, v zaèetnem stanju so figurice prvega igralca (igralec X) 
-	 * postavljene na dnu plošèe, figurice drugega igralca (igralec Y)
-	 * pa na levi strani plošèe.
+	 * Nova igra, v zaï¿½etnem stanju so figurice prvega igralca (igralec X) 
+	 * postavljene na dnu ploï¿½ï¿½e, figurice drugega igralca (igralec Y)
+	 * pa na levi strani ploï¿½ï¿½e.
 	 */
 	public Igra() {
 		plosca = new Polje[N][N];
@@ -61,12 +61,12 @@ public class Igra {
 	
 	
 	/**
-	 * @return seznam možnih potez za X in Y glede na igralca, ki je na potezi
+	 * @return seznam moï¿½nih potez za X in Y glede na igralca, ki je na potezi
 	 * Pazi na orientacijo osi!
 	 */
 	public List<Poteza> poteze() {
-		LinkedList<Poteza> psX = new LinkedList<Poteza>();
-		LinkedList<Poteza> psY = new LinkedList<Poteza>();
+		LinkedList<Poteza> psX = new LinkedList<Poteza>(); // poteze od tistega, ki gre gor
+		LinkedList<Poteza> psY = new LinkedList<Poteza>(); // poteze od tistega, ki gre desno
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				if (plosca[i][j] == Polje.X) {
@@ -116,7 +116,7 @@ public class Igra {
 		int steviloAvtomobilovY = 0;
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) { 
-				// takoj, ko se eno od števil steviloAvtomobilov poveèa, ga ne rabimo veè šteti, naprej bi lahko pregledovali le za drugega igralca
+				// takoj, ko se eno od ï¿½tevil steviloAvtomobilov poveï¿½a, ga ne rabimo veï¿½ ï¿½teti, naprej bi lahko pregledovali le za drugega igralca
 				if (plosca[i][j] == Polje.X) {
 					steviloAvtomobilovX += 1;
 				}
@@ -148,7 +148,7 @@ public class Igra {
 	 * Odigraj potezo p.
 	 * 
 	 * @param p
-	 * @return true, èe je bila poteza uspešno odigrana
+	 * @return true, ï¿½e je bila poteza uspeï¿½no odigrana
 	 */
 	public boolean odigraj(Poteza p) {
 		if (plosca[p.getX()][p.getY()] != Polje.PRAZNO) {
@@ -156,6 +156,19 @@ public class Igra {
 			int y = p.getY();
 			
 			if (naPotezi == Igralec.X) {
+//				switch(p.getSmer()) {
+//				case Smer.LEVO: 
+//					// Najprej preverimo, ali je ta poteza dovoljena:
+//					// 1. ali je na polju x, y res X
+//					// 2. ali je levi rob?
+//					// 3. Äe ni, ali je na levi prazno polje?
+//					// v CELOTI naredimo VSE, da izvedemo to potezo:
+//					// spremenimo dve polji (eno na prazno, eno na X)
+//					// return true
+//				case Smer.DESNO: break;
+//				case Smer.NAPREJ: break;
+//				}
+				
 				if(p.getSmer() == Smer.LEVO) x -= 1;
 				if(p.getSmer() == Smer.GOR) y -= 1;
 				if(p.getSmer() == Smer.DESNO) x += 1;
