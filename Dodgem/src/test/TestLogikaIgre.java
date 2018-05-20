@@ -17,6 +17,6 @@ public class TestLogikaIgre extends TestCase {
 		assertEquals(true, igra.odigraj(igra.poteze().get(0)));
 		
 		// Po prvi odigrani potezi je na vrsti Y.
-		assertEquals(Stanje.NA_POTEZI_Y, igra.stanje());
+		assertEquals(Stanje.NA_POTEZI_Y, igra.stanje()); 
 	}
 }
