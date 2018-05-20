@@ -2,14 +2,14 @@ package logika;
 
 public enum Polje {
 	PRAZNO,
-	X,
-	Y;
+	VERTICAL, // potuje od spodaj navzgor
+	HORIZONTAL; // potuje z leve proti desni
 	
 	public String toString() {
 		switch (this) {
 		case PRAZNO: return " ";
-		case X: return "X";
-		case Y: return "Y";
+		case VERTICAL: return "vertikalno";
+		case HORIZONTAL: return "horizontalno";
 		default: return "?";
 		}
 	}

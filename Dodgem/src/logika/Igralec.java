@@ -1,13 +1,13 @@
 package logika;
 
 public enum Igralec {
-	X, Y;
+	VERTICAL, HORIZONTAL;
 
 	public Igralec nasprotnik() {
-		return (this == X ? Y : X);
+		return (this == VERTICAL ? HORIZONTAL : VERTICAL);
 	}
 
 	public Polje getPolje() {
-		return (this == X ? Polje.X : Polje.Y);
+		return (this == VERTICAL ? Polje.VERTICAL : Polje.HORIZONTAL);
 	}
 }

@@ -26,11 +26,11 @@ public class Igra {
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				if (j == (N-1) && i != 0) {
-					plosca[i][j] = Polje.X;
+					plosca[i][j] = Polje.VERTICAL;
 				}
 				else {
 					if (i == 0 && j != (N-1)) {
-						plosca[i][j] = Polje.Y;
+						plosca[i][j] = Polje.HORIZONTAL;
 					}
 					else {
 						plosca[i][j] = Polje.PRAZNO;
@@ -38,7 +38,7 @@ public class Igra {
 				}
 			}
 		}
-		naPotezi = Igralec.X;
+		naPotezi = Igralec.VERTICAL;
 	}
 
 
@@ -68,7 +68,7 @@ public class Igra {
 		LinkedList<Poteza> veljavnePoteze = new LinkedList<Poteza>();
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
-				if (naPotezi == Igralec.X && plosca[i][j] == Polje.X) {
+				if (naPotezi == Igralec.VERTICAL && plosca[i][j] == Polje.VERTICAL) {
 					if (i > 0 && plosca[i-1][j] == Polje.PRAZNO) {
 						veljavnePoteze.add(new Poteza(i, j, Smer.LEVO));
 					}
@@ -79,7 +79,7 @@ public class Igra {
 						veljavnePoteze.add(new Poteza(i, j, Smer.NAPREJ));
 					}
 				}
-				if (naPotezi == Igralec.Y && plosca[i][j] == Polje.Y) {
+				if (naPotezi == Igralec.HORIZONTAL && plosca[i][j] == Polje.HORIZONTAL) {
 					if (j>0 && plosca[i][j-1] == Polje.PRAZNO) {
 						veljavnePoteze.add(new Poteza(i, j, Smer.LEVO));
 					}
@@ -105,27 +105,27 @@ public class Igra {
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) { 
 				// takoj, ko se eno od števil steviloAvtomobilov poveèa, ga ne rabimo veè šteti, naprej bi lahko pregledovali le za drugega igralca
-				if (plosca[i][j] == Polje.X) {
+				if (plosca[i][j] == Polje.VERTICAL) {
 					steviloAvtomobilovX += 1;
 				}
-				if (plosca[i][j] == Polje.Y) {
+				if (plosca[i][j] == Polje.HORIZONTAL) {
 					steviloAvtomobilovY +=1; 
 				}
 			}
 		}
 		if (steviloAvtomobilovX == 0) {
-			return Stanje.ZMAGA_X;
+			return Stanje.ZMAGA_VERTICAL;
 		}
 		else {
 			if (steviloAvtomobilovY == 0) {
-				return Stanje.ZMAGA_Y;
+				return Stanje.ZMAGA_HORIZONTAL;
 			}
 			else {
-				if (naPotezi == Igralec.X) {
-					return Stanje.NA_POTEZI_X;
+				if (naPotezi == Igralec.VERTICAL) {
+					return Stanje.NA_POTEZI_VERTICAL;
 				}
 				else {
-					return Stanje.NA_POTEZI_Y;
+					return Stanje.NA_POTEZI_HORIZONTAL;
 				}
 			}
 		}
@@ -145,7 +145,7 @@ public class Igra {
 		else {
 			int x = p.getX();
 			int y = p.getY();
-			if (naPotezi == Igralec.X && plosca[x][y] == Polje.X) {
+			if (naPotezi == Igralec.VERTICAL && plosca[x][y] == Polje.VERTICAL) {
 				switch(p.getSmer()) {					
 				// Za vsako možno smer preverimo, èe je poteza dovoljena:
 				// 1. ali je na polju (x, y) res X
@@ -163,7 +163,7 @@ public class Igra {
 						}
 						else { // polje na levi je prazno, izvedemo potezo
 							plosca[x][y] = Polje.PRAZNO;
-							plosca[x-1][y] = Polje.X;
+							plosca[x-1][y] = Polje.VERTICAL;
 							naPotezi = naPotezi.nasprotnik();
 							return true;
 						}
@@ -178,7 +178,7 @@ public class Igra {
 						}
 						else { // polje na desni je prazno, izvedemo potezo
 							plosca[x][y] = Polje.PRAZNO;
-							plosca[x+1][y] = Polje.X;
+							plosca[x+1][y] = Polje.VERTICAL;
 							naPotezi = naPotezi.nasprotnik();
 							return true;
 						}
@@ -195,7 +195,7 @@ public class Igra {
 						}
 						else { // polje naprej je prazno, izvedemo potezo
 							plosca[x][y] = Polje.PRAZNO;
-							plosca[x][y-1] = Polje.X;
+							plosca[x][y-1] = Polje.VERTICAL;
 							naPotezi = naPotezi.nasprotnik();
 							return true;
 						}
@@ -204,7 +204,7 @@ public class Igra {
 			}
 			else { // na potezi je igralec Y
 				// Ali se lahko zgodi, da nimamo igralca?
-				if (plosca[x][y] != Polje.Y) { // na polju (x, y) ni igralec Y
+				if (plosca[x][y] != Polje.HORIZONTAL) { // na polju (x, y) ni igralec Y
 					return false;
 				}
 				else { // na polju (x, y) je avtomobilèek, ki pripada Y
@@ -219,7 +219,7 @@ public class Igra {
 							}
 							else { // polje na levi je prazno, izvedemo potezo
 								plosca[x][y] = Polje.PRAZNO;
-								plosca[x][y-1] = Polje.Y;
+								plosca[x][y-1] = Polje.HORIZONTAL;
 								naPotezi = naPotezi.nasprotnik();
 								return true;
 							}
@@ -234,7 +234,7 @@ public class Igra {
 							}
 							else { // polje na desni je prazno, izvedemo potezo
 								plosca[x][y] = Polje.PRAZNO;
-								plosca[x][y+1] = Polje.Y;
+								plosca[x][y+1] = Polje.HORIZONTAL;
 								naPotezi = naPotezi.nasprotnik();
 								return true;
 							}
@@ -251,7 +251,7 @@ public class Igra {
 							}
 							else { // polje naprej je prazno, izvedemo potezo
 								plosca[x][y] = Polje.PRAZNO;
-								plosca[x+1][y] = Polje.Y;
+								plosca[x+1][y] = Polje.HORIZONTAL;
 								naPotezi = naPotezi.nasprotnik();
 								return true;
 							}

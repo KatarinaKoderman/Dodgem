@@ -1,9 +1,9 @@
 package logika;
 
 public enum Stanje {
-	NA_POTEZI_X,
-	NA_POTEZI_Y,
-	ZMAGA_X,
-	ZMAGA_Y;
+	NA_POTEZI_VERTICAL,
+	NA_POTEZI_HORIZONTAL,
+	ZMAGA_VERTICAL,
+	ZMAGA_HORIZONTAL;
 }
  
