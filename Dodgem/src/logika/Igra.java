@@ -208,7 +208,7 @@ public class Igra {
 					return false;
 				}
 				else { // na polju (x, y) je avtomobilèek, ki pripada Y
-					switch(p.getSmer()) {
+					switch(p.getSmer()) { 
 					case LEVO:
 						if (y == 0) { // smo na zgornjem (glede na orientacijo tega avta je to na levem) robu, ne moremo levo
 							return false;
