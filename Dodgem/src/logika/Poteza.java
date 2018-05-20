@@ -22,5 +22,10 @@ public class Poteza {
 	public Smer getSmer() {
 		return smer;
 	}
+
+	@Override
+	public String toString() {
+		return "Poteza [x=" + x + ", y=" + y + ", smer=" + smer + "]";
+	}
 	
 }
