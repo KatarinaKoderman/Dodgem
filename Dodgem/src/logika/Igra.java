@@ -40,7 +40,7 @@ public class Igra {
 		}
 		naPotezi = Igralec.X;
 	}
-	
+
 
 	/**
 	 * @param igra nova kopija dane igre
@@ -54,57 +54,45 @@ public class Igra {
 		}
 		this.naPotezi = igra.naPotezi;
 	}
-	
+
 	public Polje[][] getPlosca() {
 		return plosca; 
 	}
-	
-	
+
+
 	/**
-	 * @return seznam možnih potez za X in Y glede na igralca, ki je na potezi
+	 * @return seznam možnih potez za igralca, ki je na potezi
 	 * Pazi na orientacijo osi!
 	 */
 	public List<Poteza> poteze() {
-		LinkedList<Poteza> psX = new LinkedList<Poteza>();
-		LinkedList<Poteza> psY = new LinkedList<Poteza>();
+		LinkedList<Poteza> veljavnePoteze = new LinkedList<Poteza>();
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
-				if (plosca[i][j] == Polje.X) {
+				if (naPotezi == Igralec.X && plosca[i][j] == Polje.X) {
 					if (i > 0 && plosca[i-1][j] == Polje.PRAZNO) {
-						psX.add(new Poteza(i-1, j, Smer.LEVO));
+						veljavnePoteze.add(new Poteza(i, j, Smer.LEVO));
 					}
 					if (i<N-1 && plosca[i+1][j] == Polje.PRAZNO) {
-						psX.add(new Poteza(i+1, j, Smer.DESNO));
+						veljavnePoteze.add(new Poteza(i, j, Smer.DESNO));
 					}
-					if (j>0 && plosca[i][j-1] == Polje.PRAZNO) { 
-						psX.add(new Poteza(i, j-1, Smer.GOR));
-					}
-					if (j==0) {
-						psX.add(new Poteza(i, j-1, Smer.ODSTRANI));
+					if ((j>0 && plosca[i][j-1] == Polje.PRAZNO) || (j==0)) { 
+						veljavnePoteze.add(new Poteza(i, j, Smer.NAPREJ));
 					}
 				}
-				if (plosca[i][j] == Polje.Y) {
+				if (naPotezi == Igralec.Y && plosca[i][j] == Polje.Y) {
 					if (j>0 && plosca[i][j-1] == Polje.PRAZNO) {
-						psY.add(new Poteza(i, j-1, Smer.GOR));
+						veljavnePoteze.add(new Poteza(i, j, Smer.LEVO));
 					}
 					if (j<N-1 && plosca[i][j+1] == Polje.PRAZNO) {
-						psY.add(new Poteza(i, j+1, Smer.DOL));
+						veljavnePoteze.add(new Poteza(i, j, Smer.DESNO));
 					}
-					if (i<N-1 && plosca[i+1][j] == Polje.PRAZNO) {
-						psY.add(new Poteza(i+1, j, Smer.DESNO));
-					}
-					if (i==N-1) {
-						psY.add(new Poteza(i+1, j, Smer.ODSTRANI));
+					if ((i<N-1 && plosca[i+1][j] == Polje.PRAZNO) || (i==N-1)) {
+						veljavnePoteze.add(new Poteza(i, j, Smer.NAPREJ));
 					}
 				}
 			}
 		}
-		if (naPotezi == Igralec.X) {
-			return psX;
-		}
-		else {    // na potezi je Y
-			return psY;
-		}
+		return veljavnePoteze;
 	}
 
 
@@ -151,39 +139,128 @@ public class Igra {
 	 * @return true, èe je bila poteza uspešno odigrana
 	 */
 	public boolean odigraj(Poteza p) {
-		if (plosca[p.getX()][p.getY()] != Polje.PRAZNO) {
-			int x = p.getX();
-			int y = p.getY();
-			
-			if (naPotezi == Igralec.X) {
-				if(p.getSmer() == Smer.LEVO) x -= 1;
-				if(p.getSmer() == Smer.GOR) y -= 1;
-				if(p.getSmer() == Smer.DESNO) x += 1;
-				else; // Smer.ODSTRANI -> koordinat ne spremenimo, polje samo spraznimo
-			}
-			
-			else {  
-				if(p.getSmer() == Smer.GOR) y -= 1;
-				if(p.getSmer() == Smer.DESNO) x += 1;
-				if(p.getSmer() == Smer.DOL) y += 1;
-				else;	// Smer.ODSTRANI
-			}
-			
-			if (x == p.getX() && y == p.getY()) {
-				plosca[x][y] = Polje.PRAZNO;
-			}
-			else {
-			plosca[x][y] = plosca[p.getX()][p.getY()];
-			plosca[p.getX()][p.getY()] = Polje.PRAZNO;
-			}
-			
-			naPotezi = naPotezi.nasprotnik();
-			return true;
-		}
-		else {
+		if (plosca[p.getX()][p.getY()] == Polje.PRAZNO) {
 			return false;
 		}
+		else {
+			int x = p.getX();
+			int y = p.getY();
+			if (naPotezi == Igralec.X && plosca[x][y] == Polje.X) {
+				switch(p.getSmer()) {					
+				// Za vsako možno smer preverimo, èe je poteza dovoljena:
+				// 1. ali je na polju (x, y) res X
+				// 2. Ali smo na (levem/desnem/zgornjem) robu?
+				// 3. Èe nismo na robu, ali je na (levi/desni/naprej) prazno polje?
+				// Izvedemo potezo: spremenimo obe polji (eno na prazno, eno na X), pri smeri NAPREJ lahko v doloèeni situaciji spremenimo le eno polje
+				// return true
+				case LEVO:
+					if (x == 0) { // smo na levem robu, ne moremo levo
+						return false;
+					}
+					else { // nismo na levem robu
+						if (plosca[x-1][y] != Polje.PRAZNO) { // ne moremo levo, ker polje tam ni prazno
+							return false;
+						}
+						else { // polje na levi je prazno, izvedemo potezo
+							plosca[x][y] = Polje.PRAZNO;
+							plosca[x-1][y] = Polje.X;
+							naPotezi = naPotezi.nasprotnik();
+							return true;
+						}
+					}
+				case DESNO:
+					if (x == N-1) { // smo na desnem robu, ne moremo desno
+						return false;
+					}
+					else { // nismo na desnem robu
+						if (plosca[x+1][y] != Polje.PRAZNO) { // ne moremo desno, ker polje tam ni prazno
+							return false;
+						}
+						else { // polje na desni je prazno, izvedemo potezo
+							plosca[x][y] = Polje.PRAZNO;
+							plosca[x+1][y] = Polje.X;
+							naPotezi = naPotezi.nasprotnik();
+							return true;
+						}
+					}
+				case NAPREJ:
+					if (y == 0) { // smo na zgornjem robu, premik naprej odstrani avtomobilèek
+						plosca[x][y] = Polje.PRAZNO;
+						naPotezi = naPotezi.nasprotnik();
+						return true;
+					}
+					else { // nismo na zgornjem robu
+						if (plosca[x][y-1] != Polje.PRAZNO) { // ne moremo naprej, ker polje tam ni prazno
+							return false;
+						}
+						else { // polje naprej je prazno, izvedemo potezo
+							plosca[x][y] = Polje.PRAZNO;
+							plosca[x][y-1] = Polje.X;
+							naPotezi = naPotezi.nasprotnik();
+							return true;
+						}
+					}
+				}
+			}
+			else { // na potezi je igralec Y
+				// Ali se lahko zgodi, da nimamo igralca?
+				if (plosca[x][y] != Polje.Y) { // na polju (x, y) ni igralec Y
+					return false;
+				}
+				else { // na polju (x, y) je avtomobilèek, ki pripada Y
+					switch(p.getSmer()) {
+					case LEVO:
+						if (y == 0) { // smo na zgornjem (glede na orientacijo tega avta je to na levem) robu, ne moremo levo
+							return false;
+						}
+						else { // nismo na levem robu
+							if (plosca[x][y-1] != Polje.PRAZNO) { // ne moremo levo, ker polje tam ni prazno
+								return false;
+							}
+							else { // polje na levi je prazno, izvedemo potezo
+								plosca[x][y] = Polje.PRAZNO;
+								plosca[x][y-1] = Polje.Y;
+								naPotezi = naPotezi.nasprotnik();
+								return true;
+							}
+						}
+					case DESNO:
+						if (y==N-1) { // smo na spodnjem (glede na orientacijo tega avta je to na desnem) robu, ne moremo desno
+							return false;
+						}
+						else { // nismo na desnem robu
+							if (plosca[x][y+1] != Polje.PRAZNO) { // ne moremo desno, ker polje tam ni prazno
+								return false;
+							}
+							else { // polje na desni je prazno, izvedemo potezo
+								plosca[x][y] = Polje.PRAZNO;
+								plosca[x][y+1] = Polje.Y;
+								naPotezi = naPotezi.nasprotnik();
+								return true;
+							}
+						}
+					case NAPREJ:
+						if (x==N-1) { // smo na desnem robu, premik naprej odstrani avtomobilèek
+							plosca[x][y] = Polje.PRAZNO;
+							naPotezi = naPotezi.nasprotnik();
+							return true;
+						}
+						else { // nismo na desnem robu
+							if (plosca[x+1][y] != Polje.PRAZNO) { //ne moremo naprej, ker polje tam ni prazno
+								return false;
+							}
+							else { // polje naprej je prazno, izvedemo potezo
+								plosca[x][y] = Polje.PRAZNO;
+								plosca[x+1][y] = Polje.Y;
+								naPotezi = naPotezi.nasprotnik();
+								return true;
+							}
+						}
+					}
+				}
+			}
+		}
+		return false; // Kdaj pridemo do tega?
 	}
-} 
-      
- 
+}
+
