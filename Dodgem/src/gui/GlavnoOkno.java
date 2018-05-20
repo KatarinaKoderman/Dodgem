@@ -98,11 +98,11 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		if (strategY != null) { strategY.prekini(); }
 		if (strategX != null) { strategX.prekini(); }
 		this.igra = new Igra();
-		strategY = new Clovek(this);
-		strategX = new Clovek(this);
+		strategY = new Racunalnik(this);
+		strategX = new Racunalnik(this);
 		switch (igra.stanje()) {
-		case NA_POTEZI_Y: strategY.na_potezi(); break;
-		case NA_POTEZI_X: strategX.na_potezi(); break;
+		case NA_POTEZI_HORIZONTAL: strategY.na_potezi(); break;
+		case NA_POTEZI_VERTICAL: strategX.na_potezi(); break;
 		default: break;
 		}
 		osveziGUI();
@@ -120,10 +120,10 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		igra.odigraj(p);
 		osveziGUI();
 		switch (igra.stanje()) {
-		case NA_POTEZI_Y: strategY.na_potezi(); break;
-		case NA_POTEZI_X: strategX.na_potezi(); break;
-		case ZMAGA_Y: break;
-		case ZMAGA_X: break;
+		case NA_POTEZI_HORIZONTAL: strategY.na_potezi(); break;
+		case NA_POTEZI_VERTICAL: strategX.na_potezi(); break;
+		case ZMAGA_HORIZONTAL: break;
+		case ZMAGA_VERTICAL: break;
 		}
 	}
 
@@ -133,10 +133,10 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		}
 		else {
 			switch(igra.stanje()) {
-			case NA_POTEZI_Y: status.setText("Na potezi je Y."); break;
-			case NA_POTEZI_X: status.setText("Na potezi je X."); break;
-			case ZMAGA_Y: status.setText("Zmagal je Y."); break;
-			case ZMAGA_X: status.setText("Zmagal je X."); break;
+			case NA_POTEZI_HORIZONTAL: status.setText("Na potezi je Y."); break;
+			case NA_POTEZI_VERTICAL: status.setText("Na potezi je X."); break;
+			case ZMAGA_HORIZONTAL: status.setText("Zmagal je Y."); break;
+			case ZMAGA_VERTICAL: status.setText("Zmagal je X."); break;
 			}
 		}
 		polje.repaint();
@@ -145,10 +145,10 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	public void klikniPolje(int i, int j) {
 		if (igra != null) {
 			switch (igra.stanje()) {
-			case NA_POTEZI_X:
+			case NA_POTEZI_VERTICAL:
 				strategX.klik(i, j);
 				break;
-			case NA_POTEZI_Y:
+			case NA_POTEZI_HORIZONTAL:
 				strategY.klik(i, j);
 				break;
 			default:

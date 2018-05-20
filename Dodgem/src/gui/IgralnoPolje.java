@@ -99,8 +99,8 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 			for (int i = 0; i < Igra.N; i++) {
 				for (int j = 0; j < Igra.N; j++) {
 					switch(plosca[i][j]) {
-					case X: paintX(g2, i, j); break;
-					case Y: paintY(g2, i, j); break;
+					case VERTICAL: paintX(g2, i, j); break;
+					case HORIZONTAL: paintY(g2, i, j); break;
 					default: break;
 					}
 				}
@@ -149,15 +149,12 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	        Smer levo = Smer.LEVO;
 	    }
 
-	    if (key == KeyEvent.VK_DOWN) {
-	        Smer gor = Smer.GOR;
+	    if (key == KeyEvent.VK_UP) {
+	        Smer gor = Smer.NAPREJ;
 	    }
 
 	    if (key == KeyEvent.VK_RIGHT) {
 	        Smer desno = Smer.DESNO;
-	    }
-	    if (key == KeyEvent.VK_DOWN) {
-	    	Smer dol = Smer.DOL;
 	    }
 
 	}
