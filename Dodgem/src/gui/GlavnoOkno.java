@@ -117,13 +117,14 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	}
 
 	public void odigraj(Poteza p) {
-		igra.odigraj(p);
-		osveziGUI();
-		switch (igra.stanje()) {
-		case NA_POTEZI_HORIZONTAL: strategY.na_potezi(); break;
-		case NA_POTEZI_VERTICAL: strategX.na_potezi(); break;
-		case ZMAGA_HORIZONTAL: break;
-		case ZMAGA_VERTICAL: break;
+		if(igra.odigraj(p)) {
+			osveziGUI();
+			switch (igra.stanje()) {
+			case NA_POTEZI_HORIZONTAL: strategY.na_potezi(); break;
+			case NA_POTEZI_VERTICAL: strategX.na_potezi(); break;
+			case ZMAGA_HORIZONTAL: break;
+			case ZMAGA_VERTICAL: break;
+			}
 		}
 	}
 
