@@ -139,13 +139,14 @@ public class Igra {
 	 * @return true, èe je bila poteza uspešno odigrana
 	 */
 	public boolean odigraj(Poteza p) {
-		if (plosca[p.getX()][p.getY()] == Polje.PRAZNO) {
+		assert (naPotezi != null); // te metode ne smemo klicati, èe ni nihèe na potezi
+		if (plosca[p.getX()][p.getY()] != naPotezi.getPolje()) {
 			return false;
 		}
 		else {
 			int x = p.getX();
 			int y = p.getY();
-			if (naPotezi == Igralec.VERTICAL && plosca[x][y] == Polje.VERTICAL) {
+			if (naPotezi == Igralec.VERTICAL) {
 				switch(p.getSmer()) {					
 				// Za vsako možno smer preverimo, èe je poteza dovoljena:
 				// 1. ali je na polju (x, y) res X
@@ -200,9 +201,9 @@ public class Igra {
 							return true;
 						}
 					}
-				}
+				} // switch
 			}
-			else { // na potezi je igralec Y
+			else { // na potezi je igralec HORIZONTAL
 				// Ali se lahko zgodi, da nimamo igralca?
 				if (plosca[x][y] != Polje.HORIZONTAL) { // na polju (x, y) ni igralec Y
 					return false;
@@ -256,10 +257,11 @@ public class Igra {
 								return true;
 							}
 						}
-					}
+					} // switch
 				}
 			}
 		}
+		assert false; // Java je neumna
 		return false; // Kdaj pridemo do tega?
 	}
 }

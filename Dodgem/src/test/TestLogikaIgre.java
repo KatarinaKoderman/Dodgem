@@ -1,7 +1,10 @@
 package test;
 
+import java.util.List;
+
 import junit.framework.TestCase;
 import logika.Igra;
+import logika.Poteza;
 import logika.Stanje;
 
 public class TestLogikaIgre extends TestCase {
@@ -14,6 +17,8 @@ public class TestLogikaIgre extends TestCase {
 		assertEquals(Igra.N, igra.poteze().size());
 		
 		// Naredimo eno potezo. Preverimo, èe je bila poteza odigrana.
+		@SuppressWarnings("unused")
+		List<Poteza> p = igra.poteze();
 		assertEquals(true, igra.odigraj(igra.poteze().get(0)));
 		
 		// Po prvi odigrani potezi je na vrsti Y.
