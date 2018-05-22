@@ -57,6 +57,21 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	    int ypoints[] = {(int) (y+r*0.9), (int) (y+r*0.9), (int) (y)};
 	    int npoints = 3;
 	    g2.fillPolygon(xpoints, ypoints, npoints);
+	    
+	    g2.setColor(Color.white);
+	    int xpointsNAPREJ[] = {(int) (x+r*0.35), (int) (x+r-r*0.35), (int) (x+r*0.5)};
+	    int ypointsNAPREJ[] = {(int) (y+r*0.4), (int) (y+r*0.4), (int) (y+r*0.1)};
+	    g2.fillPolygon(xpointsNAPREJ, ypointsNAPREJ, npoints);
+	    
+	    g2.setColor(Color.white);
+	    int xpointsLEVO[] = {(int) (x+r*0.1), (int) (x+r-r*0.58), (int) (x+r*0.25)};
+	    int ypointsLEVO[] = {(int) (y+r*0.9-r*0.05), (int) (y+r*0.9-r*0.05), (int) (y+r*0.6)};
+	    g2.fillPolygon(xpointsLEVO, ypointsLEVO, npoints);
+	    
+	    g2.setColor(Color.white);
+	    int xpointsDESNO[] = {(int) (x+r*0.58), (int) (x+r-r*0.1), (int) (x+r*0.75)};
+	    int ypointsDESNO[] = {(int) (y+r*0.9-r*0.05), (int) (y+r*0.9-r*0.05), (int) (y+r*0.6)};
+	    g2.fillPolygon(xpointsDESNO, ypointsDESNO, npoints);
 	}
 	
 	private void paintHORIZONTAL(Graphics2D g2, int i, int j) {
@@ -71,6 +86,21 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	    int ypoints[] = {(int) (y), (int) (y+r), (int) (y+r*0.5)};
 	    int npoints = 3;
 	    g2.fillPolygon(xpoints, ypoints, npoints);
+	    
+	    g2.setColor(Color.white);
+	    int xpointsNAPREJ[] = {(int) (x+r*0.5), (int) (x+r*0.5), (int) (x+r-r*0.2)};
+	    int ypointsNAPREJ[] = {(int) (y+r*0.35), (int) (y+r-r*0.35), (int) (y+r*0.5)};
+	    g2.fillPolygon(xpointsNAPREJ, ypointsNAPREJ, npoints);
+	    
+	    g2.setColor(Color.white);
+	    int xpointsLEVO[] = {(int) (x+r*0.05), (int) (x+r*0.05), (int) (x+r*0.3)};
+	    int ypointsLEVO[] = {(int) (y+r*0.1), (int) (y+r-r*0.58), (int) (y+r*0.25)};
+	    g2.fillPolygon(xpointsLEVO, ypointsLEVO, npoints);
+	    
+	    g2.setColor(Color.white);
+	    int xpointsDESNO[] = {(int) (x+r*0.05), (int) (x+r*0.05), (int) (x+r*0.3)};
+	    int ypointsDESNO[] = {(int) (y+r-r*0.1), (int) (y+r-r*0.42), (int) (y+r-r*0.25)};
+	    g2.fillPolygon(xpointsDESNO, ypointsDESNO, npoints);
 	}
 	
 	@Override
