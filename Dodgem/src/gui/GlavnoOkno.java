@@ -13,9 +13,13 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import logika.Igra;
+import logika.Igralec;
 import logika.Polje;
 import logika.Poteza;
 import logika.Smer;
+import vmesnik.Clovek;
+import vmesnik.Racunalnik;
+import vmesnik.Strateg;
 
 @SuppressWarnings("serial")
 public class GlavnoOkno extends JFrame implements ActionListener {
@@ -48,6 +52,14 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	// Izbire v menujih
 	private JMenuItem nova_igra;
 
+	// Izbire v menujih
+	private JMenuItem igraClovekRacunalnik;
+	private JMenuItem igraRacunalnikClovek;
+	private JMenuItem igraClovekClovek;
+	private JMenuItem igraRacunalnikRacunalnik;
+	
+	
+	
 	public GlavnoOkno() {
 		this.setTitle("Dodgem");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -58,9 +70,26 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		this.setJMenuBar(menu_bar);
 		JMenu igra_menu = new JMenu("Igra");
 		menu_bar.add(igra_menu);
-		nova_igra = new JMenuItem("Nova igra");
-		igra_menu.add(nova_igra);
-		nova_igra.addActionListener(this);
+
+		
+		//izbire v igra: 
+		igraClovekClovek = new JMenuItem("Èlovek Rumeni  ><  Èlovek Rdeèi");
+		igra_menu .add(igraClovekClovek);
+		igraClovekClovek.addActionListener(this);
+		
+		igraClovekRacunalnik = new JMenuItem("Raèunalnik Rumeni  ><  Èlovek Rdeèi");
+		igra_menu .add(igraClovekRacunalnik);
+		igraClovekRacunalnik.addActionListener(this);
+		
+		igraRacunalnikClovek = new JMenuItem("Èlovek Rumeni  ><  Raèunalnik Rdeèi");
+		igra_menu .add(igraRacunalnikClovek);
+		igraRacunalnikClovek.addActionListener(this);
+		
+		igraRacunalnikRacunalnik = new JMenuItem("Raèunalnik Rumeni  ><  Raèunalnik Rdeèi");
+		igra_menu .add(igraRacunalnikRacunalnik);
+		igraRacunalnikRacunalnik.addActionListener(this);
+		
+		
   
 		// igralno polje
 		polje = new IgralnoPolje(this);
@@ -83,9 +112,10 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		status_layout.anchor = GridBagConstraints.CENTER;
 		getContentPane().add(status, status_layout);
 
-		// zaènemo novo igro
-		nova_igra();
-	}
+		// za zacetek clovek proti cloveku
+		nova_igra(new Clovek(this, Igralec.HORIZONTAL), new Clovek(this, Igralec.VERTICAL));
+		}
+
 
 	/**
 	 * @return trenutna igralna plosèa, ali null, èe igra ni aktivna
@@ -94,12 +124,12 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		return (igra == null ? null : igra.getPlosca());
 	}
 
-	public void nova_igra() {
+	public void nova_igra(Strateg horizontal, Strateg vertical) {
 		if (strategY != null) { strategY.prekini(); }
 		if (strategX != null) { strategX.prekini(); }
 		this.igra = new Igra();
-		strategY = new Racunalnik(this);
-		strategX = new Racunalnik(this);
+		strategY = horizontal;
+		strategX = vertical;
 		switch (igra.stanje()) {
 		case NA_POTEZI_HORIZONTAL: strategY.na_potezi(); break;
 		case NA_POTEZI_VERTICAL: strategX.na_potezi(); break;
@@ -111,9 +141,23 @@ public class GlavnoOkno extends JFrame implements ActionListener {
  
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == nova_igra) {
-			nova_igra();
+		if (e.getSource() == igraClovekRacunalnik) {
+			nova_igra(new Clovek(this, Igralec.HORIZONTAL),
+					  new Racunalnik(this, Igralec.VERTICAL));
 		}
+		else if (e.getSource() == igraRacunalnikClovek) {
+			nova_igra(new Racunalnik(this, Igralec.HORIZONTAL),
+					  new Clovek(this, Igralec.VERTICAL));
+		}
+		else if (e.getSource() == igraRacunalnikRacunalnik) {
+			nova_igra(new Racunalnik(this, Igralec.HORIZONTAL),
+					  new Racunalnik(this, Igralec.VERTICAL));
+		}
+		else if (e.getSource() == igraClovekClovek) {
+			nova_igra(new Clovek(this, Igralec.HORIZONTAL),
+			          new Clovek(this, Igralec.VERTICAL));
+		}
+		
 	}
 
 	public void odigraj(Poteza p) {
