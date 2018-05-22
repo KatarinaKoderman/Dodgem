@@ -72,7 +72,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	private JMenuItem igraRacunalnikClovek;
 	private JMenuItem igraClovekClovek;
 	private JMenuItem igraRacunalnikRacunalnik;
-	private JMenuItem glasba;
+
 	
 	
 	
@@ -87,11 +87,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		JMenu igra_menu = new JMenu("Igra");
 		menu_bar.add(igra_menu);
 		
-		
-		JMenu glasba_menu = new JMenu("Glasba");
-		menu_bar.add(glasba_menu);
 
-		
 		//izbire v igra: 
 		igraClovekClovek = new JMenuItem("Èlovek Rumeni  ><  Èlovek Rdeèi");
 		igra_menu .add(igraClovekClovek);
@@ -194,15 +190,6 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		else if (e.getSource() == igraClovekClovek) {
 			nova_igra(new Clovek(this, Igralec.HORIZONTAL),
 			          new Clovek(this, Igralec.VERTICAL));
-		}
-		// Glasba
-		else if (e.getSource() == glasba) {
-			try {
-				music();
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 		}
 		
 	}
