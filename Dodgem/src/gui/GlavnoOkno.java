@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -49,6 +50,23 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	 */
 	private Strateg strategHORIZONTAL;
 
+	/*
+	 * Ustvarimo clip, ki ga v metodi music predvajamo ali ustavimo.
+	 */
+	static File soundFile = new File("resources\\Insert-Coins-Jake-Wright.wav");
+	static Clip clip;
+	static {
+		try {
+			AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+			clip = AudioSystem.getClip();
+			clip.open(audioIn);
+		} catch (UnsupportedAudioFileException | IOException e) {
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
+	}
+
 	// Izbire v menujih
 	private JMenuItem igraClovekRacunalnik;
 	private JMenuItem igraRacunalnikClovek;
@@ -91,9 +109,25 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		igra_menu .add(igraRacunalnikRacunalnik);
 		igraRacunalnikRacunalnik.addActionListener(this);
 		
-		glasba = new JMenuItem("Glasba");
-		glasba_menu  .add(glasba);
-		glasba.addActionListener(this);
+        // gumb za glaZbo
+		JButton glasbaButton = new JButton("Glasba");
+		GridBagConstraints glasbaButton_layout = new GridBagConstraints();
+		glasbaButton_layout.gridx = 1;
+		glasbaButton_layout.gridy = 1;
+		glasbaButton_layout.anchor = GridBagConstraints.CENTER;
+		getContentPane().add(glasbaButton, glasbaButton_layout);
+		glasbaButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					music();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		
   
 		// igralno polje
 		polje = new IgralnoPolje(this);
@@ -173,16 +207,20 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		
 	}
 	
+	/*
+	 * Ob klicu zacne ali pa preneha predvajati glasbo.
+	 */
 	public static void music() throws Exception, IOException{
-		// from a wave File
-		File soundFile = new File("resources\\Insert-Coins-Jake-Wright.wav"); // treba je nekam dodat licenco oz. navesti èigava je. okno z besedilom info?
-		AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
-		Clip clip = AudioSystem.getClip();
-		clip.open(audioIn);
-		clip.loop(Clip.LOOP_CONTINUOUSLY);  // repeat forever -- èepo bi bilo znati zadevo ustaviti s klikom
-		
-		if (clip.isRunning()) clip.stop();
+		if (clip.isRunning()) {
+			clip.stop();
+			System.out.println("stop music");
+		} else {
+			clip.start();
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
+			System.out.println("play music");
+		}
 	}
+	
 	
 	public void odigraj(Poteza p) {
 		if(igra.odigraj(p)) {
