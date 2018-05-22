@@ -175,7 +175,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	
 	public static void music() throws Exception, IOException{
 		// from a wave File
-		File soundFile = new File("Insert-Coins-Jake-Wright.wav");
+		File soundFile = new File("resources\\Insert-Coins-Jake-Wright.wav"); // treba je nekam dodat licenco oz. navesti èigava je. okno z besedilom info?
 		AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
 		Clip clip = AudioSystem.getClip();
 		clip.open(audioIn);
