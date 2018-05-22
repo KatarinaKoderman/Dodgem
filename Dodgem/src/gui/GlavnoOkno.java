@@ -17,6 +17,7 @@ import logika.Igra;
 import logika.Igralec;
 import logika.Polje;
 import logika.Poteza;
+import logika.Smer;
 
 import java.io.*;
 import javax.sound.sampled.*;
@@ -105,7 +106,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		igra_menu .add(igraRacunalnikRacunalnik);
 		igraRacunalnikRacunalnik.addActionListener(this);
 		
-        // gumb za glaZbo
+        // gumb za glasbo
 		JButton glasbaButton = new JButton("Glasba");
 		GridBagConstraints glasbaButton_layout = new GridBagConstraints();
 		glasbaButton_layout.gridx = 1;
@@ -236,14 +237,14 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		polje.repaint();
 	}
 
-	public void klikniPolje(int i, int j) {
+	public void klikniPolje(int i, int j, Smer s) {
 		if (igra != null) {
 			switch (igra.stanje()) {
 			case NA_POTEZI_VERTICAL:
-				strategVERTICAL.klik(i, j);
+				strategVERTICAL.klik(i, j, s);
 				break;
 			case NA_POTEZI_HORIZONTAL:
-				strategHORIZONTAL.klik(i, j);
+				strategHORIZONTAL.klik(i, j, s);
 				break;
 			default:
 				break;

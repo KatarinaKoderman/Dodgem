@@ -22,9 +22,9 @@ public class Clovek extends Strateg {
 	}
 	
 	@Override
-	public void klik(int i, int j) {
+	public void klik(int i, int j, Smer s) {
 		// smer dobimo z ukazom s tipkovnice. TODO
-		master.odigraj(new Poteza(i, j, Smer.NAPREJ));
+		master.odigraj(new Poteza(i, j, s));
 	}
 
 }

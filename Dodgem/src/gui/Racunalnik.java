@@ -6,6 +6,7 @@ import logika.Igralec;
 import inteligenca.NakljucnaInteligenca;
 import logika.Igra;
 import logika.Poteza;
+import logika.Smer;
 
 public class Racunalnik extends Strateg {
 	private GlavnoOkno master;
@@ -33,7 +34,7 @@ public class Racunalnik extends Strateg {
 	}
 
 	@Override
-	public void klik(int i, int j) {
+	public void klik(int i, int j, Smer s) {
 	}
 
 } 

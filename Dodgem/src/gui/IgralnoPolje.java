@@ -5,12 +5,18 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.List;
+import java.awt.MouseInfo;
+import java.awt.Polygon;
+import java.awt.Shape;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 
 import logika.Igra;
 import logika.Polje;
@@ -45,7 +51,11 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	private double squareWidth() {
 		return Math.min(getWidth(), getHeight()) / Igra.N;
 	}
-
+	
+	ArrayList<Shape> poligonckiNAPREJ = new ArrayList<Shape>();
+	ArrayList<Shape> poligonckiLEVO = new ArrayList<Shape>();
+	ArrayList<Shape> poligonckiDESNO = new ArrayList<Shape>();
+	
 	private void paintVERTICAL(Graphics2D g2, int i, int j) {
 		double w = squareWidth();
 		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // sirina VERTICAL
@@ -63,15 +73,25 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	    int ypointsNAPREJ[] = {(int) (y+r*0.4), (int) (y+r*0.4), (int) (y+r*0.1)};
 	    g2.fillPolygon(xpointsNAPREJ, ypointsNAPREJ, npoints);
 	    
+	    Shape poligoncekNAPREJ = new Polygon(xpointsNAPREJ, ypointsNAPREJ, npoints);
+	    poligonckiNAPREJ .add(poligoncekNAPREJ);
+	    
+	    
 	    g2.setColor(Color.white);
 	    int xpointsLEVO[] = {(int) (x+r*0.1), (int) (x+r-r*0.58), (int) (x+r*0.25)};
 	    int ypointsLEVO[] = {(int) (y+r*0.9-r*0.05), (int) (y+r*0.9-r*0.05), (int) (y+r*0.6)};
 	    g2.fillPolygon(xpointsLEVO, ypointsLEVO, npoints);
 	    
+	    Shape poligoncekLEVO = new Polygon(xpointsLEVO, ypointsLEVO, npoints);
+	    poligonckiLEVO.add(poligoncekLEVO);
+	    
 	    g2.setColor(Color.white);
 	    int xpointsDESNO[] = {(int) (x+r*0.58), (int) (x+r-r*0.1), (int) (x+r*0.75)};
 	    int ypointsDESNO[] = {(int) (y+r*0.9-r*0.05), (int) (y+r*0.9-r*0.05), (int) (y+r*0.6)};
 	    g2.fillPolygon(xpointsDESNO, ypointsDESNO, npoints);
+	    
+	    Shape poligoncekDESNO = new Polygon(xpointsDESNO, ypointsDESNO, npoints);
+	    poligonckiDESNO.add(poligoncekDESNO);
 	}
 	
 	private void paintHORIZONTAL(Graphics2D g2, int i, int j) {
@@ -92,15 +112,26 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	    int ypointsNAPREJ[] = {(int) (y+r*0.35), (int) (y+r-r*0.35), (int) (y+r*0.5)};
 	    g2.fillPolygon(xpointsNAPREJ, ypointsNAPREJ, npoints);
 	    
+	    Shape poligoncekNAPREJ = new Polygon(xpointsNAPREJ, ypointsNAPREJ, npoints);
+	    poligonckiNAPREJ.add(poligoncekNAPREJ);
+	    
+	    
 	    g2.setColor(Color.white);
 	    int xpointsLEVO[] = {(int) (x+r*0.05), (int) (x+r*0.05), (int) (x+r*0.3)};
 	    int ypointsLEVO[] = {(int) (y+r*0.1), (int) (y+r-r*0.58), (int) (y+r*0.25)};
 	    g2.fillPolygon(xpointsLEVO, ypointsLEVO, npoints);
 	    
+	    Shape poligoncekLEVO = new Polygon(xpointsLEVO, ypointsLEVO, npoints);
+	    poligonckiLEVO.add(poligoncekLEVO);
+	    
+	    
 	    g2.setColor(Color.white);
 	    int xpointsDESNO[] = {(int) (x+r*0.05), (int) (x+r*0.05), (int) (x+r*0.3)};
 	    int ypointsDESNO[] = {(int) (y+r-r*0.1), (int) (y+r-r*0.42), (int) (y+r-r*0.25)};
 	    g2.fillPolygon(xpointsDESNO, ypointsDESNO, npoints);
+	    
+	    Shape poligoncekDESNO = new Polygon(xpointsDESNO, ypointsDESNO, npoints);
+	    poligonckiDESNO.add(poligoncekDESNO);
 	}
 	
 	@Override
@@ -163,12 +194,32 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		int j = y / w ;
 		double dj = (y % w) / squareWidth() ;
 		if (0 <= i && i < Igra.N &&
-		    0.5 * LINE_WIDTH < di && di < 1.0 - 0.5 * LINE_WIDTH &&
-		    0 <= j && j < Igra.N && 
-		    0.5 * LINE_WIDTH < dj && dj < 1.0 - 0.5 * LINE_WIDTH) {
-			master.klikniPolje(i, j);
+				0.5 * LINE_WIDTH < di && di < 1.0 - 0.5 * LINE_WIDTH &&
+				0 <= j && j < Igra.N && 
+				0.5 * LINE_WIDTH < dj && dj < 1.0 - 0.5 * LINE_WIDTH) {
+
+			for(Shape poligoncek : poligonckiNAPREJ) {
+				if (poligoncek.contains(e.getPoint())) {
+					master.klikniPolje(i, j, Smer.NAPREJ);
+					break;
+				}
+			}
+			for(Shape poligoncek : poligonckiLEVO) {
+				if (poligoncek.contains(e.getPoint())) {
+					master.klikniPolje(i, j, Smer.LEVO);
+					break;
+				}
+			}
+			for(Shape poligoncek : poligonckiDESNO) {
+				if (poligoncek.contains(e.getPoint())) {
+					master.klikniPolje(i, j, Smer.DESNO);
+					break;
+				}
+			}
 		}
+
 	}
+
 
 	@Override
 	public void mousePressed(MouseEvent e) {		
@@ -179,7 +230,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {		
+	public void mouseEntered(MouseEvent e) {
 	}
 
 	@Override
