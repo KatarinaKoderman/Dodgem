@@ -46,9 +46,9 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		return Math.min(getWidth(), getHeight()) / Igra.N;
 	}
 
-	private void paintX(Graphics2D g2, int i, int j) {
+	private void paintVERTICAL(Graphics2D g2, int i, int j) {
 		double w = squareWidth();
-		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // sirina X
+		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // sirina VERTICAL
 		double x = w * (i + 0.5 * LINE_WIDTH + PADDING);
 		double y = w * (j + 0.5 * LINE_WIDTH + PADDING);
 		g2.setColor(Color.orange);
@@ -59,9 +59,9 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	    g2.fillPolygon(xpoints, ypoints, npoints);
 	}
 	
-	private void paintY(Graphics2D g2, int i, int j) {
+	private void paintHORIZONTAL(Graphics2D g2, int i, int j) {
 		double w = squareWidth();
-		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer Y
+		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer HORIZONTAL
 		double x = w * (i + 0.5 * LINE_WIDTH + PADDING);
 		double y = w * (j + 0.5 * LINE_WIDTH + PADDING);
 		g2.setColor(Color.red);
@@ -93,14 +93,14 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 					    (int)(i * w));
 		}
 		
-		// avtomobilèki (za igralca X in Y)
+		// avtomobilèki (za igralca VERTICAL in HORIZONTAL)
 		Polje[][] plosca = master.getPlosca();
 		if (plosca != null) {
 			for (int i = 0; i < Igra.N; i++) {
 				for (int j = 0; j < Igra.N; j++) {
 					switch(plosca[i][j]) {
-					case VERTICAL: paintX(g2, i, j); break;
-					case HORIZONTAL: paintY(g2, i, j); break;
+					case VERTICAL: paintVERTICAL(g2, i, j); break;
+					case HORIZONTAL: paintHORIZONTAL(g2, i, j); break;
 					default: break;
 					}
 				}

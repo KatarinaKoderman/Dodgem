@@ -6,11 +6,11 @@ import logika.Smer;
 
 public class Clovek extends Strateg {
 	private GlavnoOkno master;
-	private Igralec jaz;
+	private Igralec ego;
 	
-	public Clovek(GlavnoOkno master, Igralec jaz) {
+	public Clovek(GlavnoOkno master, Igralec ego) {
 		this.master = master;
-		this.jaz = jaz;
+		this.ego = ego;
 	}
 	
 	@Override

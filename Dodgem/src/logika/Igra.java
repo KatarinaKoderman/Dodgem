@@ -17,8 +17,8 @@ public class Igra {
 	private Igralec naPotezi;
 
 	/**
-	 * Nova igra, v zaèetnem stanju so figurice prvega igralca (igralec X) 
-	 * postavljene na dnu plošèe, figurice drugega igralca (igralec Y)
+	 * Nova igra, v zaèetnem stanju so figurice prvega igralca (igralec VERTICAL) 
+	 * postavljene na dnu plošèe, figurice drugega igralca (igralec HORIZONTAL)
 	 * pa na levi strani plošèe.
 	 */
 	public Igra() {
@@ -100,24 +100,24 @@ public class Igra {
 	 * @return stanje igre
 	 */
 	public Stanje stanje() {
-		int steviloAvtomobilovX = 0;
-		int steviloAvtomobilovY = 0;
+		int steviloAvtomobilovVERTICAL = 0;
+		int steviloAvtomobilovHORIZONTAL = 0;
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) { 
 				// takoj, ko se eno od števil steviloAvtomobilov poveèa, ga ne rabimo veè šteti, naprej bi lahko pregledovali le za drugega igralca
 				if (plosca[i][j] == Polje.VERTICAL) {
-					steviloAvtomobilovX += 1;
+					steviloAvtomobilovVERTICAL += 1;
 				}
 				if (plosca[i][j] == Polje.HORIZONTAL) {
-					steviloAvtomobilovY +=1; 
+					steviloAvtomobilovHORIZONTAL +=1; 
 				}
 			}
 		}
-		if (steviloAvtomobilovX == 0) {
+		if (steviloAvtomobilovVERTICAL == 0) {
 			return Stanje.ZMAGA_VERTICAL;
 		}
 		else {
-			if (steviloAvtomobilovY == 0) {
+			if (steviloAvtomobilovHORIZONTAL == 0) {
 				return Stanje.ZMAGA_HORIZONTAL;
 			}
 			else {
@@ -149,10 +149,10 @@ public class Igra {
 			if (naPotezi == Igralec.VERTICAL) {
 				switch(p.getSmer()) {					
 				// Za vsako možno smer preverimo, èe je poteza dovoljena:
-				// 1. ali je na polju (x, y) res X
+				// 1. ali je na polju (x, y) res VERTICAL
 				// 2. Ali smo na (levem/desnem/zgornjem) robu?
 				// 3. Èe nismo na robu, ali je na (levi/desni/naprej) prazno polje?
-				// Izvedemo potezo: spremenimo obe polji (eno na prazno, eno na X), pri smeri NAPREJ lahko v doloèeni situaciji spremenimo le eno polje
+				// Izvedemo potezo: spremenimo obe polji (eno na prazno, eno na VERTICAL), pri smeri NAPREJ lahko v doloèeni situaciji spremenimo le eno polje
 				// return true
 				case LEVO:
 					if (x == 0) { // smo na levem robu, ne moremo levo
@@ -205,10 +205,10 @@ public class Igra {
 			}
 			else { // na potezi je igralec HORIZONTAL
 				// Ali se lahko zgodi, da nimamo igralca?
-				if (plosca[x][y] != Polje.HORIZONTAL) { // na polju (x, y) ni igralec Y
+				if (plosca[x][y] != Polje.HORIZONTAL) { // na polju (x, y) ni igralec HORIZONTAL
 					return false;
 				}
-				else { // na polju (x, y) je avtomobilèek, ki pripada Y
+				else { // na polju (x, y) je avtomobilèek, ki pripada HORIZONTAL
 					switch(p.getSmer()) { 
 					case LEVO:
 						if (y == 0) { // smo na zgornjem (glede na orientacijo tega avta je to na levem) robu, ne moremo levo

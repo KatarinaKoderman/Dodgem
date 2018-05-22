@@ -9,13 +9,13 @@ import logika.Poteza;
 
 public class Racunalnik extends Strateg {
 	private GlavnoOkno master;
-	private Igralec rac;
+	private Igralec id;
 	private SwingWorker<Poteza,Object> mislec;
 	private boolean prekini;
 
 	public Racunalnik(GlavnoOkno master, Igralec igralec) {
 		this.master = master;
-		rac = igralec;
+		id = igralec;
 	}
 	
 	@Override

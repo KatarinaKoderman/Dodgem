@@ -16,15 +16,12 @@ import logika.Igra;
 import logika.Igralec;
 import logika.Polje;
 import logika.Poteza;
-import logika.Smer;
-import vmesnik.Clovek;
-import vmesnik.Racunalnik;
-import vmesnik.Strateg;
+
 
 @SuppressWarnings("serial")
 public class GlavnoOkno extends JFrame implements ActionListener {
 	/**
-	 * JPanel, v katerega rišemo X in Y
+	 * JPanel, v katerega rišemo VERTICAL in HORIZONTAL
 	 */
 	private IgralnoPolje polje;
 
@@ -40,17 +37,14 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	private Igra igra;
 
 	/**
-	 * Strateg, ki vleèe poteze X.
+	 * Strateg, ki vleèe poteze VERTICAL.
 	 */
-	private Strateg strategX;
+	private Strateg strategVERTICAL;
 
 	/**
-	 * Strateg, ki vleèe poteze Y
+	 * Strateg, ki vleèe poteze HORIZONTAL
 	 */
-	private Strateg strategY;
-
-	// Izbire v menujih
-	private JMenuItem nova_igra;
+	private Strateg strategHORIZONTAL;
 
 	// Izbire v menujih
 	private JMenuItem igraClovekRacunalnik;
@@ -125,14 +119,14 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	}
 
 	public void nova_igra(Strateg horizontal, Strateg vertical) {
-		if (strategY != null) { strategY.prekini(); }
-		if (strategX != null) { strategX.prekini(); }
+		if (strategHORIZONTAL != null) { strategHORIZONTAL.prekini(); }
+		if (strategVERTICAL != null) { strategVERTICAL.prekini(); }
 		this.igra = new Igra();
-		strategY = horizontal;
-		strategX = vertical;
+		strategHORIZONTAL = horizontal;
+		strategVERTICAL = vertical;
 		switch (igra.stanje()) {
-		case NA_POTEZI_HORIZONTAL: strategY.na_potezi(); break;
-		case NA_POTEZI_VERTICAL: strategX.na_potezi(); break;
+		case NA_POTEZI_HORIZONTAL: strategHORIZONTAL.na_potezi(); break;
+		case NA_POTEZI_VERTICAL: strategVERTICAL.na_potezi(); break;
 		default: break;
 		}
 		osveziGUI();
@@ -164,8 +158,8 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		if(igra.odigraj(p)) {
 			osveziGUI();
 			switch (igra.stanje()) {
-			case NA_POTEZI_HORIZONTAL: strategY.na_potezi(); break;
-			case NA_POTEZI_VERTICAL: strategX.na_potezi(); break;
+			case NA_POTEZI_HORIZONTAL: strategHORIZONTAL.na_potezi(); break;
+			case NA_POTEZI_VERTICAL: strategVERTICAL.na_potezi(); break;
 			case ZMAGA_HORIZONTAL: break;
 			case ZMAGA_VERTICAL: break;
 			}
@@ -178,10 +172,10 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		}
 		else {
 			switch(igra.stanje()) {
-			case NA_POTEZI_HORIZONTAL: status.setText("Na potezi je Y."); break;
-			case NA_POTEZI_VERTICAL: status.setText("Na potezi je X."); break;
-			case ZMAGA_HORIZONTAL: status.setText("Zmagal je Y."); break;
-			case ZMAGA_VERTICAL: status.setText("Zmagal je X."); break;
+			case NA_POTEZI_HORIZONTAL: status.setText("Na potezi je rdeèi."); break;
+			case NA_POTEZI_VERTICAL: status.setText("Na potezi je rumeni."); break;
+			case ZMAGA_HORIZONTAL: status.setText("Zmagal je rdeèi."); break;
+			case ZMAGA_VERTICAL: status.setText("Zmagal je rumeni."); break;
 			}
 		}
 		polje.repaint();
@@ -191,10 +185,10 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		if (igra != null) {
 			switch (igra.stanje()) {
 			case NA_POTEZI_VERTICAL:
-				strategX.klik(i, j);
+				strategVERTICAL.klik(i, j);
 				break;
 			case NA_POTEZI_HORIZONTAL:
-				strategY.klik(i, j);
+				strategHORIZONTAL.klik(i, j);
 				break;
 			default:
 				break;
