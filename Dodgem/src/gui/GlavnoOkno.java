@@ -17,6 +17,9 @@ import logika.Igralec;
 import logika.Polje;
 import logika.Poteza;
 
+import java.io.*;
+import javax.sound.sampled.*;
+
 
 @SuppressWarnings("serial")
 public class GlavnoOkno extends JFrame implements ActionListener {
@@ -51,6 +54,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	private JMenuItem igraRacunalnikClovek;
 	private JMenuItem igraClovekClovek;
 	private JMenuItem igraRacunalnikRacunalnik;
+	private JMenuItem glasba;
 	
 	
 	
@@ -64,6 +68,10 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		this.setJMenuBar(menu_bar);
 		JMenu igra_menu = new JMenu("Igra");
 		menu_bar.add(igra_menu);
+		
+		
+		JMenu glasba_menu = new JMenu("Glasba");
+		menu_bar.add(glasba_menu);
 
 		
 		//izbire v igra: 
@@ -83,7 +91,9 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		igra_menu .add(igraRacunalnikRacunalnik);
 		igraRacunalnikRacunalnik.addActionListener(this);
 		
-		
+		glasba = new JMenuItem("Glasba");
+		glasba_menu  .add(glasba);
+		glasba.addActionListener(this);
   
 		// igralno polje
 		polje = new IgralnoPolje(this);
@@ -151,9 +161,29 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 			nova_igra(new Clovek(this, Igralec.HORIZONTAL),
 			          new Clovek(this, Igralec.VERTICAL));
 		}
+		// Glasba
+		else if (e.getSource() == glasba) {
+			try {
+				music();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 		
 	}
-
+	
+	public static void music() throws Exception, IOException{
+		// from a wave File
+		File soundFile = new File("Insert-Coins-Jake-Wright.wav");
+		AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+		Clip clip = AudioSystem.getClip();
+		clip.open(audioIn);
+		clip.loop(Clip.LOOP_CONTINUOUSLY);  // repeat forever -- èepo bi bilo znati zadevo ustaviti s klikom
+		
+		if (clip.isRunning()) clip.stop();
+	}
+	
 	public void odigraj(Poteza p) {
 		if(igra.odigraj(p)) {
 			osveziGUI();
