@@ -93,6 +93,21 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 					    (int)(i * w));
 		}
 		
+		
+		g2.setColor(Color.red);
+		g2.drawLine((int)(Igra.N * w),
+			    (int)(LINE_WIDTH * w + LINE_WIDTH),
+			    (int)(Igra.N * w),
+			    (int)((Igra.N - LINE_WIDTH + LINE_WIDTH) * w));
+		
+		g2.setColor(Color.yellow);
+		g2.drawLine((int)(LINE_WIDTH * w),
+			    (int)(0 * w),
+			    (int)((Igra.N - LINE_WIDTH  + LINE_WIDTH) * w),
+			    (int)(0 * w));
+		
+		
+		
 		// avtomobilèki (za igralca VERTICAL in HORIZONTAL)
 		Polje[][] plosca = master.getPlosca();
 		if (plosca != null) {
