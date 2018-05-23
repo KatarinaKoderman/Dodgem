@@ -323,8 +323,9 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		double di = (x % w) / squareWidth() ;
 		int j = y / w ;
 		double dj = (y % w) / squareWidth() ;
-		if (master.igra.plosca[j][i] == Polje.PRAZNO){return;}
-		
+		if (master.igra.plosca[i][j] == Polje.PRAZNO){
+			return;
+		}
 		for(Polygon poligoncek : poligonckiNAPREJ) {
 			if (poligoncek.contains(e.getPoint())) {
 				for(Polygon poligoncek1 : poligonckiN) {
@@ -368,8 +369,7 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 			pobarvaj = null;
 			repaint();
 		}
+	
 	}
-
-
 		
 }
