@@ -285,6 +285,8 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 			gumbekPremakni(poligonckiHorizontalNAPREJ, Smer.NAPREJ, e);
 			gumbekPremakni(poligonckiHorizontalLEVO, Smer.LEVO, e);
 			gumbekPremakni(poligonckiHorizontalDESNO, Smer.DESNO, e);
+			pobarvaj = null;
+			repaint();
 
 		}
 
@@ -330,9 +332,11 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		
 		if(master.igra.naPotezi == Igralec.VERTICAL && master.igra.plosca[i][j] == Polje.VERTICAL){
 		gumbekZelen(poligonckiVerticalNAPREJ, poligonckiVerticalN, poligonckiVerticalLEVO, poligonckiVerticalL, poligonckiVerticalDESNO, poligonckiVerticalD, e, nasel);
+		repaint();
 		}
 		else if(master.igra.naPotezi == Igralec.HORIZONTAL && master.igra.plosca[i][j] == Polje.HORIZONTAL){
 		gumbekZelen(poligonckiHorizontalNAPREJ, poligonckiHorizontalN, poligonckiHorizontalLEVO, poligonckiHorizontalL, poligonckiHorizontalDESNO, poligonckiHorizontalD, e, nasel);
+		repaint();
 		}
 	
 	}
