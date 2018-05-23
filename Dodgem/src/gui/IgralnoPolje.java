@@ -328,10 +328,10 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 			return;
 		}
 		
-		if(master.igra.naPotezi == Igralec.VERTICAL){
+		if(master.igra.naPotezi == Igralec.VERTICAL && master.igra.plosca[i][j] == Polje.VERTICAL){
 		gumbekZelen(poligonckiVerticalNAPREJ, poligonckiVerticalN, poligonckiVerticalLEVO, poligonckiVerticalL, poligonckiVerticalDESNO, poligonckiVerticalD, e, nasel);
 		}
-		else{
+		else if(master.igra.naPotezi == Igralec.HORIZONTAL && master.igra.plosca[i][j] == Polje.HORIZONTAL){
 		gumbekZelen(poligonckiHorizontalNAPREJ, poligonckiHorizontalN, poligonckiHorizontalLEVO, poligonckiHorizontalL, poligonckiHorizontalDESNO, poligonckiHorizontalD, e, nasel);
 		}
 	
