@@ -3,6 +3,7 @@ package gui;
 import javax.swing.SwingWorker;
 
 import logika.Igralec;
+import inteligenca.Minimax;
 import inteligenca.NakljucnaInteligenca;
 import logika.Igra;
 import logika.Poteza;
@@ -13,6 +14,7 @@ public class Racunalnik extends Strateg {
 	private Igralec id;
 	private SwingWorker<Poteza,Object> mislec;
 	private boolean prekini;
+	private int globina = 1;
 
 	public Racunalnik(GlavnoOkno master, Igralec igralec) {
 		this.master = master;
@@ -22,7 +24,7 @@ public class Racunalnik extends Strateg {
 	@Override
 	public void na_potezi() {
 		// Zaènemo razmišljati
-		mislec = new NakljucnaInteligenca(master);
+		mislec = new Minimax(master, globina, id);
 		mislec.execute();
 	}
 

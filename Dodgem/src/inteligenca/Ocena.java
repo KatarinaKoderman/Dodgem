@@ -11,6 +11,11 @@ import logika.Polje;
  *
  */
 public class Ocena {
+	static int vrednostVertical;
+	static int vrednostHorizontal;
+	static int N = Igra.N;
+	static int vr;
+	
 	public static final int ZMAGA = (1 << Igra.N * Igra.N); // vrednost zmage je najveèja
 	public static final int ZGUBA = -ZMAGA;
 
@@ -23,9 +28,12 @@ public class Ocena {
 		case NA_POTEZI_VERTICAL:
 		case NA_POTEZI_HORIZONTAL: // preštejemo, koliko premikov naprej je do zmage
 			Polje[][] plosca = igra.getPlosca();
+			
+			
 			// da igralec zmaga, mora svoje figure prestaviti naprej (Igra.N * (Igra.N - 1))-krat
 			int vrednostVertical = Igra.N * (Igra.N - 1);
 			int vrednostHorizontal = Igra.N * (Igra.N - 1);
+			
 			for (int i = 0; i < Igra.N; i++) {
 				for (int j = 0; j < Igra.N; j++) {
 					switch (plosca[i][j]) {
@@ -35,9 +43,10 @@ public class Ocena {
 					}
 				}
 			}
-			return (jaz == Igralec.VERTICAL ? (vrednostVertical - vrednostHorizontal) : (vrednostHorizontal - vrednostVertical));
-		}
-		// java je še vedno neumna
-		return 0; // TODO 0 verjetno ni primerna vrednost, premisli še enkrat zgornje vrednosti
+//			vr = vrednostVertical - vrednostHorizontal;
+			return (jaz == Igralec.VERTICAL ? vrednostVertical : -vrednostHorizontal);
 	}
+	// java je še vedno vredi
+	return 0; // TODO 0 verjetno ni primerna vrednost, premisli še enkrat zgornje vrednosti
+}
 }
