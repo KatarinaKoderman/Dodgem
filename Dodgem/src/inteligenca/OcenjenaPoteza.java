@@ -13,7 +13,7 @@ public class OcenjenaPoteza {
 		this.vrednost = vrednost;
 	}
 
-	@Override
+	@Override 
 	public String toString() {
 		return "OcenjenaPoteza [poteza = " + poteza + ", vrednost = " + vrednost + "]";
 	}

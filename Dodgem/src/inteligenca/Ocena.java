@@ -18,7 +18,7 @@ public class Ocena {
 		switch (igra.stanje()) {
 		case ZMAGA_VERTICAL:
 			return (jaz == Igralec.VERTICAL ? ZMAGA : ZGUBA);
-		case ZMAGA_HORIZONTAL:
+		case ZMAGA_HORIZONTAL: 
 			return (jaz == Igralec.HORIZONTAL ? ZMAGA : ZGUBA);
 		case NA_POTEZI_VERTICAL:
 		case NA_POTEZI_HORIZONTAL: // preštejemo, koliko premikov naprej je do zmage
