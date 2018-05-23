@@ -14,7 +14,7 @@ public class Igra {
 	 */
 
 	public Polje[][] plosca;
-	private Igralec naPotezi;
+	public Igralec naPotezi;
 
 	/**
 	 * Nova igra, v zaèetnem stanju so figurice prvega igralca (igralec VERTICAL) 
