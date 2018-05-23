@@ -57,6 +57,7 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 	private double squareWidth() {
 		return Math.min(getWidth(), getHeight()) / Igra.N;
 	}
+
 	
 	//manjsi trikotniki VERTICAL
 	ArrayList<Polygon> poligonckiVerticalN = new ArrayList<Polygon>();
@@ -76,8 +77,7 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 	//nevidni trikotniki, za premikanje HORIZONTAL
 	ArrayList<Polygon> poligonckiHorizontalNAPREJ = new ArrayList<Polygon>();
 	ArrayList<Polygon> poligonckiHorizontalLEVO = new ArrayList<Polygon>();
-	ArrayList<Polygon> poligonckiHorizontalDESNO = new ArrayList<Polygon>();
-	
+	ArrayList<Polygon> poligonckiHorizontalDESNO = new ArrayList<Polygon>();	
 	
 	private void paintVERTICAL(Graphics2D g2, int i, int j) {
 		
@@ -289,7 +289,7 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 			repaint();
 
 		}
-
+	repaint();
 	}
 
 
@@ -338,7 +338,28 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		gumbekZelen(poligonckiHorizontalNAPREJ, poligonckiHorizontalN, poligonckiHorizontalLEVO, poligonckiHorizontalL, poligonckiHorizontalDESNO, poligonckiHorizontalD, e, nasel);
 		repaint();
 		}
-	
+		repaint();
+		
+		//manjsi trikotniki VERTICAL
+		poligonckiVerticalN = new ArrayList<Polygon>();
+		poligonckiVerticalL = new ArrayList<Polygon>();
+		poligonckiVerticalD = new ArrayList<Polygon>();
+		
+		//nevidni trikotniki, za premikanje VERTICAL
+		poligonckiVerticalNAPREJ = new ArrayList<Polygon>();
+		poligonckiVerticalLEVO = new ArrayList<Polygon>();
+		poligonckiVerticalDESNO = new ArrayList<Polygon>();
+		
+		//manjsi trikotniki HORIZONTAL
+		poligonckiHorizontalN = new ArrayList<Polygon>();
+		poligonckiHorizontalL = new ArrayList<Polygon>();
+		poligonckiHorizontalD = new ArrayList<Polygon>();
+		
+		//nevidni trikotniki, za premikanje HORIZONTAL
+		poligonckiHorizontalNAPREJ = new ArrayList<Polygon>();
+		poligonckiHorizontalLEVO = new ArrayList<Polygon>();
+		poligonckiHorizontalDESNO = new ArrayList<Polygon>();	
+		repaint();
 	}
 	
 	// s klikom na nevidni trikotnik dolocimo smer avtomobilcku

@@ -7,7 +7,7 @@ import logika.Igra;
 import logika.Igralec;
 import logika.Poteza;
 
-public class Minimax extends SwingWorker<Poteza, Object> {
+public class Minimax extends SwingWorker<Poteza, Object> { // Treba je implementirati to, da se na robu avtomobilcki odstranijo
 	
 	private GlavnoOkno master;
 	private int globina;
