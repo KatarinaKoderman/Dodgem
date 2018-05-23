@@ -99,17 +99,42 @@ public class Igra {
 	/**
 	 * @return stanje igre
 	 */
+	// 	TODO ali smemo stanje gledati z dovoljenimi potezami? Raje ne.
 	public Stanje stanje() {
 		int steviloAvtomobilovVERTICAL = 0;
 		int steviloAvtomobilovHORIZONTAL = 0;
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) { 
-				// takoj, ko se eno od števil steviloAvtomobilov poveèa, ga ne rabimo veè šteti, naprej bi lahko pregledovali le za drugega igralca
+				// izboljšava: takoj, ko se eno od števil steviloAvtomobilov poveèa, ga ne rabimo veè šteti, naprej bi lahko pregledovali le za drugega igralca
 				if (plosca[i][j] == Polje.VERTICAL) {
-					steviloAvtomobilovVERTICAL += 1;
+					// Obstaja figura, ki pripada VERTICAL. Èe za to figuro obstaja poteza, jo štejemo, sicer ne.
+					if (i > 0 && plosca[i-1][j] == Polje.PRAZNO) { // nismo na levem robu in lahko se pomaknemo levo
+						steviloAvtomobilovVERTICAL += 1;
+						continue;
+					}
+					if (i < N-1 && plosca[i+1][j] == Polje.PRAZNO) { // nismo na desnem robu in lahko se pomaknemo desno
+						steviloAvtomobilovVERTICAL += 1;
+						continue;
+					}
+					if (j == 0 || plosca[i][j-1] == Polje.PRAZNO) { // lahko se pomaknemo naprej
+						steviloAvtomobilovVERTICAL += 1;
+						continue;
+					}
 				}
 				if (plosca[i][j] == Polje.HORIZONTAL) {
-					steviloAvtomobilovHORIZONTAL +=1; 
+					// Obstaja figura, ki pripada HORIZONTAL. Èe za to figuro obstaja poteza, jo štejemo, sicer ne.
+					if (j > 0 && plosca[i][j-1] == Polje.PRAZNO) { // nismo na zgornjem robu in lahko se pomaknemo levo
+						steviloAvtomobilovHORIZONTAL += 1;
+						continue;
+					}
+					if (j < N-1 && plosca[i][j+1] == Polje.PRAZNO) { // nismo na spodnjem robu in lahko se pomaknemo desno
+						steviloAvtomobilovHORIZONTAL += 1;
+						continue;
+					}
+					if ((i == N-1) || (plosca[i+1][j] == Polje.PRAZNO)) { // lahko se pomaknemo naprej
+						steviloAvtomobilovHORIZONTAL += 1;
+						continue;
+					}
 				}
 			}
 		}
