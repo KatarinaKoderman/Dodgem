@@ -54,7 +54,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	/*
 	 * Ustvarimo clip, ki ga v metodi music predvajamo ali ustavimo.
 	 */
-	static File soundFile = new File("Dodgem\\resources\\Insert-Coins-Jake-Wright.wav");
+	static File soundFile = new File("resources\\Insert-Coins-Jake-Wright.wav");
 	static Clip clip;
 	static {
 		try {
@@ -74,9 +74,6 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	private JMenuItem igraClovekClovek;
 	private JMenuItem igraRacunalnikRacunalnik;
 
-	
-	
-	
 	public GlavnoOkno() {
 		this.setTitle("Dodgem");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
