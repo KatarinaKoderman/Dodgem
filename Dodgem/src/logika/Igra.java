@@ -13,7 +13,7 @@ public class Igra {
 	 * Atributi objekta iz razreda igra.
 	 */
 
-	private Polje[][] plosca;
+	public Polje[][] plosca;
 	private Igralec naPotezi;
 
 	/**

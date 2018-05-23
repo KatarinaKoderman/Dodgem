@@ -8,10 +8,11 @@ import java.awt.Graphics2D;
 import java.awt.List;
 import java.awt.MouseInfo;
 import java.awt.Polygon;
-import java.awt.Shape;
+import java.awt.Polygon;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -23,7 +24,7 @@ import logika.Polje;
 import logika.Smer;
 
 @SuppressWarnings("serial")
-public class IgralnoPolje extends JPanel implements MouseListener {
+public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionListener {
 	private GlavnoOkno master;
 
 	/**
@@ -36,11 +37,15 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	 */
 	private final static double PADDING = 0.1;
 
+	private Polygon pobarvaj;
+	
 	public IgralnoPolje(GlavnoOkno master) {
 		super();
 		setBackground(Color.white);
 		this.master = master;
 		this.addMouseListener(this);
+		this.addMouseMotionListener(this);
+		this.pobarvaj = null;
 	}
 
 	@Override
@@ -52,9 +57,16 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 		return Math.min(getWidth(), getHeight()) / Igra.N;
 	}
 	
-	ArrayList<Shape> poligonckiNAPREJ = new ArrayList<Shape>();
-	ArrayList<Shape> poligonckiLEVO = new ArrayList<Shape>();
-	ArrayList<Shape> poligonckiDESNO = new ArrayList<Shape>();
+	//manjsi trikotniki
+	ArrayList<Polygon> poligonckiN = new ArrayList<Polygon>();
+	ArrayList<Polygon> poligonckiL = new ArrayList<Polygon>();
+	ArrayList<Polygon> poligonckiD = new ArrayList<Polygon>();
+	
+	//nevidni trikotniki, za premikanje
+	ArrayList<Polygon> poligonckiNAPREJ = new ArrayList<Polygon>();
+	ArrayList<Polygon> poligonckiLEVO = new ArrayList<Polygon>();
+	ArrayList<Polygon> poligonckiDESNO = new ArrayList<Polygon>();
+	
 	
 	private void paintVERTICAL(Graphics2D g2, int i, int j) {
 		double w = squareWidth();
@@ -68,30 +80,57 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	    int npoints = 3;
 	    g2.fillPolygon(xpoints, ypoints, npoints);
 	    
-	    g2.setColor(Color.white);
-	    int xpointsNAPREJ[] = {(int) (x+r*0.35), (int) (x+r-r*0.35), (int) (x+r*0.5)};
-	    int ypointsNAPREJ[] = {(int) (y+r*0.4), (int) (y+r*0.4), (int) (y+r*0.1)};
-	    g2.fillPolygon(xpointsNAPREJ, ypointsNAPREJ, npoints);
 	    
-	    Shape poligoncekNAPREJ = new Polygon(xpointsNAPREJ, ypointsNAPREJ, npoints);
+	    //mali trikotniki
+	    g2.setColor(Color.white);
+	    int xpointsN[] = {(int) (x+r*0.35), (int) (x+r-r*0.35), (int) (x+r*0.5)};
+	    int ypointsN[] = {(int) (y+r*0.4), (int) (y+r*0.4), (int) (y+r*0.1)};
+	    g2.fillPolygon(xpointsN, ypointsN, npoints);
+	    
+	    Polygon poligoncekN = new Polygon(xpointsN, ypointsN, npoints);
+	    poligonckiN .add(poligoncekN);
+	    
+	    
+	    g2.setColor(Color.white);
+	    int xpointsL[] = {(int) (x+r*0.1), (int) (x+r-r*0.58), (int) (x+r*0.25)};
+	    int ypointsL[] = {(int) (y+r*0.9-r*0.05), (int) (y+r*0.9-r*0.05), (int) (y+r*0.6)};
+	    g2.fillPolygon(xpointsL, ypointsL, npoints);
+	    
+	    Polygon poligoncekL = new Polygon(xpointsL, ypointsL, npoints);
+	    poligonckiL.add(poligoncekL);
+	    
+	    g2.setColor(Color.white);
+	    int xpointsD[] = {(int) (x+r*0.58), (int) (x+r-r*0.1), (int) (x+r*0.75)};
+	    int ypointsD[] = {(int) (y+r*0.9-r*0.05), (int) (y+r*0.9-r*0.05), (int) (y+r*0.6)};
+	    g2.fillPolygon(xpointsD, ypointsD, npoints);
+	    
+	    Polygon poligoncekD = new Polygon(xpointsD, ypointsD, npoints);
+	    poligonckiD.add(poligoncekD);
+	    
+	    
+	    //Nekoliko veèji majhni nevidni trikotniki
+
+	    int xpointsNAPREJ[] = {(int) (x+r*0.2), (int) (x+r-r*0.2), (int) (x+r*0.5)};
+	    int ypointsNAPREJ[] = {(int) (y+r*0.5), (int) (y+r*0.5), (int) (y-r*0.1)};
+
+	    Polygon poligoncekNAPREJ = new Polygon(xpointsNAPREJ, ypointsNAPREJ, npoints);
 	    poligonckiNAPREJ .add(poligoncekNAPREJ);
 	    
-	    
-	    g2.setColor(Color.white);
-	    int xpointsLEVO[] = {(int) (x+r*0.1), (int) (x+r-r*0.58), (int) (x+r*0.25)};
-	    int ypointsLEVO[] = {(int) (y+r*0.9-r*0.05), (int) (y+r*0.9-r*0.05), (int) (y+r*0.6)};
-	    g2.fillPolygon(xpointsLEVO, ypointsLEVO, npoints);
-	    
-	    Shape poligoncekLEVO = new Polygon(xpointsLEVO, ypointsLEVO, npoints);
+
+	    int xpointsLEVO[] = {(int) (x-r*0.05), (int) (x+r-r*0.55), (int) (x+r*0.2)};
+	    int ypointsLEVO[] = {(int) (y+r*0.95), (int) (y+r*0.95), (int) (y+r*0.5)};
+ 
+	    Polygon poligoncekLEVO = new Polygon(xpointsLEVO, ypointsLEVO, npoints);
 	    poligonckiLEVO.add(poligoncekLEVO);
+
 	    
-	    g2.setColor(Color.white);
-	    int xpointsDESNO[] = {(int) (x+r*0.58), (int) (x+r-r*0.1), (int) (x+r*0.75)};
-	    int ypointsDESNO[] = {(int) (y+r*0.9-r*0.05), (int) (y+r*0.9-r*0.05), (int) (y+r*0.6)};
-	    g2.fillPolygon(xpointsDESNO, ypointsDESNO, npoints);
-	    
-	    Shape poligoncekDESNO = new Polygon(xpointsDESNO, ypointsDESNO, npoints);
+	    int xpointsDESNO[] = {(int) (x+r*0.55), (int) (x+r+r*0.05), (int) (x+r-r*0.2)};
+	    int ypointsDESNO[] = {(int) (y+r*0.95), (int) (y+r*0.95), (int) (y+r*0.5)};
+
+	    Polygon poligoncekDESNO = new Polygon(xpointsDESNO, ypointsDESNO, npoints);
 	    poligonckiDESNO.add(poligoncekDESNO);
+	    
+	    
 	}
 	
 	private void paintHORIZONTAL(Graphics2D g2, int i, int j) {
@@ -107,30 +146,55 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 	    int npoints = 3;
 	    g2.fillPolygon(xpoints, ypoints, npoints);
 	    
+	    //Mali trikotniki.
 	    g2.setColor(Color.white);
-	    int xpointsNAPREJ[] = {(int) (x+r*0.5), (int) (x+r*0.5), (int) (x+r-r*0.2)};
-	    int ypointsNAPREJ[] = {(int) (y+r*0.35), (int) (y+r-r*0.35), (int) (y+r*0.5)};
-	    g2.fillPolygon(xpointsNAPREJ, ypointsNAPREJ, npoints);
+	    int xpointsN[] = {(int) (x+r*0.5), (int) (x+r*0.5), (int) (x+r-r*0.2)};
+	    int ypointsN[] = {(int) (y+r*0.35), (int) (y+r-r*0.35), (int) (y+r*0.5)};
+	    g2.fillPolygon(xpointsN, ypointsN, npoints);
 	    
-	    Shape poligoncekNAPREJ = new Polygon(xpointsNAPREJ, ypointsNAPREJ, npoints);
+	    Polygon poligoncekN = new Polygon(xpointsN, ypointsN, npoints);
+	    poligonckiN.add(poligoncekN);
+	    
+	    
+	    g2.setColor(Color.white);
+	    int xpointsL[] = {(int) (x+r*0.05), (int) (x+r*0.05), (int) (x+r*0.3)};
+	    int ypointsL[] = {(int) (y+r*0.1), (int) (y+r-r*0.58), (int) (y+r*0.25)};
+	    g2.fillPolygon(xpointsL, ypointsL, npoints);
+	    
+	    Polygon poligoncekL = new Polygon(xpointsL, ypointsL, npoints);
+	    poligonckiL.add(poligoncekL);
+	    
+	    
+	    g2.setColor(Color.white);
+	    int xpointsD[] = {(int) (x+r*0.05), (int) (x+r*0.05), (int) (x+r*0.3)};
+	    int ypointsD[] = {(int) (y+r-r*0.1), (int) (y+r-r*0.42), (int) (y+r-r*0.25)};
+	    g2.fillPolygon(xpointsD, ypointsD, npoints);
+	    
+	    Polygon poligoncekD = new Polygon(xpointsD, ypointsD, npoints);
+	    poligonckiD.add(poligoncekD);
+	    
+	    
+	    //Nekoliko veèji majhni nevidni trikotniki
+	    
+	    
+	    int xpointsNAPREJ[] = {(int) (x+r*0.5), (int) (x+r*0.5), (int) (x+r+r*0.1)};
+	    int ypointsNAPREJ[] = {(int) (y+r*0.2), (int) (y+r-r*0.2), (int) (y+r*0.5)};
+	    
+	    Polygon poligoncekNAPREJ = new Polygon(xpointsNAPREJ, ypointsNAPREJ, npoints);
 	    poligonckiNAPREJ.add(poligoncekNAPREJ);
 	    
 	    
-	    g2.setColor(Color.white);
-	    int xpointsLEVO[] = {(int) (x+r*0.05), (int) (x+r*0.05), (int) (x+r*0.3)};
-	    int ypointsLEVO[] = {(int) (y+r*0.1), (int) (y+r-r*0.58), (int) (y+r*0.25)};
-	    g2.fillPolygon(xpointsLEVO, ypointsLEVO, npoints);
-	    
-	    Shape poligoncekLEVO = new Polygon(xpointsLEVO, ypointsLEVO, npoints);
+	    int xpointsLEVO[] = {(int) (x-r*0.05), (int) (x-r*0.05), (int) (x+r*0.5)};
+	    int ypointsLEVO[] = {(int) (y-r*0.05), (int) (y+r-r*0.55), (int) (y+r*0.2)};
+	
+	    Polygon poligoncekLEVO = new Polygon(xpointsLEVO, ypointsLEVO, npoints);
 	    poligonckiLEVO.add(poligoncekLEVO);
 	    
 	    
-	    g2.setColor(Color.white);
-	    int xpointsDESNO[] = {(int) (x+r*0.05), (int) (x+r*0.05), (int) (x+r*0.3)};
-	    int ypointsDESNO[] = {(int) (y+r-r*0.1), (int) (y+r-r*0.42), (int) (y+r-r*0.25)};
-	    g2.fillPolygon(xpointsDESNO, ypointsDESNO, npoints);
+	    int xpointsDESNO[] = {(int) (x-r*0.05), (int) (x-r*0.05), (int) (x+r*0.5)};
+	    int ypointsDESNO[] = {(int) (y+r+r*0.05), (int) (y+r-r*0.45), (int) (y+r-r*0.2)};
 	    
-	    Shape poligoncekDESNO = new Polygon(xpointsDESNO, ypointsDESNO, npoints);
+	    Polygon poligoncekDESNO = new Polygon(xpointsDESNO, ypointsDESNO, npoints);
 	    poligonckiDESNO.add(poligoncekDESNO);
 	}
 	
@@ -182,6 +246,10 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 				}
 			}
 		}	
+		if (pobarvaj != null){
+			g2.setColor(Color.green);
+			g2.fillPolygon(pobarvaj);
+		}
 	}
 	 
 	@Override
@@ -198,19 +266,19 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 				0 <= j && j < Igra.N && 
 				0.5 * LINE_WIDTH < dj && dj < 1.0 - 0.5 * LINE_WIDTH) {
 
-			for(Shape poligoncek : poligonckiNAPREJ) {
+			for(Polygon poligoncek : poligonckiNAPREJ) {
 				if (poligoncek.contains(e.getPoint())) {
 					master.klikniPolje(i, j, Smer.NAPREJ);
 					break;
 				}
 			}
-			for(Shape poligoncek : poligonckiLEVO) {
+			for(Polygon poligoncek : poligonckiLEVO) {
 				if (poligoncek.contains(e.getPoint())) {
 					master.klikniPolje(i, j, Smer.LEVO);
 					break;
 				}
 			}
-			for(Shape poligoncek : poligonckiDESNO) {
+			for(Polygon poligoncek : poligonckiDESNO) {
 				if (poligoncek.contains(e.getPoint())) {
 					master.klikniPolje(i, j, Smer.DESNO);
 					break;
@@ -235,6 +303,71 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {		
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		
+		boolean nasel = false;
+		
+		int x = e.getX();
+		int y = e.getY();
+		int w = (int)(squareWidth());
+		int i = x / w ;
+		double di = (x % w) / squareWidth() ;
+		int j = y / w ;
+		double dj = (y % w) / squareWidth() ;
+		if (master.igra.plosca[j][i] == Polje.PRAZNO){return;}
+		
+		for(Polygon poligoncek : poligonckiNAPREJ) {
+			if (poligoncek.contains(e.getPoint())) {
+				for(Polygon poligoncek1 : poligonckiN) {
+					if(poligoncek.getBounds2D().contains(poligoncek1.getBounds2D())){
+						pobarvaj = poligoncek1;
+						repaint();
+						nasel = true;
+						break;
+					}
+				}
+				break;
+			}
+		}
+		for(Polygon poligoncek : poligonckiLEVO) {
+				if (poligoncek.contains(e.getPoint())) {
+					for(Polygon poligoncek1 : poligonckiL) {
+						if(poligoncek.getBounds2D().contains(poligoncek1.getBounds2D())){
+							pobarvaj = poligoncek1;
+							repaint();
+							nasel = true;
+							break;
+						}
+					}
+					break;
+			}
+		}
+		for(Polygon poligoncek : poligonckiDESNO) {
+				if (poligoncek.contains(e.getPoint())) {
+					for(Polygon poligoncek1 : poligonckiD) {
+						if(poligoncek.getBounds2D().contains(poligoncek1.getBounds2D())){
+							pobarvaj = poligoncek1;
+							repaint();
+							nasel = true;
+							break;
+						}
+					}
+					break;
+			}
+		}
+		if(!nasel && pobarvaj != null){
+			pobarvaj = null;
+			repaint();
+		}
 	}
 
 

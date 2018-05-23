@@ -39,7 +39,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	/**
 	 * Logika igre, null èe se igra trenutno ne igra
 	 */
-	private Igra igra;
+	protected Igra igra;
 
 	/**
 	 * Strateg, ki vleèe poteze VERTICAL.
