@@ -69,6 +69,8 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 	
 	
 	private void paintVERTICAL(Graphics2D g2, int i, int j) {
+		
+		
 		double w = squareWidth();
 		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // sirina VERTICAL
 		double x = w * (i + 0.5 * LINE_WIDTH + PADDING);
@@ -225,7 +227,7 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 			    (int)(Igra.N * w),
 			    (int)((Igra.N - LINE_WIDTH + LINE_WIDTH) * w));
 		
-		g2.setColor(Color.yellow);
+		g2.setColor(Color.orange);
 		g2.drawLine((int)(LINE_WIDTH * w),
 			    (int)(0 * w),
 			    (int)((Igra.N - LINE_WIDTH  + LINE_WIDTH) * w),
