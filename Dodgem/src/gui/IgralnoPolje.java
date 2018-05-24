@@ -338,6 +338,26 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		gumbekZelen(poligonckiHorizontalNAPREJ, poligonckiHorizontalN, poligonckiHorizontalLEVO, poligonckiHorizontalL, poligonckiHorizontalDESNO, poligonckiHorizontalD, e, nasel);
 		repaint();
 		}
+		
+		//manjsi trikotniki VERTICAL
+		poligonckiVerticalN = new ArrayList<Polygon>();
+		poligonckiVerticalL = new ArrayList<Polygon>();
+		poligonckiVerticalD = new ArrayList<Polygon>();
+		
+		//nevidni trikotniki, za premikanje VERTICAL
+		poligonckiVerticalNAPREJ = new ArrayList<Polygon>();
+		poligonckiVerticalLEVO = new ArrayList<Polygon>();
+		poligonckiVerticalDESNO = new ArrayList<Polygon>();
+		
+		//manjsi trikotniki HORIZONTAL
+		poligonckiHorizontalN = new ArrayList<Polygon>();
+		poligonckiHorizontalL = new ArrayList<Polygon>();
+		poligonckiHorizontalD = new ArrayList<Polygon>();
+		
+		//nevidni trikotniki, za premikanje HORIZONTAL
+		poligonckiHorizontalNAPREJ = new ArrayList<Polygon>();
+		poligonckiHorizontalLEVO = new ArrayList<Polygon>();
+		poligonckiHorizontalDESNO = new ArrayList<Polygon>();
 	
 	}
 	
