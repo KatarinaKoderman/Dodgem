@@ -33,6 +33,7 @@ public class Ocena {
 			// da igralec zmaga, mora svoje figure prestaviti naprej (Igra.N * (Igra.N - 1))-krat
 			int vrednostVertical = Igra.N * (Igra.N - 1);
 			int vrednostHorizontal = Igra.N * (Igra.N - 1);
+			// morda bi raje šteli, kolikokrat se je že prestavil naprej, namesto da štejemo, kolikokrat se še more
 			
 			for (int i = 0; i < Igra.N; i++) {
 				for (int j = 0; j < Igra.N; j++) {
