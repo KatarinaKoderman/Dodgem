@@ -46,7 +46,11 @@ public class Ocena {
 //			vr = vrednostVertical - vrednostHorizontal;
 			return (jaz == Igralec.VERTICAL ? vrednostVertical : -vrednostHorizontal);
 	}
-	// java je še vedno vredi
+	// java je še vedno vredi 
+		// Matej! Kot je Bauer povedal, je programiranje v paru kot zakon. In moje zaupanje si izgubil! 
+		// Ne samo, da si dal nekomu za popravljat kodo brez moje vednosti in si kodo tudi commital, 
+		// še moji komentarji so bili popravljeni! Komentar je z razlogom na svojem mestu! 
+		// (java je še vedno vredi)! Tale projekt, potem me pa niti ne pozdravi veè!
 	return 0; // TODO 0 verjetno ni primerna vrednost, premisli še enkrat zgornje vrednosti
 }
 }
