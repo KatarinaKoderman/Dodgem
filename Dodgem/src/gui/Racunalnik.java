@@ -25,6 +25,7 @@ public class Racunalnik extends Strateg {
 	public void na_potezi() {
 		// Zaènemo razmišljati
 		mislec = new Minimax(master, globina, id);
+		// TODO poteza je prehitro izvedena
 		mislec.execute();
 	}
 
