@@ -26,20 +26,20 @@ public class Ocena {
 		case ZMAGA_HORIZONTAL: 
 			return (jaz == Igralec.HORIZONTAL ? ZMAGA : ZGUBA);
 		case NA_POTEZI_VERTICAL:
-		case NA_POTEZI_HORIZONTAL: // preštejemo, koliko premikov naprej je do zmage
+		case NA_POTEZI_HORIZONTAL: // preštejemo, koliko premikov  naprej je opravljenih
 			Polje[][] plosca = igra.getPlosca();
 			
 			
 			// da igralec zmaga, mora svoje figure prestaviti naprej (Igra.N * (Igra.N - 1))-krat
-			int vrednostVertical = 10 * Igra.N * (Igra.N - 1);
-			int vrednostHorizontal = 10 * Igra.N * (Igra.N - 1);
-			// morda bi raje šteli, kolikokrat se je že prestavil naprej, namesto da štejemo, kolikokrat se še more
+			int vrednostVertical = 0;
+			int vrednostHorizontal = 0;
+			// morda bi raje šteli, kolikokrat se je že prestavil naprej, namesto da štejemo, kolikokrat se še more :obratno
 			
 			for (int i = 0; i < Igra.N; i++) {
 				for (int j = 0; j < Igra.N; j++) {
 					switch (plosca[i][j]) {
-					case VERTICAL: vrednostVertical -= (j);
-					case HORIZONTAL: vrednostHorizontal -= (i);
+					case VERTICAL: vrednostVertical += (Igra.N - j);
+					case HORIZONTAL: vrednostHorizontal += i;
 					case PRAZNO:;
 					}
 				}
@@ -47,11 +47,7 @@ public class Ocena {
 //			vr = vrednostVertical - vrednostHorizontal;
 			return (jaz == Igralec.VERTICAL ? vrednostVertical : -vrednostHorizontal);
 	}
-	// java je še vedno vredi 
-		// Matej! Kot je Bauer povedal, je programiranje v paru kot zakon. In moje zaupanje si izgubil! 
-		// Ne samo, da si dal nekomu za popravljat kodo brez moje vednosti in si kodo tudi commital, 
-		// še moji komentarji so bili popravljeni! Komentar je z razlogom na svojem mestu! 
-		// (java je še vedno vredi)! Tale projekt, potem me pa niti ne pozdravi veè!
-	return 0; // TODO 0 verjetno ni primerna vrednost, premisli še enkrat zgornje vrednosti
+	// Do spodnjega returna ne moremo priti, saj obravnavamo vse mogoèe primere stanja. Java return vseeno zahteva.
+	return 0;
 }
 }
