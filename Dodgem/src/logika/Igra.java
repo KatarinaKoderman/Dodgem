@@ -7,7 +7,7 @@ public class Igra {
 	/**
 	 * Velikost igralne plošèe N x N.
 	 */
-	public static final int N = 5;
+	public static final int N = 3;
 
 	/**
 	 * Atributi objekta iz razreda igra.
@@ -100,49 +100,55 @@ public class Igra {
 	 * @return stanje igre
 	 */
 	// 	TODO ali smemo stanje gledati z dovoljenimi potezami? Raje ne.
+	// TODO dodati je treba, kdo je na potezi
 	public Stanje stanje() {
+		int steviloPotezVERTICAL = 0;
+		int steviloPotezHORIZONTAL = 0;
 		int steviloAvtomobilovVERTICAL = 0;
 		int steviloAvtomobilovHORIZONTAL = 0;
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) { 
 				// izboljšava: takoj, ko se eno od števil steviloAvtomobilov poveèa, ga ne rabimo veè šteti, naprej bi lahko pregledovali le za drugega igralca
 				if (plosca[i][j] == Polje.VERTICAL) {
+					steviloAvtomobilovVERTICAL += 1;
 					// Obstaja figura, ki pripada VERTICAL. Èe za to figuro obstaja poteza, jo štejemo, sicer ne.
 					if (i > 0 && plosca[i-1][j] == Polje.PRAZNO) { // nismo na levem robu in lahko se pomaknemo levo
-						steviloAvtomobilovVERTICAL += 1;
+						steviloPotezVERTICAL += 1;
 						continue;
 					}
 					if (i < N-1 && plosca[i+1][j] == Polje.PRAZNO) { // nismo na desnem robu in lahko se pomaknemo desno
-						steviloAvtomobilovVERTICAL += 1;
+						steviloPotezVERTICAL += 1;
 						continue;
 					}
 					if (j == 0 || plosca[i][j-1] == Polje.PRAZNO) { // lahko se pomaknemo naprej
-						steviloAvtomobilovVERTICAL += 1;
+						steviloPotezVERTICAL += 1;
 						continue;
 					}
 				}
 				if (plosca[i][j] == Polje.HORIZONTAL) {
+					steviloAvtomobilovHORIZONTAL += 1;	
 					// Obstaja figura, ki pripada HORIZONTAL. Èe za to figuro obstaja poteza, jo štejemo, sicer ne.
 					if (j > 0 && plosca[i][j-1] == Polje.PRAZNO) { // nismo na zgornjem robu in lahko se pomaknemo levo
-						steviloAvtomobilovHORIZONTAL += 1;
+						steviloPotezHORIZONTAL += 1;
 						continue;
 					}
 					if (j < N-1 && plosca[i][j+1] == Polje.PRAZNO) { // nismo na spodnjem robu in lahko se pomaknemo desno
-						steviloAvtomobilovHORIZONTAL += 1;
+						steviloPotezHORIZONTAL += 1;
 						continue;
 					}
 					if ((i == N-1) || (plosca[i+1][j] == Polje.PRAZNO)) { // lahko se pomaknemo naprej
-						steviloAvtomobilovHORIZONTAL += 1;
+						steviloPotezHORIZONTAL += 1;
 						continue;
 					}
 				}
 			}
 		}
-		if (steviloAvtomobilovVERTICAL == 0) {
+		if (steviloAvtomobilovVERTICAL == 0 || (steviloPotezVERTICAL == 0 && naPotezi == Igralec.VERTICAL)) { 
+			// VERTICAL je vse svoje avtomobilèke spravil s plošèe in je zmagal ALI na potezi je VERTICAL in ne more izvesti nobene poteze
 			return Stanje.ZMAGA_VERTICAL;
 		}
 		else {
-			if (steviloAvtomobilovHORIZONTAL == 0) {
+			if (steviloAvtomobilovHORIZONTAL == 0 || (steviloPotezHORIZONTAL == 0 && naPotezi == Igralec.HORIZONTAL)) {
 				return Stanje.ZMAGA_HORIZONTAL;
 			}
 			else {
