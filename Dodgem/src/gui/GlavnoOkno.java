@@ -54,7 +54,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	/*
 	 * Ustvarimo clip, ki ga v metodi music predvajamo ali ustavimo.
 	 */
-	static File soundFile = new File("Dodgem\\resources\\Insert-Coins-Jake-Wright.wav");
+	static File soundFile = new File("resources\\Insert-Coins-Jake-Wright.wav");
 	static Clip clip;
 	static {
 		try {
@@ -73,6 +73,8 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	private JMenuItem igraRacunalnikClovek;
 	private JMenuItem igraClovekClovek;
 	private JMenuItem igraRacunalnikRacunalnik;
+	private JMenuItem glasbaOn;
+	private JMenuItem glasbaOff;
 
 	public GlavnoOkno() {
 		this.setTitle("Dodgem");
@@ -86,50 +88,55 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		menu_bar.add(igra_menu);
 		JMenu glasba_menu = new JMenu("Glasba");
 		menu_bar.add(glasba_menu);
-		
+
 
 		//izbire v igra: 
 		igraClovekClovek = new JMenuItem("Èlovek Rumeni  -  Èlovek Rdeèi");
 		igra_menu .add(igraClovekClovek);
 		igraClovekClovek.addActionListener(this);
-		
+
 		igraClovekRacunalnik = new JMenuItem("Raèunalnik Rumeni  -  Èlovek Rdeèi");
 		igra_menu .add(igraClovekRacunalnik);
 		igraClovekRacunalnik.addActionListener(this);
-		
+
 		igraRacunalnikClovek = new JMenuItem("Èlovek Rumeni  -  Raèunalnik Rdeèi");
 		igra_menu .add(igraRacunalnikClovek);
 		igraRacunalnikClovek.addActionListener(this);
-		
+
 		igraRacunalnikRacunalnik = new JMenuItem("Raèunalnik Rumeni  -  Raèunalnik Rdeèi");
 		igra_menu .add(igraRacunalnikRacunalnik);
 		igraRacunalnikRacunalnik.addActionListener(this);
-		
+
 		// izbiri v glasba:
 		glasbaOn = new JMenuItem("Rad igram ob tej glasbi!");
 		glasba_menu.add(glasbaOn);
-		glasbaOff = new JMenuItem("Pri tej glasbi ne morem razmišljati.");
-		
-        // gumb za glasbo
-		JButton glasbaButton = new JButton("Glasba");
-		GridBagConstraints glasbaButton_layout = new GridBagConstraints();
-		glasbaButton_layout.gridx = 1;
-		glasbaButton_layout.gridy = 1;
-		glasbaButton_layout.anchor = GridBagConstraints.CENTER;
-		getContentPane().add(glasbaButton, glasbaButton_layout);
-		glasbaButton.addActionListener(new ActionListener() {
+		glasbaOn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					music();
+					musicOn();
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-				
+
 			}
 		});
-		
-  
+
+		glasbaOff = new JMenuItem("Pri tej glasbi ne morem razmišljati.");
+		glasba_menu.add(glasbaOff);		
+		glasbaOff.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					musicOff();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+
+
 		// igralno polje
 		polje = new IgralnoPolje(this);
 		GridBagConstraints polje_layout = new GridBagConstraints();
@@ -153,7 +160,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 
 		// za zacetek clovek proti cloveku
 		nova_igra(new Clovek(this, Igralec.HORIZONTAL), new Clovek(this, Igralec.VERTICAL));
-		}
+	}
 
 
 	/**
@@ -177,43 +184,43 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		osveziGUI();
 		repaint();
 	}
- 
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == igraClovekRacunalnik) {
 			nova_igra(new Clovek(this, Igralec.HORIZONTAL),
-					  new Racunalnik(this, Igralec.VERTICAL));
+					new Racunalnik(this, Igralec.VERTICAL));
 		}
 		else if (e.getSource() == igraRacunalnikClovek) {
 			nova_igra(new Racunalnik(this, Igralec.HORIZONTAL),
-					  new Clovek(this, Igralec.VERTICAL));
+					new Clovek(this, Igralec.VERTICAL));
 		}
 		else if (e.getSource() == igraRacunalnikRacunalnik) {
 			nova_igra(new Racunalnik(this, Igralec.HORIZONTAL),
-					  new Racunalnik(this, Igralec.VERTICAL));
+					new Racunalnik(this, Igralec.VERTICAL));
 		}
 		else if (e.getSource() == igraClovekClovek) {
 			nova_igra(new Clovek(this, Igralec.HORIZONTAL),
-			          new Clovek(this, Igralec.VERTICAL));
+					new Clovek(this, Igralec.VERTICAL));
 		}
-		
+
 	}
-	
+
 	/*
 	 * Ob klicu zacne ali pa preneha predvajati glasbo.
 	 */
-	public static void music() throws Exception, IOException{
-		if (clip.isRunning()) {
-			clip.stop();
-			System.out.println("stop music");
-		} else {
-			clip.start();
-			clip.loop(Clip.LOOP_CONTINUOUSLY);
-			System.out.println("play music");
-		}
+	public static void musicOn() throws Exception, IOException{
+		clip.start();
+		clip.loop(Clip.LOOP_CONTINUOUSLY);
+		System.out.println("play music");
 	}
-	
-	
+
+	// TODO musicOff ne dela
+	public static void musicOff() throws Exception, IOException{
+		clip.stop();
+		System.out.println("stop music");
+	}
+
 	public void odigraj(Poteza p) {
 		if(igra.odigraj(p)) {
 			osveziGUI();
