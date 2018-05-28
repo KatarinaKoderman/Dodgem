@@ -13,10 +13,9 @@ import logika.Polje;
 public class Ocena {
 	static int vrednostVertical;
 	static int vrednostHorizontal;
-	static int N = Igra.N;
 	static int vr;
-	
-	public static final int ZMAGA = (1 << Igra.N * Igra.N * 1000); // vrednost zmage je najveèja
+
+	public static final int ZMAGA = (1 << (Igra.N * Igra.N * 1000 - 10 * Igra.steviloOdigranihPotez)); // vrednost zmage je najveèja
 	public static final int ZGUBA = -ZMAGA;
 
 	public static int oceniPozicijo(Igralec jaz, Igra igra) {
@@ -28,26 +27,26 @@ public class Ocena {
 		case NA_POTEZI_VERTICAL:
 		case NA_POTEZI_HORIZONTAL: // preštejemo, koliko premikov  naprej je opravljenih
 			Polje[][] plosca = igra.getPlosca();
-			
-			
+
+
 			// da igralec zmaga, mora svoje figure prestaviti naprej (Igra.N * (Igra.N - 1))-krat
 			int vrednostVertical = 0;
 			int vrednostHorizontal = 0;
 			// morda bi raje šteli, kolikokrat se je že prestavil naprej, namesto da štejemo, kolikokrat se še more :obratno
-			
+
 			for (int i = 0; i < Igra.N; i++) {
 				for (int j = 0; j < Igra.N; j++) {
 					switch (plosca[i][j]) {
-					case VERTICAL: vrednostVertical += (Igra.N - j);
+					case VERTICAL: vrednostVertical += (Igra.N - j - 1);
 					case HORIZONTAL: vrednostHorizontal += i;
 					case PRAZNO:;
 					}
 				}
 			}
-//			vr = vrednostVertical - vrednostHorizontal;
+			//			vr = vrednostVertical - vrednostHorizontal;
 			return (jaz == Igralec.VERTICAL ? vrednostVertical : -vrednostHorizontal);
+		}
+		// Do spodnjega returna ne moremo priti, saj obravnavamo vse mogoèe primere stanja. Java return vseeno zahteva.
+		return 0;
 	}
-	// Do spodnjega returna ne moremo priti, saj obravnavamo vse mogoèe primere stanja. Java return vseeno zahteva.
-	return 0;
-}
 }
