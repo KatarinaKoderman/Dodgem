@@ -13,12 +13,13 @@ import logika.Polje;
 public class Ocena {
 	static int vrednostVertical;
 	static int vrednostHorizontal;
-	static int vr;
 
-	public static final int ZMAGA = (1 << ((Igra.N * Igra.N * 1000) - (10 * Igra.steviloOdigranihPotez))); // vrednost zmage je najveèja
+	public static final int ZMAGA = (1 << ((Igra.N * Igra.N * 10000 - (5 * Igra.steviloOdigranihPotez)))); // vrednost zmage je najveèja
 	public static final int ZGUBA = -ZMAGA;
 
 	public static int oceniPozicijo(Igralec jaz, Igra igra) {
+
+		System.out.println(Igra.steviloOdigranihPotez);
 		switch (igra.stanje()) {
 		case ZMAGA_VERTICAL:
 			return (jaz == Igralec.VERTICAL ? ZMAGA : ZGUBA);
@@ -31,18 +32,24 @@ public class Ocena {
 			// da igralec zmaga, mora svoje figure prestaviti naprej (Igra.N * (Igra.N - 1))-krat
 			int vrednostVertical = 0;
 			int vrednostHorizontal = 0;
+			int preostalihAvtomobilckovVertical = 0;
+			int preostalihAvtomobilckovHorizontal = 0;
 			// štejemo, kolikokrat se je že premaknil NAPREJ. 
 			// Morda bi poskusili: Štejemo, kolikokrat bi se še moral.
 			for (int i = 0; i < Igra.N; i++) {
 				for (int j = 0; j < Igra.N; j++) {
 					switch (plosca[i][j]) {
-					case VERTICAL: vrednostVertical += (Igra.N - j - 1);
-					case HORIZONTAL: vrednostHorizontal += i;
+					case VERTICAL: vrednostVertical += 10 * (Igra.N - j - 1);
+							preostalihAvtomobilckovVertical += 1;
+					case HORIZONTAL: vrednostHorizontal += 10 * i;
+						preostalihAvtomobilckovHorizontal += 1;
 					case PRAZNO:;
 					}
 				}
 			}
-			//			vr = vrednostVertical - vrednostHorizontal;
+			// Upoštevamo še avtomobilèke, ki so že zapustili plošèo.
+			vrednostVertical += 100 * (Igra.N - preostalihAvtomobilckovVertical) * Igra.N;
+			vrednostHorizontal += 100 * (Igra.N - preostalihAvtomobilckovHorizontal) * Igra.N;
 			return (jaz == Igralec.VERTICAL ? vrednostVertical : -vrednostHorizontal);
 		}
 		

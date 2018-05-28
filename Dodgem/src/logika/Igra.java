@@ -154,9 +154,11 @@ public class Igra {
 			}
 			else {
 				if (naPotezi == Igralec.VERTICAL) {
+					steviloOdigranihPotez += 1;
 					return Stanje.NA_POTEZI_VERTICAL;
 				}
 				else {
+					steviloOdigranihPotez += 1;
 					return Stanje.NA_POTEZI_HORIZONTAL;
 				}
 			}
@@ -198,7 +200,6 @@ public class Igra {
 							plosca[x][y] = Polje.PRAZNO;
 							plosca[x-1][y] = Polje.VERTICAL;
 							naPotezi = naPotezi.nasprotnik();
-							steviloOdigranihPotez += 1;
 							return true;
 						}
 					}
@@ -214,7 +215,6 @@ public class Igra {
 							plosca[x][y] = Polje.PRAZNO;
 							plosca[x+1][y] = Polje.VERTICAL;
 							naPotezi = naPotezi.nasprotnik();
-							steviloOdigranihPotez += 1;
 							return true;
 						}
 					}
@@ -222,7 +222,6 @@ public class Igra {
 					if (y == 0) { // smo na zgornjem robu, premik naprej odstrani avtomobilèek
 						plosca[x][y] = Polje.PRAZNO;
 						naPotezi = naPotezi.nasprotnik();
-						steviloOdigranihPotez += 1;
 						return true;
 					}
 					else { // nismo na zgornjem robu
@@ -233,7 +232,6 @@ public class Igra {
 							plosca[x][y] = Polje.PRAZNO;
 							plosca[x][y-1] = Polje.VERTICAL;
 							naPotezi = naPotezi.nasprotnik();
-							steviloOdigranihPotez += 1;
 							return true;
 						}
 					}
@@ -258,7 +256,6 @@ public class Igra {
 								plosca[x][y] = Polje.PRAZNO;
 								plosca[x][y-1] = Polje.HORIZONTAL;
 								naPotezi = naPotezi.nasprotnik();
-								steviloOdigranihPotez += 1;
 								return true;
 							}
 						}
@@ -274,7 +271,6 @@ public class Igra {
 								plosca[x][y] = Polje.PRAZNO;
 								plosca[x][y+1] = Polje.HORIZONTAL;
 								naPotezi = naPotezi.nasprotnik();
-								steviloOdigranihPotez += 1;
 								return true;
 							}
 						}
@@ -282,7 +278,6 @@ public class Igra {
 						if (x==N-1) { // smo na desnem robu, premik naprej odstrani avtomobilèek
 							plosca[x][y] = Polje.PRAZNO;
 							naPotezi = naPotezi.nasprotnik();
-							steviloOdigranihPotez += 1;
 							return true;
 						}
 						else { // nismo na desnem robu
@@ -293,7 +288,6 @@ public class Igra {
 								plosca[x][y] = Polje.PRAZNO;
 								plosca[x+1][y] = Polje.HORIZONTAL;
 								naPotezi = naPotezi.nasprotnik();
-								steviloOdigranihPotez += 1;
 								return true;
 							}
 						}
