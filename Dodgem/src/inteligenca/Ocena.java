@@ -16,7 +16,7 @@ public class Ocena {
 	static int N = Igra.N;
 	static int vr;
 	
-	public static final int ZMAGA = (1 << Igra.N * Igra.N); // vrednost zmage je najveèja
+	public static final int ZMAGA = (1 << Igra.N * Igra.N * 1000); // vrednost zmage je najveèja
 	public static final int ZGUBA = -ZMAGA;
 
 	public static int oceniPozicijo(Igralec jaz, Igra igra) {
@@ -31,14 +31,14 @@ public class Ocena {
 			
 			
 			// da igralec zmaga, mora svoje figure prestaviti naprej (Igra.N * (Igra.N - 1))-krat
-			int vrednostVertical = Igra.N * (Igra.N - 1);
-			int vrednostHorizontal = Igra.N * (Igra.N - 1);
+			int vrednostVertical = 10 * Igra.N * (Igra.N - 1);
+			int vrednostHorizontal = 10 * Igra.N * (Igra.N - 1);
 			// morda bi raje šteli, kolikokrat se je že prestavil naprej, namesto da štejemo, kolikokrat se še more
 			
 			for (int i = 0; i < Igra.N; i++) {
 				for (int j = 0; j < Igra.N; j++) {
 					switch (plosca[i][j]) {
-					case VERTICAL: vrednostVertical -= (Igra.N - j);
+					case VERTICAL: vrednostVertical -= (j);
 					case HORIZONTAL: vrednostHorizontal -= (i);
 					case PRAZNO:;
 					}
