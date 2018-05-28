@@ -84,24 +84,31 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		this.setJMenuBar(menu_bar);
 		JMenu igra_menu = new JMenu("Igra");
 		menu_bar.add(igra_menu);
+		JMenu glasba_menu = new JMenu("Glasba");
+		menu_bar.add(glasba_menu);
 		
 
 		//izbire v igra: 
-		igraClovekClovek = new JMenuItem("Èlovek Rumeni  ><  Èlovek Rdeèi");
+		igraClovekClovek = new JMenuItem("Èlovek Rumeni  -  Èlovek Rdeèi");
 		igra_menu .add(igraClovekClovek);
 		igraClovekClovek.addActionListener(this);
 		
-		igraClovekRacunalnik = new JMenuItem("Raèunalnik Rumeni  ><  Èlovek Rdeèi");
+		igraClovekRacunalnik = new JMenuItem("Raèunalnik Rumeni  -  Èlovek Rdeèi");
 		igra_menu .add(igraClovekRacunalnik);
 		igraClovekRacunalnik.addActionListener(this);
 		
-		igraRacunalnikClovek = new JMenuItem("Èlovek Rumeni  ><  Raèunalnik Rdeèi");
+		igraRacunalnikClovek = new JMenuItem("Èlovek Rumeni  -  Raèunalnik Rdeèi");
 		igra_menu .add(igraRacunalnikClovek);
 		igraRacunalnikClovek.addActionListener(this);
 		
-		igraRacunalnikRacunalnik = new JMenuItem("Raèunalnik Rumeni  ><  Raèunalnik Rdeèi");
+		igraRacunalnikRacunalnik = new JMenuItem("Raèunalnik Rumeni  -  Raèunalnik Rdeèi");
 		igra_menu .add(igraRacunalnikRacunalnik);
 		igraRacunalnikRacunalnik.addActionListener(this);
+		
+		// izbiri v glasba:
+		glasbaOn = new JMenuItem("Rad igram ob tej glasbi!");
+		glasba_menu.add(glasbaOn);
+		glasbaOff = new JMenuItem("Pri tej glasbi ne morem razmišljati.");
 		
         // gumb za glasbo
 		JButton glasbaButton = new JButton("Glasba");
