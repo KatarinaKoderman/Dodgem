@@ -51,9 +51,8 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	 */
 	private Strateg strategHORIZONTAL;
 
-	/*
-	 * Ustvarimo clip, ki ga v metodi music predvajamo ali ustavimo.
-	 */
+	//ustvarimo clip
+	 
 	static File soundFile = new File("resources\\Insert-Coins-Jake-Wright.wav");
 	static Clip clip;
 	static {
@@ -73,8 +72,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	private JMenuItem igraRacunalnikClovek;
 	private JMenuItem igraClovekClovek;
 	private JMenuItem igraRacunalnikRacunalnik;
-	private JMenuItem glasbaOn;
-	private JMenuItem glasbaOff;
+
 
 	public GlavnoOkno() {
 		this.setTitle("Dodgem");
@@ -86,8 +84,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		this.setJMenuBar(menu_bar);
 		JMenu igra_menu = new JMenu("Igra");
 		menu_bar.add(igra_menu);
-		JMenu glasba_menu = new JMenu("Glasba");
-		menu_bar.add(glasba_menu);
+
 
 
 		//izbire v igra: 
@@ -107,35 +104,25 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		igra_menu .add(igraRacunalnikRacunalnik);
 		igraRacunalnikRacunalnik.addActionListener(this);
 
-		// izbiri v glasba:
-		glasbaOn = new JMenuItem("Rad igram ob tej glasbi!");
-		glasba_menu.add(glasbaOn);
-		glasbaOn.addActionListener(new ActionListener() {
+		// gumb za glasbo
+		JButton glasbaButton = new JButton("Glasba");
+		GridBagConstraints glasbaButton_layout = new GridBagConstraints();
+		glasbaButton_layout.gridx = 1;
+		glasbaButton_layout.gridy = 1;
+		glasbaButton_layout.anchor = GridBagConstraints.CENTER;
+		getContentPane().add(glasbaButton, glasbaButton_layout);
+		glasbaButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					musicOn();
+					music();
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-
+				
 			}
 		});
-
-		glasbaOff = new JMenuItem("Pri tej glasbi ne morem razmišljati.");
-		glasba_menu.add(glasbaOff);		
-		glasbaOff.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					musicOff();
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-
-			}
-		});
-
+		
 
 		// igralno polje
 		polje = new IgralnoPolje(this);
@@ -206,19 +193,16 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 
 	}
 
-	/*
-	 * Ob klicu zacne ali pa preneha predvajati glasbo.
-	 */
-	public static void musicOn() throws Exception, IOException{
-		clip.start();
-		clip.loop(Clip.LOOP_CONTINUOUSLY);
-		System.out.println("play music");
-	}
-
-	// TODO musicOff ne dela
-	public static void musicOff() throws Exception, IOException{
-		clip.stop();
-		System.out.println("stop music");
+	//zaène s predvajanjem, ali ga ustavi.
+	public static void music() throws Exception, IOException{
+		if (clip.isRunning()) {
+			clip.stop();
+			System.out.println("stop music");
+		} else {
+			clip.start();
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
+			System.out.println("play music");
+		}
 	}
 
 	public void odigraj(Poteza p) {
