@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Igra {
+	
 	/**
 	 * Velikost igralne plošèe N x N.
 	 */
@@ -15,8 +16,12 @@ public class Igra {
 
 	public Polje[][] plosca;
 	public Igralec naPotezi;
-	public static int steviloOdigranihPotez = 0;
+	public int steviloOdigranihPotez = 0;
 	
+	public int getSteviloOdigranihPotez() {
+		return steviloOdigranihPotez;
+	}
+
 	/**
 	 * Nova igra, v zaèetnem stanju so figurice prvega igralca (igralec VERTICAL) 
 	 * postavljene na dnu plošèe, figurice drugega igralca (igralec HORIZONTAL)
@@ -41,7 +46,6 @@ public class Igra {
 		}
 		naPotezi = Igralec.VERTICAL;
 	}
-
 
 	/**
 	 * @param igra nova kopija dane igre
@@ -96,12 +100,10 @@ public class Igra {
 		return veljavnePoteze;
 	}
 
-
 	/**
 	 * @return stanje igre
 	 */
-	// 	TODO ali smemo stanje gledati z dovoljenimi potezami? Raje ne.
-	// TODO dodati je treba, kdo je na potezi
+	// 	Stanja ne gledamo z dovoljenimi potezami, neodvisno od tega gledamo, èe obstaja dovoljena poteza.
 	public Stanje stanje() {
 		int steviloPotezVERTICAL = 0;
 		int steviloPotezHORIZONTAL = 0;
@@ -154,17 +156,14 @@ public class Igra {
 			}
 			else {
 				if (naPotezi == Igralec.VERTICAL) {
-					steviloOdigranihPotez += 1;
 					return Stanje.NA_POTEZI_VERTICAL;
 				}
 				else {
-					steviloOdigranihPotez += 1;
 					return Stanje.NA_POTEZI_HORIZONTAL;
 				}
 			}
 		}
 	}
-
 
 	/**
 	 * Odigraj potezo p.
@@ -200,6 +199,7 @@ public class Igra {
 							plosca[x][y] = Polje.PRAZNO;
 							plosca[x-1][y] = Polje.VERTICAL;
 							naPotezi = naPotezi.nasprotnik();
+							steviloOdigranihPotez += 1;
 							return true;
 						}
 					}
@@ -215,6 +215,7 @@ public class Igra {
 							plosca[x][y] = Polje.PRAZNO;
 							plosca[x+1][y] = Polje.VERTICAL;
 							naPotezi = naPotezi.nasprotnik();
+							steviloOdigranihPotez += 1;
 							return true;
 						}
 					}
@@ -222,6 +223,7 @@ public class Igra {
 					if (y == 0) { // smo na zgornjem robu, premik naprej odstrani avtomobilèek
 						plosca[x][y] = Polje.PRAZNO;
 						naPotezi = naPotezi.nasprotnik();
+						steviloOdigranihPotez += 1;
 						return true;
 					}
 					else { // nismo na zgornjem robu
@@ -232,6 +234,7 @@ public class Igra {
 							plosca[x][y] = Polje.PRAZNO;
 							plosca[x][y-1] = Polje.VERTICAL;
 							naPotezi = naPotezi.nasprotnik();
+							steviloOdigranihPotez += 1;
 							return true;
 						}
 					}
@@ -256,6 +259,7 @@ public class Igra {
 								plosca[x][y] = Polje.PRAZNO;
 								plosca[x][y-1] = Polje.HORIZONTAL;
 								naPotezi = naPotezi.nasprotnik();
+								steviloOdigranihPotez += 1;
 								return true;
 							}
 						}
@@ -271,6 +275,7 @@ public class Igra {
 								plosca[x][y] = Polje.PRAZNO;
 								plosca[x][y+1] = Polje.HORIZONTAL;
 								naPotezi = naPotezi.nasprotnik();
+								steviloOdigranihPotez += 1;
 								return true;
 							}
 						}
@@ -278,6 +283,7 @@ public class Igra {
 						if (x==N-1) { // smo na desnem robu, premik naprej odstrani avtomobilèek
 							plosca[x][y] = Polje.PRAZNO;
 							naPotezi = naPotezi.nasprotnik();
+							steviloOdigranihPotez += 1;
 							return true;
 						}
 						else { // nismo na desnem robu
@@ -288,6 +294,7 @@ public class Igra {
 								plosca[x][y] = Polje.PRAZNO;
 								plosca[x+1][y] = Polje.HORIZONTAL;
 								naPotezi = naPotezi.nasprotnik();
+								steviloOdigranihPotez += 1;
 								return true;
 							}
 						}

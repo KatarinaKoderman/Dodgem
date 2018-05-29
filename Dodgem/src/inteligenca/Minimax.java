@@ -12,21 +12,24 @@ public class Minimax extends SwingWorker<Poteza, Object> {
 	private GlavnoOkno master;
 	private int globina;
 	private Igralec jaz;
+	private int steviloPotezOdPrej;
 	
 	public Minimax(GlavnoOkno master, int globina, Igralec jaz) {
 		this.master = master;
 		this.globina = globina;
 		this.jaz = jaz;
+		this.steviloPotezOdPrej = 0;
 	}
 	
 	@Override
 	protected Poteza doInBackground() throws Exception {
 		Igra igra = master.copyIgra();
-		OcenjenaPoteza op = minimax(0, igra);
+		steviloPotezOdPrej = master.copySteviloPotez();
+		OcenjenaPoteza p = minimax(0, igra);
 		for(int i = 0; i < 1; i++){
-			Thread.sleep(600);
+			Thread.sleep(500);
 		}
-		return op.poteza;
+		return p.poteza;
 	}
 	
 	@Override
@@ -40,10 +43,13 @@ public class Minimax extends SwingWorker<Poteza, Object> {
 		}
 	}
 	
+	/**
+	 * poišèe najboljšo potezo v dani igri
+	 */
 	public OcenjenaPoteza minimax(int k, Igra igra) {
-		System.out.println("minimax, k: " + k);
+		// System.out.println("minimax, k: " + k);
 		Igralec naPotezi = null;
-		// Ugotovimo, ali je konec, ali je kdo na potezi?
+		// Ugotovimo, ali je konec ali je kdo na potezi.
 		switch (igra.stanje()) {
 			case NA_POTEZI_VERTICAL: naPotezi = Igralec.VERTICAL; break;
 			case NA_POTEZI_HORIZONTAL: naPotezi = Igralec.HORIZONTAL; break;
@@ -60,8 +66,10 @@ public class Minimax extends SwingWorker<Poteza, Object> {
 		assert (naPotezi != null);
 		
 		if (k >= globina) {
-			return new OcenjenaPoteza(null, Ocena.oceniPozicijo(jaz, igra));
+			System.out.println("Sem v Minimaxu. Odigranih potez je: " + steviloPotezOdPrej);
+			return new OcenjenaPoteza(null, Ocena.oceniPozicijo(jaz, igra, steviloPotezOdPrej));
 		}
+		
 		Poteza najboljsa = null;
 		int ocenaNajboljse = 0;
 		for (Poteza p : igra.poteze()) {

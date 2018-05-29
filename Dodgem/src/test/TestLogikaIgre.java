@@ -23,5 +23,17 @@ public class TestLogikaIgre extends TestCase {
 		
 		// Po prvi odigrani potezi je na vrsti Y.
 		assertEquals(Stanje.NA_POTEZI_HORIZONTAL, igra.stanje()); 
+		// Po prvi odigrani potezi, je število odigranih potez 1.
+		assertEquals(igra.steviloOdigranihPotez, 1);
+		
+		// Naredimo drugo potezo. Preverimo, da je bila poteza odigrana in da je število odigranih potez enako 2.
+		assertEquals(true, igra.odigraj(igra.poteze().get(0)));
+		assertEquals(Stanje.NA_POTEZI_VERTICAL, igra.stanje());
+		assertEquals(igra.steviloOdigranihPotez, 2);
+		
+		// Naredimo še eno potezo.
+		assertEquals(true, igra.odigraj(igra.poteze().get(0)));
+		assertEquals(Stanje.NA_POTEZI_HORIZONTAL, igra.stanje());
+		assertEquals(igra.steviloOdigranihPotez, 3);
 	}
 }

@@ -253,4 +253,8 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	public Igra copyIgra() {
 		return new Igra(igra);
 	}
+	
+	public int copySteviloPotez() {
+		return igra.getSteviloOdigranihPotez();
+	}
 }
