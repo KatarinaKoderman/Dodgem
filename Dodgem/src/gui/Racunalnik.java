@@ -39,4 +39,9 @@ public class Racunalnik extends Strateg {
 	public void klik(int i, int j, Smer s) {
 	}
 
+	@Override
+	public boolean semClovek() {
+		return false;
+	}
+
 } 

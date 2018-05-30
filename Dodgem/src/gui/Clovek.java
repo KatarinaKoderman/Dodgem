@@ -26,4 +26,9 @@ public class Clovek extends Strateg {
 		master.odigraj(new Poteza(i, j, s));
 	}
 
+	@Override
+	public boolean semClovek() {
+		return true;
+	}
+
 }

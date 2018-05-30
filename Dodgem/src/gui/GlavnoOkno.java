@@ -44,12 +44,12 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	/**
 	 * Strateg, ki vleèe poteze VERTICAL.
 	 */
-	private Strateg strategVERTICAL;
+	protected Strateg strategVERTICAL;
 
 	/**
 	 * Strateg, ki vleèe poteze HORIZONTAL
 	 */
-	private Strateg strategHORIZONTAL;
+	protected Strateg strategHORIZONTAL;
 
 	//ustvarimo clip
 	 
@@ -73,6 +73,9 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	private JMenuItem igraClovekClovek;
 	private JMenuItem igraRacunalnikRacunalnik;
 
+	private JMenuItem mala;
+	private JMenuItem srednja;
+	private JMenuItem velika;
 
 	public GlavnoOkno() {
 		this.setTitle("Dodgem");
@@ -84,6 +87,8 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		this.setJMenuBar(menu_bar);
 		JMenu igra_menu = new JMenu("Igra");
 		menu_bar.add(igra_menu);
+		JMenu velikostPlosca_menu = new JMenu("Velikost plošèe");
+		menu_bar.add(velikostPlosca_menu);
 
 
 
@@ -103,7 +108,20 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		igraRacunalnikRacunalnik = new JMenuItem("Raèunalnik Rumeni  -  Raèunalnik Rdeèi");
 		igra_menu .add(igraRacunalnikRacunalnik);
 		igraRacunalnikRacunalnik.addActionListener(this);
+		
+		//izbire v velikostPlosce: 
+		mala = new JMenuItem("Mala");
+		velikostPlosca_menu .add(mala);
+		mala.addActionListener(this);
 
+		srednja = new JMenuItem("Srednja");
+		velikostPlosca_menu .add(srednja);
+		srednja.addActionListener(this);
+		
+		velika = new JMenuItem("Velika");
+		velikostPlosca_menu .add(velika);
+		velika.addActionListener(this);
+		
 		// gumb za glasbo
 		JButton glasbaButton = new JButton("Glasba");
 		GridBagConstraints glasbaButton_layout = new GridBagConstraints();
@@ -160,7 +178,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	public void nova_igra(Strateg horizontal, Strateg vertical) {
 		if (strategHORIZONTAL != null) { strategHORIZONTAL.prekini(); }
 		if (strategVERTICAL != null) { strategVERTICAL.prekini(); }
-		this.igra = new Igra();
+		this.igra = new Igra(5);
 		strategHORIZONTAL = horizontal;
 		strategVERTICAL = vertical;
 		switch (igra.stanje()) {
@@ -191,6 +209,28 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 					new Clovek(this, Igralec.VERTICAL));
 		}
 
+		else if (e.getSource() == mala) {
+			igra = new Igra(3);
+
+//			nova_igra(strategHORIZONTAL, strategVERTICAL);
+		}
+
+		else if (e.getSource() == srednja) {
+			igra = new Igra(5);
+
+
+//			nova_igra(strategHORIZONTAL, strategVERTICAL);
+		}
+
+		else if (e.getSource() == velika) {
+			igra = new Igra(10);
+
+
+			
+//			nova_igra(strategHORIZONTAL, strategVERTICAL);
+		}
+		osveziGUI();
+		repaint();
 	}
 
 	//zaène s predvajanjem, ali ga ustavi.

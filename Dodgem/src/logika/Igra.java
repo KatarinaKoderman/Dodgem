@@ -8,7 +8,7 @@ public class Igra {
 	/**
 	 * Velikost igralne plošèe N x N.
 	 */
-	public static final int N = 3;
+	public int N;
 
 	/**
 	 * Atributi objekta iz razreda igra.
@@ -27,7 +27,8 @@ public class Igra {
 	 * postavljene na dnu plošèe, figurice drugega igralca (igralec HORIZONTAL)
 	 * pa na levi strani plošèe.
 	 */
-	public Igra() {
+	public Igra(int N) {
+		this.N = N;
 		plosca = new Polje[N][N];
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
@@ -51,6 +52,7 @@ public class Igra {
 	 * @param igra nova kopija dane igre
 	 */
 	public Igra(Igra igra) {
+		this.N = igra.N;
 		plosca = new Polje[N][N];
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {

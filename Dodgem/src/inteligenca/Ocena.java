@@ -11,9 +11,10 @@ import logika.Polje;
  *
  */
 public class Ocena {
-	public static final int ZMAGA = (1 << (Igra.N * Igra.N * 10000)); // vrednost zmage je najveèja
-	public static final int ZGUBA = -ZMAGA;
 
+	public static final int ZMAGA = 100000; // vrednost zmage je najveèja  // ce je v definicije zmage igra.N, stevila N ne moremo spreminjati
+	public static final int ZGUBA = -ZMAGA;
+	
 	public static int oceniPozicijo(Igralec jaz, Igra igra, int steviloOdigranihPotez) { // metoda sprejme še podatek o številu do sedaj odigranih potez
 		Igralec naPotezi = null;
 		int odigranePoteze = steviloOdigranihPotez;
@@ -43,10 +44,10 @@ public class Ocena {
 		int preostalihAvtomobilckovHorizontal = 0;
 		// štejemo, kolikokrat se je že premaknil NAPREJ. 
 		// Morda bi poskusili: Štejemo, kolikokrat bi se še moral.
-		for (int i = 0; i < Igra.N; i++) {
-			for (int j = 0; j < Igra.N; j++) {
+		for (int i = 0; i < igra.N; i++) {
+			for (int j = 0; j < igra.N; j++) {
 				switch (plosca[i][j]) {
-				case VERTICAL: vrednostVertical += (Igra.N - j - 1);
+				case VERTICAL: vrednostVertical += (igra.N - j - 1);
 				preostalihAvtomobilckovVertical += 1;
 				case HORIZONTAL: vrednostHorizontal += i;
 				preostalihAvtomobilckovHorizontal += 1;
@@ -55,8 +56,8 @@ public class Ocena {
 			}
 		}
 		// Upoštevamo še avtomobilèke, ki so že zapustili plošèo.
-		vrednostVertical = vrednostVertical + 100 * Igra.N * preostalihAvtomobilckovVertical - 10 * odigranePoteze;
-		vrednostHorizontal = vrednostHorizontal + 100 * Igra.N * preostalihAvtomobilckovHorizontal - 10 * odigranePoteze;
+		vrednostVertical = vrednostVertical + 100 * igra.N * preostalihAvtomobilckovVertical - 10 * odigranePoteze;
+		vrednostHorizontal = vrednostHorizontal + 100 * igra.N * preostalihAvtomobilckovHorizontal - 10 * odigranePoteze;
 		if (naPotezi == Igralec.VERTICAL) {vrednostHorizontal /= 2;}
 		if (naPotezi == Igralec.HORIZONTAL) {vrednostVertical /= 2;}
 		return (jaz == Igralec.VERTICAL ? (vrednostVertical) : (vrednostHorizontal));

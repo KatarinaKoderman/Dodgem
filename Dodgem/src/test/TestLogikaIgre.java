@@ -14,7 +14,7 @@ public class TestLogikaIgre extends TestCase {
 		assertEquals(Stanje.NA_POTEZI_VERTICAL, igra.stanje());
 		
 		// Na zaèetku je za prvega igralca na voljo N potez.
-		assertEquals(Igra.N, igra.poteze().size());
+		assertEquals(igra.N, igra.poteze().size());
 		
 		// Naredimo eno potezo. Preverimo, èe je bila poteza odigrana.
 		@SuppressWarnings("unused")
