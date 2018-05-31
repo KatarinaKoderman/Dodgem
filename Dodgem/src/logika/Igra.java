@@ -23,9 +23,9 @@ public class Igra {
 	}
 
 	/**
-	 * Nova igra, v zaèetnem stanju so figurice prvega igralca (igralec VERTICAL) 
-	 * postavljene na dnu plošèe, figurice drugega igralca (igralec HORIZONTAL)
-	 * pa na levi strani plošèe.
+	 * Nova igra, v zaï¿½etnem stanju so figurice prvega igralca (igralec VERTICAL) 
+	 * postavljene na dnu ploï¿½ï¿½e, figurice drugega igralca (igralec HORIZONTAL)
+	 * pa na levi strani ploï¿½ï¿½e.
 	 */
 	public Igra(int N) {
 		this.N = N;
@@ -60,6 +60,7 @@ public class Igra {
 			}
 		}
 		this.naPotezi = igra.naPotezi;
+		this.steviloOdigranihPotez = igra.steviloOdigranihPotez;
 	}
 
 	public Polje[][] getPlosca() {
@@ -68,7 +69,7 @@ public class Igra {
 
 
 	/**
-	 * @return seznam možnih potez za igralca, ki je na potezi
+	 * @return seznam moï¿½nih potez za igralca, ki je na potezi
 	 * Pazi na orientacijo osi!
 	 */
 	public List<Poteza> poteze() {
@@ -105,7 +106,7 @@ public class Igra {
 	/**
 	 * @return stanje igre
 	 */
-	// 	Stanja ne gledamo z dovoljenimi potezami, neodvisno od tega gledamo, èe obstaja dovoljena poteza.
+	// 	Stanja ne gledamo z dovoljenimi potezami, neodvisno od tega gledamo, ï¿½e obstaja dovoljena poteza.
 	public Stanje stanje() {
 		int steviloPotezVERTICAL = 0;
 		int steviloPotezHORIZONTAL = 0;
@@ -113,10 +114,10 @@ public class Igra {
 		int steviloAvtomobilovHORIZONTAL = 0;
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) { 
-				// izboljšava: takoj, ko se eno od števil steviloAvtomobilov poveèa, ga ne rabimo veè šteti, naprej bi lahko pregledovali le za drugega igralca
+				// izboljï¿½ava: takoj, ko se eno od ï¿½tevil steviloAvtomobilov poveï¿½a, ga ne rabimo veï¿½ ï¿½teti, naprej bi lahko pregledovali le za drugega igralca
 				if (plosca[i][j] == Polje.VERTICAL) {
 					steviloAvtomobilovVERTICAL += 1;
-					// Obstaja figura, ki pripada VERTICAL. Èe za to figuro obstaja poteza, jo štejemo, sicer ne.
+					// Obstaja figura, ki pripada VERTICAL. ï¿½e za to figuro obstaja poteza, jo ï¿½tejemo, sicer ne.
 					if (i > 0 && plosca[i-1][j] == Polje.PRAZNO) { // nismo na levem robu in lahko se pomaknemo levo
 						steviloPotezVERTICAL += 1;
 						continue;
@@ -132,7 +133,7 @@ public class Igra {
 				}
 				if (plosca[i][j] == Polje.HORIZONTAL) {
 					steviloAvtomobilovHORIZONTAL += 1;	
-					// Obstaja figura, ki pripada HORIZONTAL. Èe za to figuro obstaja poteza, jo štejemo, sicer ne.
+					// Obstaja figura, ki pripada HORIZONTAL. ï¿½e za to figuro obstaja poteza, jo ï¿½tejemo, sicer ne.
 					if (j > 0 && plosca[i][j-1] == Polje.PRAZNO) { // nismo na zgornjem robu in lahko se pomaknemo levo
 						steviloPotezHORIZONTAL += 1;
 						continue;
@@ -149,7 +150,7 @@ public class Igra {
 			}
 		}
 		if (steviloAvtomobilovVERTICAL == 0 || (steviloPotezVERTICAL == 0 && naPotezi == Igralec.VERTICAL)) { 
-			// VERTICAL je vse svoje avtomobilèke spravil s plošèe in je zmagal ALI na potezi je VERTICAL in ne more izvesti nobene poteze
+			// VERTICAL je vse svoje avtomobilï¿½ke spravil s ploï¿½ï¿½e in je zmagal ALI na potezi je VERTICAL in ne more izvesti nobene poteze
 			return Stanje.ZMAGA_VERTICAL;
 		}
 		else {
@@ -174,7 +175,7 @@ public class Igra {
 	 * @return true, ï¿½e je bila poteza uspeï¿½no odigrana
 	 */
 	public boolean odigraj(Poteza p) {
-		assert (naPotezi != null); // te metode ne smemo klicati, èe ni nihèe na potezi
+		assert (naPotezi != null); // te metode ne smemo klicati, ï¿½e ni nihï¿½e na potezi
 		if (plosca[p.getX()][p.getY()] != naPotezi.getPolje()) {
 			return false;
 		}
@@ -183,11 +184,11 @@ public class Igra {
 			int y = p.getY();
 			if (naPotezi == Igralec.VERTICAL) {
 				switch(p.getSmer()) {					
-				// Za vsako možno smer preverimo, èe je poteza dovoljena:
+				// Za vsako moï¿½no smer preverimo, ï¿½e je poteza dovoljena:
 				// 1. ali je na polju (x, y) res VERTICAL
 				// 2. Ali smo na (levem/desnem/zgornjem) robu?
-				// 3. Èe nismo na robu, ali je na (levi/desni/naprej) prazno polje?
-				// Izvedemo potezo: spremenimo obe polji (eno na prazno, eno na VERTICAL), pri smeri NAPREJ lahko v doloèeni situaciji spremenimo le eno polje
+				// 3. ï¿½e nismo na robu, ali je na (levi/desni/naprej) prazno polje?
+				// Izvedemo potezo: spremenimo obe polji (eno na prazno, eno na VERTICAL), pri smeri NAPREJ lahko v doloï¿½eni situaciji spremenimo le eno polje
 				// return true
 				case LEVO:
 					if (x == 0) { // smo na levem robu, ne moremo levo
@@ -222,7 +223,7 @@ public class Igra {
 						}
 					}
 				case NAPREJ:
-					if (y == 0) { // smo na zgornjem robu, premik naprej odstrani avtomobilèek
+					if (y == 0) { // smo na zgornjem robu, premik naprej odstrani avtomobilï¿½ek
 						plosca[x][y] = Polje.PRAZNO;
 						naPotezi = naPotezi.nasprotnik();
 						steviloOdigranihPotez += 1;
@@ -247,7 +248,7 @@ public class Igra {
 				if (plosca[x][y] != Polje.HORIZONTAL) { // na polju (x, y) ni igralec HORIZONTAL
 					return false;
 				}
-				else { // na polju (x, y) je avtomobilèek, ki pripada HORIZONTAL
+				else { // na polju (x, y) je avtomobilï¿½ek, ki pripada HORIZONTAL
 					switch(p.getSmer()) { 
 					case LEVO:
 						if (y == 0) { // smo na zgornjem (glede na orientacijo tega avta je to na levem) robu, ne moremo levo
@@ -282,7 +283,7 @@ public class Igra {
 							}
 						}
 					case NAPREJ:
-						if (x==N-1) { // smo na desnem robu, premik naprej odstrani avtomobilèek
+						if (x==N-1) { // smo na desnem robu, premik naprej odstrani avtomobilï¿½ek
 							plosca[x][y] = Polje.PRAZNO;
 							naPotezi = naPotezi.nasprotnik();
 							steviloOdigranihPotez += 1;

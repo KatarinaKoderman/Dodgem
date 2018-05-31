@@ -12,14 +12,13 @@ import logika.Polje;
  */
 public class Ocena {
 
-	public static final int ZMAGA = 100000000; // vrednost zmage je najveèja  // ce je v definicije zmage igra.N, stevila N ne moremo spreminjati
+	public static final int ZMAGA = 100000000; // vrednost zmage je najveï¿½ja  // ce je v definicije zmage igra.N, stevila N ne moremo spreminjati
 	public static final int ZGUBA = -ZMAGA;
 	
-	public static int oceniPozicijo(Igralec jaz, Igra igra, int steviloOdigranihPotez) { // metoda sprejme še podatek o številu do sedaj odigranih potez
+	public static int oceniPozicijo(Igralec jaz, Igra igra) { // metoda sprejme ï¿½e podatek o ï¿½tevilu do sedaj odigranih potez
 		Igralec naPotezi = null;
-		int odigranePoteze = steviloOdigranihPotez;
-		System.out.println("Sem v Oceni pred ocenjevanjem. Število odigranih potez: " + steviloOdigranihPotez);
-		final int ZMAGA_PRILAGOJENA = ZMAGA - 10 * odigranePoteze;
+		System.out.println("Sem v Oceni pred ocenjevanjem. ï¿½tevilo odigranih potez: " + igra.getSteviloOdigranihPotez());
+		final int ZMAGA_PRILAGOJENA = ZMAGA - 10 * igra.getSteviloOdigranihPotez();
 		final int ZGUBA_PRILAGOJENA = - ZMAGA_PRILAGOJENA;
 		
 		switch (igra.stanje()) {
@@ -32,7 +31,7 @@ public class Ocena {
 		case NA_POTEZI_HORIZONTAL:
 			naPotezi = Igralec.HORIZONTAL; }
 		
-		// preštejemo, koliko premikov naprej je opravljenih
+		// preï¿½tejemo, koliko premikov naprej je opravljenih
 		
 		Polje[][] plosca = igra.getPlosca();
 
@@ -44,21 +43,27 @@ public class Ocena {
 		int preostalihAvtomobilckovHorizontal = 0;
 		int steviloPraznih = 0;
 		
-		// štejemo, kolikokrat se je že premaknil NAPREJ. 
-		// Morda bi poskusili: Štejemo, kolikokrat bi se še moral.
+		// ï¿½tejemo, kolikokrat se je ï¿½e premaknil NAPREJ. 
+		// Morda bi poskusili: ï¿½tejemo, kolikokrat bi se ï¿½e moral.
 		for (int i = 0; i < igra.N; i++) {
 			for (int j = 0; j < igra.N; j++) {
 				switch (plosca[i][j]) {
-				case VERTICAL: vrednostVertical += (igra.N - j)*10;
-				preostalihAvtomobilckovVertical += 1;
-				case HORIZONTAL: vrednostHorizontal += (i)*10;
-				preostalihAvtomobilckovHorizontal += 1;
-				case PRAZNO: steviloPraznih += 1;
+				case VERTICAL:
+					vrednostVertical += (igra.N - 1 - j)*10;
+					preostalihAvtomobilckovVertical += 1;
+					break;
+				case HORIZONTAL:
+					vrednostHorizontal += (i)*10;
+					preostalihAvtomobilckovHorizontal += 1;
+					break;
+				case PRAZNO:
+					steviloPraznih += 1;
+					break;
 				}
 			}
 		}
 			
-		// Upoštevamo še avtomobilèke, ki so že zapustili plošèo.
+		// Upoï¿½tevamo ï¿½e avtomobilï¿½ke, ki so ï¿½e zapustili ploï¿½ï¿½o.
 		vrednostVertical = vrednostVertical - 100000 * preostalihAvtomobilckovVertical + steviloPraznih;
 		vrednostHorizontal = vrednostHorizontal - 100000 * preostalihAvtomobilckovHorizontal + steviloPraznih;
 

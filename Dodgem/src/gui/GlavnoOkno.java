@@ -26,7 +26,7 @@ import javax.sound.sampled.*;
 @SuppressWarnings("serial")
 public class GlavnoOkno extends JFrame implements ActionListener {
 	/**
-	 * JPanel, v katerega rišemo VERTICAL in HORIZONTAL
+	 * JPanel, v katerega riï¿½emo VERTICAL in HORIZONTAL
 	 */
 	private IgralnoPolje polje;
 
@@ -37,17 +37,17 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 
 
 	/**
-	 * Logika igre, null èe se igra trenutno ne igra
+	 * Logika igre, null ï¿½e se igra trenutno ne igra
 	 */
 	protected Igra igra;
 
 	/**
-	 * Strateg, ki vleèe poteze VERTICAL.
+	 * Strateg, ki vleï¿½e poteze VERTICAL.
 	 */
 	protected Strateg strategVERTICAL;
 
 	/**
-	 * Strateg, ki vleèe poteze HORIZONTAL
+	 * Strateg, ki vleï¿½e poteze HORIZONTAL
 	 */
 	protected Strateg strategHORIZONTAL;
 	
@@ -59,17 +59,17 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	 
 	static File soundFile = new File("Dodgem\\resources\\Insert-Coins-Jake-Wright.wav");
 	static Clip clip;
-	static {
-		try {
-			AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
-			clip = AudioSystem.getClip();
-			clip.open(audioIn);
-		} catch (UnsupportedAudioFileException | IOException e) {
-			e.printStackTrace();
-		} catch (LineUnavailableException e) {
-			e.printStackTrace();
-		}
-	}
+//	static {
+//		try {
+//			AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+//			clip = AudioSystem.getClip();
+//			clip.open(audioIn);
+//		} catch (UnsupportedAudioFileException | IOException e) {
+//			e.printStackTrace();
+//		} catch (LineUnavailableException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	// Izbire v menujih
 	private JMenuItem igraClovekRacunalnik;
@@ -91,25 +91,25 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		this.setJMenuBar(menu_bar);
 		JMenu igra_menu = new JMenu("Igra");
 		menu_bar.add(igra_menu);
-		JMenu velikostPlosca_menu = new JMenu("Velikost plošèe");
+		JMenu velikostPlosca_menu = new JMenu("Velikost ploï¿½ï¿½e");
 		menu_bar.add(velikostPlosca_menu);
 
 
 
 		//izbire v igra: 
-		igraClovekClovek = new JMenuItem("Èlovek Rumeni  -  Èlovek Rdeèi");
+		igraClovekClovek = new JMenuItem("ï¿½lovek Rumeni  -  ï¿½lovek Rdeï¿½i");
 		igra_menu .add(igraClovekClovek);
 		igraClovekClovek.addActionListener(this);
 
-		igraClovekRacunalnik = new JMenuItem("Raèunalnik Rumeni  -  Èlovek Rdeèi");
+		igraClovekRacunalnik = new JMenuItem("Raï¿½unalnik Rumeni  -  ï¿½lovek Rdeï¿½i");
 		igra_menu .add(igraClovekRacunalnik);
 		igraClovekRacunalnik.addActionListener(this);
 
-		igraRacunalnikClovek = new JMenuItem("Èlovek Rumeni  -  Raèunalnik Rdeèi");
+		igraRacunalnikClovek = new JMenuItem("ï¿½lovek Rumeni  -  Raï¿½unalnik Rdeï¿½i");
 		igra_menu .add(igraRacunalnikClovek);
 		igraRacunalnikClovek.addActionListener(this);
 
-		igraRacunalnikRacunalnik = new JMenuItem("Raèunalnik Rumeni  -  Raèunalnik Rdeèi");
+		igraRacunalnikRacunalnik = new JMenuItem("Raï¿½unalnik Rumeni  -  Raï¿½unalnik Rdeï¿½i");
 		igra_menu .add(igraRacunalnikRacunalnik);
 		igraRacunalnikRacunalnik.addActionListener(this);
 		
@@ -156,7 +156,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		polje_layout.weighty = 1.0;
 		getContentPane().add(polje, polje_layout);
 
-		// statusna vrstica za sporoèila
+		// statusna vrstica za sporoï¿½ila
 		status = new JLabel();
 		status.setFont(new Font(status.getFont().getName(),
 				status.getFont().getStyle(),
@@ -173,7 +173,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 
 
 	/**
-	 * @return trenutna igralna plosèa, ali null, èe igra ni aktivna
+	 * @return trenutna igralna plosï¿½a, ali null, ï¿½e igra ni aktivna
 	 */
 	public Polje[][] getPlosca() {
 		return (igra == null ? null : igra.getPlosca());
@@ -234,7 +234,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		repaint();
 	}
 
-	//zaène s predvajanjem, ali ga ustavi.
+	//zaï¿½ne s predvajanjem, ali ga ustavi.
 	public static void music() throws Exception, IOException{
 		if (clip.isRunning()) {
 			clip.stop();
@@ -264,9 +264,9 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		}
 		else {
 			switch(igra.stanje()) {
-			case NA_POTEZI_HORIZONTAL: status.setText("Na potezi je rdeèi."); break;
+			case NA_POTEZI_HORIZONTAL: status.setText("Na potezi je rdeï¿½i."); break;
 			case NA_POTEZI_VERTICAL: status.setText("Na potezi je rumeni."); break;
-			case ZMAGA_HORIZONTAL: status.setText("Zmagal je rdeèi."); break;
+			case ZMAGA_HORIZONTAL: status.setText("Zmagal je rdeï¿½i."); break;
 			case ZMAGA_VERTICAL: status.setText("Zmagal je rumeni."); break;
 			}
 		}
@@ -295,7 +295,4 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		return new Igra(igra);
 	}
 	
-	public int copySteviloPotez() {
-		return igra.getSteviloOdigranihPotez();
-	}
 }

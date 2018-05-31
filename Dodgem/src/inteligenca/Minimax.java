@@ -15,19 +15,16 @@ public class Minimax extends SwingWorker<Poteza, Object> { // Treba je implement
 	private GlavnoOkno master;
 	private int globina;
 	private Igralec jaz;
-	private int steviloPotezOdPrej;
 	
 	public Minimax(GlavnoOkno master, int globina, Igralec jaz) {
 		this.master = master;
 		this.globina = globina;
 		this.jaz = jaz;
-		this.steviloPotezOdPrej = 0;
 	}
 	
 	@Override
 	protected Poteza doInBackground() throws Exception {
 		Igra igra = master.copyIgra();
-		steviloPotezOdPrej = master.copySteviloPotez();
 		OcenjenaPoteza p = minimax(0, igra);
 		for(int i = 0; i < 1; i++){
 			Thread.sleep(500);
@@ -47,7 +44,7 @@ public class Minimax extends SwingWorker<Poteza, Object> { // Treba je implement
 	}
 	
 	/**
-	 * poišèe najboljšo potezo v dani igri
+	 * poiï¿½ï¿½e najboljï¿½o potezo v dani igri
 	 */
 	public OcenjenaPoteza minimax(int k, Igra igra) {
 		// System.out.println("minimax, k: " + k);
@@ -69,8 +66,7 @@ public class Minimax extends SwingWorker<Poteza, Object> { // Treba je implement
 		assert (naPotezi != null);
 		
 		if (k >= globina) {
-			System.out.println("Sem v Minimaxu. Odigranih potez je: " + steviloPotezOdPrej);
-			return new OcenjenaPoteza(null, Ocena.oceniPozicijo(jaz, igra, steviloPotezOdPrej));
+			return new OcenjenaPoteza(null, Ocena.oceniPozicijo(jaz, igra));
 		}
 		
 		LinkedList<Poteza> najboljsePoteze = new LinkedList<Poteza>();
