@@ -6,11 +6,11 @@ import logika.Smer;
 
 public class Clovek extends Strateg {
 	private GlavnoOkno master;
-	private Igralec ego;
+	private Igralec jaz;
 	
-	public Clovek(GlavnoOkno master, Igralec ego) {
+	public Clovek(GlavnoOkno master, Igralec jaz) {
 		this.master = master;
-		this.ego = ego;
+		this.jaz = jaz;
 	}
 	
 	@Override
@@ -23,8 +23,12 @@ public class Clovek extends Strateg {
 	
 	@Override
 	public void klik(int i, int j, Smer s) {
-		// smer dobimo z ukazom s tipkovnice. TODO
 		master.odigraj(new Poteza(i, j, s));
+	}
+
+	@Override
+	public boolean semClovek() {
+		return true;
 	}
 
 }

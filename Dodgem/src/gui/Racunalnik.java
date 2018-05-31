@@ -14,7 +14,7 @@ public class Racunalnik extends Strateg {
 	private Igralec id;
 	private SwingWorker<Poteza,Object> mislec;
 	private boolean prekini;
-	private int globina = 1;
+	private int globina = 3;
 
 	public Racunalnik(GlavnoOkno master, Igralec igralec) {
 		this.master = master;
@@ -23,9 +23,9 @@ public class Racunalnik extends Strateg {
 	
 	@Override
 	public void na_potezi() {
-		// Zaènemo razmišljati
 		mislec = new Minimax(master, globina, id);
 		mislec.execute();
+		
 	}
 
 	@Override
@@ -37,6 +37,11 @@ public class Racunalnik extends Strateg {
 
 	@Override
 	public void klik(int i, int j, Smer s) {
+	}
+
+	@Override
+	public boolean semClovek() {
+		return false;
 	}
 
 } 

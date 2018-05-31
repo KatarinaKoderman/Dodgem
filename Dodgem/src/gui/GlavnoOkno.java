@@ -44,16 +44,19 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	/**
 	 * Strateg, ki vleèe poteze VERTICAL.
 	 */
-	private Strateg strategVERTICAL;
+	protected Strateg strategVERTICAL;
 
 	/**
 	 * Strateg, ki vleèe poteze HORIZONTAL
 	 */
-	private Strateg strategHORIZONTAL;
+	protected Strateg strategHORIZONTAL;
+	
+	public int M = 5;
 
-	/*
-	 * Ustvarimo clip, ki ga v metodi music predvajamo ali ustavimo.
+	/**
+	 * Ustvarimo clip.
 	 */
+	 
 	static File soundFile = new File("Dodgem\\resources\\Insert-Coins-Jake-Wright.wav");
 	static Clip clip;
 	static {
@@ -74,6 +77,10 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	private JMenuItem igraClovekClovek;
 	private JMenuItem igraRacunalnikRacunalnik;
 
+	private JMenuItem mala;
+	private JMenuItem srednja;
+	private JMenuItem velika;
+
 	public GlavnoOkno() {
 		this.setTitle("Dodgem");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -84,26 +91,42 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		this.setJMenuBar(menu_bar);
 		JMenu igra_menu = new JMenu("Igra");
 		menu_bar.add(igra_menu);
-		
+		JMenu velikostPlosca_menu = new JMenu("Velikost plošèe");
+		menu_bar.add(velikostPlosca_menu);
+
+
 
 		//izbire v igra: 
-		igraClovekClovek = new JMenuItem("Èlovek Rumeni  ><  Èlovek Rdeèi");
+		igraClovekClovek = new JMenuItem("Èlovek Rumeni  -  Èlovek Rdeèi");
 		igra_menu .add(igraClovekClovek);
 		igraClovekClovek.addActionListener(this);
-		
-		igraClovekRacunalnik = new JMenuItem("Raèunalnik Rumeni  ><  Èlovek Rdeèi");
+
+		igraClovekRacunalnik = new JMenuItem("Raèunalnik Rumeni  -  Èlovek Rdeèi");
 		igra_menu .add(igraClovekRacunalnik);
 		igraClovekRacunalnik.addActionListener(this);
-		
-		igraRacunalnikClovek = new JMenuItem("Èlovek Rumeni  ><  Raèunalnik Rdeèi");
+
+		igraRacunalnikClovek = new JMenuItem("Èlovek Rumeni  -  Raèunalnik Rdeèi");
 		igra_menu .add(igraRacunalnikClovek);
 		igraRacunalnikClovek.addActionListener(this);
-		
-		igraRacunalnikRacunalnik = new JMenuItem("Raèunalnik Rumeni  ><  Raèunalnik Rdeèi");
+
+		igraRacunalnikRacunalnik = new JMenuItem("Raèunalnik Rumeni  -  Raèunalnik Rdeèi");
 		igra_menu .add(igraRacunalnikRacunalnik);
 		igraRacunalnikRacunalnik.addActionListener(this);
 		
-        // gumb za glasbo
+		//izbire v velikostPlosce: 
+		mala = new JMenuItem("Mala");
+		velikostPlosca_menu .add(mala);
+		mala.addActionListener(this);
+
+		srednja = new JMenuItem("Srednja");
+		velikostPlosca_menu .add(srednja);
+		srednja.addActionListener(this);
+		
+		velika = new JMenuItem("Velika");
+		velikostPlosca_menu .add(velika);
+		velika.addActionListener(this);
+		
+		// gumb za glasbo
 		JButton glasbaButton = new JButton("Glasba");
 		GridBagConstraints glasbaButton_layout = new GridBagConstraints();
 		glasbaButton_layout.gridx = 1;
@@ -122,7 +145,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 			}
 		});
 		
-  
+
 		// igralno polje
 		polje = new IgralnoPolje(this);
 		GridBagConstraints polje_layout = new GridBagConstraints();
@@ -146,7 +169,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 
 		// za zacetek clovek proti cloveku
 		nova_igra(new Clovek(this, Igralec.HORIZONTAL), new Clovek(this, Igralec.VERTICAL));
-		}
+	}
 
 
 	/**
@@ -159,7 +182,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	public void nova_igra(Strateg horizontal, Strateg vertical) {
 		if (strategHORIZONTAL != null) { strategHORIZONTAL.prekini(); }
 		if (strategVERTICAL != null) { strategVERTICAL.prekini(); }
-		this.igra = new Igra();
+		this.igra = new Igra(M);
 		strategHORIZONTAL = horizontal;
 		strategVERTICAL = vertical;
 		switch (igra.stanje()) {
@@ -170,31 +193,48 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		osveziGUI();
 		repaint();
 	}
- 
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == igraClovekRacunalnik) {
 			nova_igra(new Clovek(this, Igralec.HORIZONTAL),
-					  new Racunalnik(this, Igralec.VERTICAL));
+					new Racunalnik(this, Igralec.VERTICAL));
 		}
 		else if (e.getSource() == igraRacunalnikClovek) {
 			nova_igra(new Racunalnik(this, Igralec.HORIZONTAL),
-					  new Clovek(this, Igralec.VERTICAL));
+					new Clovek(this, Igralec.VERTICAL));
 		}
 		else if (e.getSource() == igraRacunalnikRacunalnik) {
 			nova_igra(new Racunalnik(this, Igralec.HORIZONTAL),
-					  new Racunalnik(this, Igralec.VERTICAL));
+					new Racunalnik(this, Igralec.VERTICAL));
 		}
 		else if (e.getSource() == igraClovekClovek) {
 			nova_igra(new Clovek(this, Igralec.HORIZONTAL),
-			          new Clovek(this, Igralec.VERTICAL));
+					new Clovek(this, Igralec.VERTICAL));
 		}
-		
+
+		else if (e.getSource() == mala) {
+			M = 3;
+			igra = new Igra(3);
+			nova_igra(strategHORIZONTAL, strategVERTICAL);
+		}
+
+		else if (e.getSource() == srednja) {
+			M = 5;
+			igra = new Igra(5);
+			nova_igra(strategHORIZONTAL, strategVERTICAL);
+		}
+
+		else if (e.getSource() == velika) {
+			M = 10;
+			igra = new Igra(10);
+			nova_igra(strategHORIZONTAL, strategVERTICAL);
+		}
+		osveziGUI();
+		repaint();
 	}
-	
-	/*
-	 * Ob klicu zacne ali pa preneha predvajati glasbo.
-	 */
+
+	//zaène s predvajanjem, ali ga ustavi.
 	public static void music() throws Exception, IOException{
 		if (clip.isRunning()) {
 			clip.stop();
@@ -205,8 +245,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 			System.out.println("play music");
 		}
 	}
-	
-	
+
 	public void odigraj(Poteza p) {
 		if(igra.odigraj(p)) {
 			osveziGUI();
@@ -254,5 +293,9 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	 */
 	public Igra copyIgra() {
 		return new Igra(igra);
+	}
+	
+	public int copySteviloPotez() {
+		return igra.getSteviloOdigranihPotez();
 	}
 }

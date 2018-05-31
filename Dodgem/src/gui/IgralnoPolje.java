@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 
-import logika.Igra;
+
 import logika.Igralec;
 import logika.Polje;
 import logika.Smer;
@@ -55,9 +55,8 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 	}
 
 	private double squareWidth() {
-		return Math.min(getWidth(), getHeight()) / Igra.N;
+		return Math.min(getWidth(), getHeight()) / master.igra.N;
 	}
-
 	
 	//manjsi trikotniki VERTICAL
 	ArrayList<Polygon> poligonckiVerticalN = new ArrayList<Polygon>();
@@ -77,7 +76,8 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 	//nevidni trikotniki, za premikanje HORIZONTAL
 	ArrayList<Polygon> poligonckiHorizontalNAPREJ = new ArrayList<Polygon>();
 	ArrayList<Polygon> poligonckiHorizontalLEVO = new ArrayList<Polygon>();
-	ArrayList<Polygon> poligonckiHorizontalDESNO = new ArrayList<Polygon>();	
+	ArrayList<Polygon> poligonckiHorizontalDESNO = new ArrayList<Polygon>();
+	
 	
 	private void paintVERTICAL(Graphics2D g2, int i, int j) {
 		
@@ -220,28 +220,28 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		// èrte
 		g2.setColor(Color.gray);
 		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
-		for (int i = 1; i < Igra.N; i++) {
+		for (int i = 1; i < master.igra.N; i++) {
 			g2.drawLine((int)(i * w),
 					    (int)(LINE_WIDTH * w),
 					    (int)(i * w),
-					    (int)((Igra.N - LINE_WIDTH) * w));
+					    (int)((master.igra.N - LINE_WIDTH) * w));
 			g2.drawLine((int)(LINE_WIDTH * w),
 					    (int)(i * w),
-					    (int)((Igra.N - LINE_WIDTH) * w),
+					    (int)((master.igra.N - LINE_WIDTH) * w),
 					    (int)(i * w));
 		}
 		
 		
 		g2.setColor(Color.red);
-		g2.drawLine((int)(Igra.N * w),
+		g2.drawLine((int)(master.igra.N * w),
 			    (int)(LINE_WIDTH * w + LINE_WIDTH),
-			    (int)(Igra.N * w),
-			    (int)((Igra.N - LINE_WIDTH + LINE_WIDTH) * w));
+			    (int)(master.igra.N * w),
+			    (int)((master.igra.N - LINE_WIDTH + LINE_WIDTH) * w));
 		
 		g2.setColor(Color.orange);
 		g2.drawLine((int)(LINE_WIDTH * w),
 			    (int)(0 * w),
-			    (int)((Igra.N - LINE_WIDTH  + LINE_WIDTH) * w),
+			    (int)((master.igra.N - LINE_WIDTH  + LINE_WIDTH) * w),
 			    (int)(0 * w));
 		
 		
@@ -249,8 +249,8 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		// avtomobilèki (za igralca VERTICAL in HORIZONTAL)
 		Polje[][] plosca = master.getPlosca();
 		if (plosca != null) {
-			for (int i = 0; i < Igra.N; i++) {
-				for (int j = 0; j < Igra.N; j++) {
+			for (int i = 0; i < master.igra.N; i++) {
+				for (int j = 0; j < master.igra.N; j++) {
 					switch(plosca[i][j]) {
 					case VERTICAL: paintVERTICAL(g2, i, j); break;
 					case HORIZONTAL: paintHORIZONTAL(g2, i, j); break;
@@ -274,9 +274,9 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		double di = (x % w) / squareWidth() ;
 		int j = y / w ;
 		double dj = (y % w) / squareWidth() ;
-		if (0 <= i && i < Igra.N &&
+		if (0 <= i && i < master.igra.N &&
 				0.5 * LINE_WIDTH < di && di < 1.0 - 0.5 * LINE_WIDTH &&
-				0 <= j && j < Igra.N && 
+				0 <= j && j < master.igra.N && 
 				0.5 * LINE_WIDTH < dj && dj < 1.0 - 0.5 * LINE_WIDTH) {
 			
 			gumbekPremakni(poligonckiVerticalNAPREJ, Smer.NAPREJ, e);
@@ -289,7 +289,7 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 			repaint();
 
 		}
-	repaint();
+
 	}
 
 
@@ -325,19 +325,40 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		int w = (int)(squareWidth());
 		int i = x / w ;
 		int j = y / w ;
+		if (i >= master.igra.N || j >= master.igra.N || i < 0 || j < 0) return;
 		
 		if (master.igra.plosca[i][j] == Polje.PRAZNO){
 			return;
 		}
 		
-		if(master.igra.naPotezi == Igralec.VERTICAL && master.igra.plosca[i][j] == Polje.VERTICAL){
+		if(master.strategVERTICAL.semClovek() && master.igra.naPotezi == Igralec.VERTICAL && master.igra.plosca[i][j] == Polje.VERTICAL){
 		gumbekZelen(poligonckiVerticalNAPREJ, poligonckiVerticalN, poligonckiVerticalLEVO, poligonckiVerticalL, poligonckiVerticalDESNO, poligonckiVerticalD, e, nasel);
 		repaint();
 		}
-		else if(master.igra.naPotezi == Igralec.HORIZONTAL && master.igra.plosca[i][j] == Polje.HORIZONTAL){
+		else if(master.strategHORIZONTAL.semClovek() && master.igra.naPotezi == Igralec.HORIZONTAL && master.igra.plosca[i][j] == Polje.HORIZONTAL){
 		gumbekZelen(poligonckiHorizontalNAPREJ, poligonckiHorizontalN, poligonckiHorizontalLEVO, poligonckiHorizontalL, poligonckiHorizontalDESNO, poligonckiHorizontalD, e, nasel);
 		repaint();
 		}
+		
+		//manjsi trikotniki VERTICAL
+		poligonckiVerticalN = new ArrayList<Polygon>();
+		poligonckiVerticalL = new ArrayList<Polygon>();
+		poligonckiVerticalD = new ArrayList<Polygon>();
+		
+		//nevidni trikotniki, za premikanje VERTICAL
+		poligonckiVerticalNAPREJ = new ArrayList<Polygon>();
+		poligonckiVerticalLEVO = new ArrayList<Polygon>();
+		poligonckiVerticalDESNO = new ArrayList<Polygon>();
+		
+		//manjsi trikotniki HORIZONTAL
+		poligonckiHorizontalN = new ArrayList<Polygon>();
+		poligonckiHorizontalL = new ArrayList<Polygon>();
+		poligonckiHorizontalD = new ArrayList<Polygon>();
+		
+		//nevidni trikotniki, za premikanje HORIZONTAL
+		poligonckiHorizontalNAPREJ = new ArrayList<Polygon>();
+		poligonckiHorizontalLEVO = new ArrayList<Polygon>();
+		poligonckiHorizontalDESNO = new ArrayList<Polygon>();
 		repaint();
 		
 		//manjsi trikotniki VERTICAL

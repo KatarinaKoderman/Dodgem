@@ -21,4 +21,6 @@ public abstract class Strateg {
 	 * Glavno okno klièe to metodo, ko uporabnik klikne na polje (i, j).
 	 */
 	public abstract void klik(int i, int j, Smer s);
+	
+	public abstract boolean semClovek();
 }
