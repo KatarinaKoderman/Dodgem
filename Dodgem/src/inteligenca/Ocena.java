@@ -42,9 +42,6 @@ public class Ocena {
 		int vrednostHorizontal = 0;
 		int preostalihAvtomobilckovVertical = 0;
 		int preostalihAvtomobilckovHorizontal = 0;
-
-		int steviloOdstranjenihVertical = 0;
-		int steviloOdstranjenihHorizontal = 0;
 		int steviloPraznih = 0;
 		
 		// štejemo, kolikokrat se je že premaknil NAPREJ. 
@@ -60,11 +57,10 @@ public class Ocena {
 				}
 			}
 		}
-		steviloOdstranjenihVertical = igra.N - preostalihAvtomobilckovVertical;
-		steviloOdstranjenihVertical = igra.N - preostalihAvtomobilckovVertical;				
+			
 		// Upoštevamo še avtomobilèke, ki so že zapustili plošèo.
-		vrednostVertical = vrednostVertical - 10000 * preostalihAvtomobilckovVertical + steviloPraznih;
-		vrednostHorizontal = vrednostHorizontal - 10000 * preostalihAvtomobilckovHorizontal + steviloPraznih;
+		vrednostVertical = vrednostVertical - 100000 * preostalihAvtomobilckovVertical + steviloPraznih;
+		vrednostHorizontal = vrednostHorizontal - 100000 * preostalihAvtomobilckovHorizontal + steviloPraznih;
 
 		return (jaz == Igralec.VERTICAL ? (vrednostVertical) : (vrednostHorizontal));
 	}
