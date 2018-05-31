@@ -1,5 +1,8 @@
 package inteligenca;
 
+import java.util.LinkedList;
+import java.util.Random;
+
 import javax.swing.SwingWorker;
 
 import gui.GlavnoOkno;
@@ -70,23 +73,29 @@ public class Minimax extends SwingWorker<Poteza, Object> { // Treba je implement
 			return new OcenjenaPoteza(null, Ocena.oceniPozicijo(jaz, igra, steviloPotezOdPrej));
 		}
 		
-		Poteza najboljsa = null;
+		LinkedList<Poteza> najboljsePoteze = new LinkedList<Poteza>();
 		int ocenaNajboljse = 0;
 		for (Poteza p : igra.poteze()) {
 			Igra kopijaIgre = new Igra(igra);
 			kopijaIgre.odigraj(p);
 			int ocenaP = minimax(k+1, kopijaIgre).vrednost;
 			System.out.println(p.toString() + " ocenaP: " + ocenaP);
-			if (najboljsa == null 
+			if (najboljsePoteze.isEmpty() 
 					|| (naPotezi == jaz && ocenaP > ocenaNajboljse)
 					|| (naPotezi != jaz && ocenaP < ocenaNajboljse)
 					) 
 				{
-					najboljsa = p;
-					ocenaNajboljse = ocenaP;
+				najboljsePoteze.clear();
+				najboljsePoteze.add(p);
+				ocenaNajboljse = ocenaP;
 				}
+		 else if (ocenaP == ocenaNajboljse) {
+			najboljsePoteze.add(p);
 		}
-		assert (najboljsa != null);
+		}
+		assert(! najboljsePoteze.isEmpty());
+		Random r = new Random();
+		Poteza najboljsa = najboljsePoteze.get(r.nextInt(najboljsePoteze.size()));
 		return new OcenjenaPoteza(najboljsa, ocenaNajboljse);
 		
 		

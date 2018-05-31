@@ -12,7 +12,7 @@ import logika.Polje;
  */
 public class Ocena {
 
-	public static final int ZMAGA = 100000; // vrednost zmage je najveèja  // ce je v definicije zmage igra.N, stevila N ne moremo spreminjati
+	public static final int ZMAGA = 100000000; // vrednost zmage je najveèja  // ce je v definicije zmage igra.N, stevila N ne moremo spreminjati
 	public static final int ZGUBA = -ZMAGA;
 	
 	public static int oceniPozicijo(Igralec jaz, Igra igra, int steviloOdigranihPotez) { // metoda sprejme še podatek o številu do sedaj odigranih potez
@@ -42,24 +42,30 @@ public class Ocena {
 		int vrednostHorizontal = 0;
 		int preostalihAvtomobilckovVertical = 0;
 		int preostalihAvtomobilckovHorizontal = 0;
+
+		int steviloOdstranjenihVertical = 0;
+		int steviloOdstranjenihHorizontal = 0;
+		int steviloPraznih = 0;
+		
 		// štejemo, kolikokrat se je že premaknil NAPREJ. 
 		// Morda bi poskusili: Štejemo, kolikokrat bi se še moral.
 		for (int i = 0; i < igra.N; i++) {
 			for (int j = 0; j < igra.N; j++) {
 				switch (plosca[i][j]) {
-				case VERTICAL: vrednostVertical += (igra.N - j - 1);
+				case VERTICAL: vrednostVertical += (igra.N - j)*10;
 				preostalihAvtomobilckovVertical += 1;
-				case HORIZONTAL: vrednostHorizontal += i;
+				case HORIZONTAL: vrednostHorizontal += (i)*10;
 				preostalihAvtomobilckovHorizontal += 1;
-				case PRAZNO:;
+				case PRAZNO: steviloPraznih += 1;
 				}
 			}
 		}
+		steviloOdstranjenihVertical = igra.N - preostalihAvtomobilckovVertical;
+		steviloOdstranjenihVertical = igra.N - preostalihAvtomobilckovVertical;				
 		// Upoštevamo še avtomobilèke, ki so že zapustili plošèo.
-		vrednostVertical = vrednostVertical + 100 * igra.N * preostalihAvtomobilckovVertical - 10 * odigranePoteze;
-		vrednostHorizontal = vrednostHorizontal + 100 * igra.N * preostalihAvtomobilckovHorizontal - 10 * odigranePoteze;
-		if (naPotezi == Igralec.VERTICAL) {vrednostHorizontal /= 2;}
-		if (naPotezi == Igralec.HORIZONTAL) {vrednostVertical /= 2;}
+		vrednostVertical = vrednostVertical - 10000 * preostalihAvtomobilckovVertical + steviloPraznih;
+		vrednostHorizontal = vrednostHorizontal - 10000 * preostalihAvtomobilckovHorizontal + steviloPraznih;
+
 		return (jaz == Igralec.VERTICAL ? (vrednostVertical) : (vrednostHorizontal));
 	}
 }
