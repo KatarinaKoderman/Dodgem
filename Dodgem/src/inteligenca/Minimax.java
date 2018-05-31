@@ -1,6 +1,7 @@
 package inteligenca;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.SwingWorker;
@@ -26,9 +27,8 @@ public class Minimax extends SwingWorker<Poteza, Object> { // Treba je implement
 	protected Poteza doInBackground() throws Exception {
 		Igra igra = master.copyIgra();
 		OcenjenaPoteza p = minimax(0, igra);
-		for(int i = 0; i < 1; i++){
-			Thread.sleep(500);
-		}
+		System.out.println("Minimax: " + p);
+		Thread.sleep(200);
 		return p.poteza;
 	}
 	
@@ -47,7 +47,7 @@ public class Minimax extends SwingWorker<Poteza, Object> { // Treba je implement
 	 * poi��e najbolj�o potezo v dani igri
 	 */
 	public OcenjenaPoteza minimax(int k, Igra igra) {
-		// System.out.println("minimax, k: " + k);
+//		System.out.println("minimax, k: " + k);
 		Igralec naPotezi = null;
 		// Ugotovimo, ali je konec ali je kdo na potezi.
 		switch (igra.stanje()) {
@@ -55,13 +55,9 @@ public class Minimax extends SwingWorker<Poteza, Object> { // Treba je implement
 			case NA_POTEZI_HORIZONTAL: naPotezi = Igralec.HORIZONTAL; break;
 			// Igre je konec, ne moremo vrniti poteze, vrnemo le vrednost pozicije
 			case ZMAGA_VERTICAL:
-				return new OcenjenaPoteza(
-						null,
-						(jaz == Igralec.VERTICAL ? Ocena.ZMAGA : Ocena.ZGUBA));
+				return new OcenjenaPoteza(null, Ocena.oceniPozicijo(jaz, igra));
 			case ZMAGA_HORIZONTAL:
-				return new OcenjenaPoteza(
-						null,
-						(jaz == Igralec.HORIZONTAL ? Ocena.ZMAGA : Ocena.ZGUBA));
+				return new OcenjenaPoteza(null, Ocena.oceniPozicijo(jaz, igra));
 		}
 		assert (naPotezi != null);
 		
@@ -71,11 +67,12 @@ public class Minimax extends SwingWorker<Poteza, Object> { // Treba je implement
 		
 		LinkedList<Poteza> najboljsePoteze = new LinkedList<Poteza>();
 		int ocenaNajboljse = 0;
-		for (Poteza p : igra.poteze()) {
+		List<Poteza> poteze = igra.poteze();
+		for (Poteza p : poteze) {
 			Igra kopijaIgre = new Igra(igra);
 			kopijaIgre.odigraj(p);
 			int ocenaP = minimax(k+1, kopijaIgre).vrednost;
-			System.out.println(p.toString() + " ocenaP: " + ocenaP);
+//			System.out.println(p.toString() + " ocenaP: " + ocenaP);
 			if (najboljsePoteze.isEmpty() 
 					|| (naPotezi == jaz && ocenaP > ocenaNajboljse)
 					|| (naPotezi != jaz && ocenaP < ocenaNajboljse)

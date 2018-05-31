@@ -59,17 +59,17 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	 
 	static File soundFile = new File("Dodgem\\resources\\Insert-Coins-Jake-Wright.wav");
 	static Clip clip;
-//	static {
-//		try {
-//			AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
-//			clip = AudioSystem.getClip();
-//			clip.open(audioIn);
-//		} catch (UnsupportedAudioFileException | IOException e) {
-//			e.printStackTrace();
-//		} catch (LineUnavailableException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	static {
+		try {
+			AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+			clip = AudioSystem.getClip();
+			clip.open(audioIn);
+		} catch (UnsupportedAudioFileException | IOException e) {
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
+	}
 
 	// Izbire v menujih
 	private JMenuItem igraClovekRacunalnik;

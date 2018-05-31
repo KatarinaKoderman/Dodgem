@@ -17,7 +17,6 @@ public class Ocena {
 	
 	public static int oceniPozicijo(Igralec jaz, Igra igra) { // metoda sprejme �e podatek o �tevilu do sedaj odigranih potez
 		Igralec naPotezi = null;
-		System.out.println("Sem v Oceni pred ocenjevanjem. �tevilo odigranih potez: " + igra.getSteviloOdigranihPotez());
 		final int ZMAGA_PRILAGOJENA = ZMAGA - 10 * igra.getSteviloOdigranihPotez();
 		final int ZGUBA_PRILAGOJENA = - ZMAGA_PRILAGOJENA;
 		
@@ -64,9 +63,12 @@ public class Ocena {
 		}
 			
 		// Upo�tevamo �e avtomobil�ke, ki so �e zapustili plo��o.
-		vrednostVertical = vrednostVertical - 100000 * preostalihAvtomobilckovVertical + steviloPraznih;
-		vrednostHorizontal = vrednostHorizontal - 100000 * preostalihAvtomobilckovHorizontal + steviloPraznih;
+		vrednostVertical = vrednostVertical +  10 * igra.N * (igra.N - 1 - preostalihAvtomobilckovVertical);
+		vrednostHorizontal = vrednostHorizontal + 10 * igra.N * (igra.N - 1 - preostalihAvtomobilckovHorizontal);
 
-		return (jaz == Igralec.VERTICAL ? (vrednostVertical) : (vrednostHorizontal));
+		if (naPotezi == Igralec.HORIZONTAL) { vrednostHorizontal *= 2; }
+		if (naPotezi == Igralec.VERTICAL) { vrednostVertical *= 2; }
+		
+		return (jaz == Igralec.VERTICAL ? (vrednostVertical - vrednostHorizontal) : (vrednostHorizontal - vrednostVertical));
 	}
 }
