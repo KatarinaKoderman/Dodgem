@@ -129,9 +129,9 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		// gumb za glasbo
 		JButton glasbaButton = new JButton("Glasba");
 		GridBagConstraints glasbaButton_layout = new GridBagConstraints();
-		glasbaButton_layout.gridx = 1;
+		glasbaButton_layout.gridx = 0;
 		glasbaButton_layout.gridy = 1;
-		glasbaButton_layout.anchor = GridBagConstraints.CENTER;
+		glasbaButton_layout.anchor = GridBagConstraints.EAST;
 		getContentPane().add(glasbaButton, glasbaButton_layout);
 		glasbaButton.addActionListener(new ActionListener() {
 			@Override
