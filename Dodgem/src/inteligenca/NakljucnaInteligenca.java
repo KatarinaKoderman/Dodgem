@@ -18,7 +18,7 @@ public class NakljucnaInteligenca extends SwingWorker<Poteza, Object> {
 	@Override
 	protected Poteza doInBackground() throws Exception {
 		Igra igra = master.copyIgra();
-		for (int i = 0; i < Igra.N ; i++) {
+		for (int i = 0; i < igra.N ; i++) {
 			System.out.println("mislim...");
 			try {
 				Thread.sleep(200);

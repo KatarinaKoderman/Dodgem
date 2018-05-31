@@ -28,6 +28,4 @@ public class Poteza {
 		return "Poteza [x=" + x + ", y=" + y + ", smer=" + smer + "]";
 	}
 	
-	
-	
 }

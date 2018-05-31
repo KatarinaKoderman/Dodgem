@@ -2,24 +2,30 @@ package gui;
 
 import javax.swing.SwingWorker;
 
+import logika.Igralec;
+import inteligenca.Minimax;
 import inteligenca.NakljucnaInteligenca;
 import logika.Igra;
 import logika.Poteza;
+import logika.Smer;
 
 public class Racunalnik extends Strateg {
 	private GlavnoOkno master;
+	private Igralec id;
 	private SwingWorker<Poteza,Object> mislec;
 	private boolean prekini;
+	private int globina = 3;
 
-	public Racunalnik(GlavnoOkno master) {
+	public Racunalnik(GlavnoOkno master, Igralec igralec) {
 		this.master = master;
+		id = igralec;
 	}
 	
 	@Override
 	public void na_potezi() {
-		// Zaènemo razmišljati
-		mislec = new NakljucnaInteligenca(master);
+		mislec = new Minimax(master, globina, id);
 		mislec.execute();
+		
 	}
 
 	@Override
@@ -30,7 +36,12 @@ public class Racunalnik extends Strateg {
 	}
 
 	@Override
-	public void klik(int i, int j) {
+	public void klik(int i, int j, Smer s) {
+	}
+
+	@Override
+	public boolean semClovek() {
+		return false;
 	}
 
 } 
