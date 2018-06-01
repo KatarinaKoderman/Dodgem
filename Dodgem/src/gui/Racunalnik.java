@@ -4,8 +4,6 @@ import javax.swing.SwingWorker;
 
 import logika.Igralec;
 import inteligenca.Minimax;
-import inteligenca.NakljucnaInteligenca;
-import logika.Igra;
 import logika.Poteza;
 import logika.Smer;
 
@@ -13,7 +11,6 @@ public class Racunalnik extends Strateg {
 	private GlavnoOkno master;
 	private Igralec id;
 	private SwingWorker<Poteza,Object> mislec;
-	private boolean prekini;
 	private int globina = 6;
 
 	public Racunalnik(GlavnoOkno master, Igralec igralec) {

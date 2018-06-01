@@ -3,12 +3,12 @@ package gui;
 import logika.Smer;
 
 /**
- * Strateg je objekt, ki zna odigrati potezo. Lahko je èlovek ali raèunalnik.
+ * Strateg je objekt, ki zna odigrati potezo. Lahko je clovek ali racunalnik.
  */
 
 public abstract class Strateg {
 	/**
-	 *  Glavno okno klièe to metodo, ko je strateg na potezi.
+	 *  Glavno okno klice to metodo, ko je strateg na potezi.
 	 */
 	public abstract void na_potezi();
 	
@@ -18,7 +18,7 @@ public abstract class Strateg {
 	public abstract void prekini();
 	
 	/**
-	 * Glavno okno klièe to metodo, ko uporabnik klikne na polje (i, j).
+	 * Glavno okno klice to metodo, ko uporabnik klikne na polje (i, j).
 	 */
 	public abstract void klik(int i, int j, Smer s);
 	

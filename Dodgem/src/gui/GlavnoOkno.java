@@ -26,37 +26,36 @@ import javax.sound.sampled.*;
 @SuppressWarnings("serial")
 public class GlavnoOkno extends JFrame implements ActionListener {
 	/**
-	 * JPanel, v katerega ri�emo VERTICAL in HORIZONTAL
+	 * JPanel, v katerega risemo VERTICAL in HORIZONTAL.
 	 */
 	private IgralnoPolje polje;
 
 	/**
-	 * Statusna vrstica v spodnjem delu okna
+	 * Statusna vrstica v spodnjem delu okna.
 	 */
 	private JLabel status;
 
 
 	/**
-	 * Logika igre, null �e se igra trenutno ne igra
+	 * Logika igre, null ce se igra trenutno ne igra.
 	 */
 	protected Igra igra;
 
 	/**
-	 * Strateg, ki vle�e poteze VERTICAL.
+	 * Strateg, ki vlece poteze VERTICAL.
 	 */
 	protected Strateg strategVERTICAL;
 
 	/**
-	 * Strateg, ki vle�e poteze HORIZONTAL
+	 * Strateg, ki vlece poteze HORIZONTAL.
 	 */
 	protected Strateg strategHORIZONTAL;
 	
 	public int M = 5;
-
+ // TODO
 	/**
 	 * Ustvarimo clip.
 	 */
-	 
 	static File soundFile = new File("Dodgem\\resources\\Insert-Coins-Jake-Wright.wav");
 	static Clip clip;
 	static {
@@ -91,25 +90,25 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		this.setJMenuBar(menu_bar);
 		JMenu igra_menu = new JMenu("Igra");
 		menu_bar.add(igra_menu);
-		JMenu velikostPlosca_menu = new JMenu("Velikost plo��e");
+		JMenu velikostPlosca_menu = new JMenu("Velikost plošče");
 		menu_bar.add(velikostPlosca_menu);
 
 
 
 		//izbire v igra: 
-		igraClovekClovek = new JMenuItem("�lovek Rumeni  -  �lovek Rde�i");
+		igraClovekClovek = new JMenuItem("Človek Rumeni  -  Človek Rdeči");
 		igra_menu .add(igraClovekClovek);
 		igraClovekClovek.addActionListener(this);
 
-		igraClovekRacunalnik = new JMenuItem("Ra�unalnik Rumeni  -  �lovek Rde�i");
+		igraClovekRacunalnik = new JMenuItem("Računalnik Rumeni  -  Človek Rdeči");
 		igra_menu .add(igraClovekRacunalnik);
 		igraClovekRacunalnik.addActionListener(this);
 
-		igraRacunalnikClovek = new JMenuItem("�lovek Rumeni  -  Ra�unalnik Rde�i");
+		igraRacunalnikClovek = new JMenuItem("Človek Rumeni  -  Računalnik Rdeči");
 		igra_menu .add(igraRacunalnikClovek);
 		igraRacunalnikClovek.addActionListener(this);
 
-		igraRacunalnikRacunalnik = new JMenuItem("Ra�unalnik Rumeni  -  Ra�unalnik Rde�i");
+		igraRacunalnikRacunalnik = new JMenuItem("Računalnik Rumeni  -  Računalnik Rdeči");
 		igra_menu .add(igraRacunalnikRacunalnik);
 		igraRacunalnikRacunalnik.addActionListener(this);
 		
@@ -119,7 +118,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		mala.addActionListener(this);
 
 		srednja = new JMenuItem("Srednja");
-		velikostPlosca_menu .add(srednja);
+		velikostPlosca_menu.add(srednja);
 		srednja.addActionListener(this);
 		
 		velika = new JMenuItem("Velika");
@@ -156,7 +155,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		polje_layout.weighty = 1.0;
 		getContentPane().add(polje, polje_layout);
 
-		// statusna vrstica za sporo�ila
+		// statusna vrstica za sporocila
 		status = new JLabel();
 		status.setFont(new Font(status.getFont().getName(),
 				status.getFont().getStyle(),
@@ -173,7 +172,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 
 
 	/**
-	 * @return trenutna igralna plos�a, ali null, �e igra ni aktivna
+	 * @return trenutna igralna plosca, ali null, ce igra ni aktivna
 	 */
 	public Polje[][] getPlosca() {
 		return (igra == null ? null : igra.getPlosca());
@@ -234,11 +233,12 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		repaint();
 	}
 
-	//za�ne s predvajanjem, ali ga ustavi.
+	//zacne s predvajanjem, ali ga ustavi.
 	public static void music() throws Exception, IOException{
 		if (clip.isRunning()) {
 			clip.stop();
 			System.out.println("stop music");
+			// TODO gumb je vdrt ali ne, glede na predvajanje
 		} else {
 			clip.start();
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -264,9 +264,9 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		}
 		else {
 			switch(igra.stanje()) {
-			case NA_POTEZI_HORIZONTAL: status.setText("Na potezi je rde�i."); break;
+			case NA_POTEZI_HORIZONTAL: status.setText("Na potezi je rdeči."); break;
 			case NA_POTEZI_VERTICAL: status.setText("Na potezi je rumeni."); break;
-			case ZMAGA_HORIZONTAL: status.setText("Zmagal je rde�i."); break;
+			case ZMAGA_HORIZONTAL: status.setText("Zmagal je rdeči."); break;
 			case ZMAGA_VERTICAL: status.setText("Zmagal je rumeni."); break;
 			}
 		}
