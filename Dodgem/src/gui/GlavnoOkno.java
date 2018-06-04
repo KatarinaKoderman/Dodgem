@@ -20,6 +20,8 @@ import logika.Poteza;
 import logika.Smer;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+
 import javax.sound.sampled.*;
 
 
@@ -56,7 +58,16 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	/**
 	 * Ustvarimo clip.
 	 */
-	static File soundFile = new File("Dodgem\\resources\\Insert-Coins-Jake-Wright.wav");
+	 // preberemo pot do datoteke neodvisno od operacijskega sistema
+/*	ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+	static InputStream is = ClassLoader.getSystemResourceAsStream("Insert-Coins-Jake-Wright.wav");
+	
+	// stream to string
+	static StringWriter writer = new StringWriter();
+	IOUtils.copy(is, writer);
+	static String theString = writer.toString();*/
+	
+	static File soundFile = new File(GlavnoOkno.class.getResource("Insert-Coins-Jake-Wright.wav").getFile());
 	static Clip clip;
 	static {
 		try {
