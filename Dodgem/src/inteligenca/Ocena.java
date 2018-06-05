@@ -64,8 +64,8 @@ public class Ocena {
 		vrednostVertical = vrednostVertical +  utez * igra.N * (igra.N - 1 - preostalihAvtomobilckovVertical);
 		vrednostHorizontal = vrednostHorizontal + utez * igra.N * (igra.N - 1 - preostalihAvtomobilckovHorizontal);
 
-		if (naPotezi == Igralec.HORIZONTAL) { vrednostHorizontal *= 2; }
-		if (naPotezi == Igralec.VERTICAL) { vrednostVertical *= 2; }
+		if (naPotezi == Igralec.HORIZONTAL) { vrednostHorizontal *= 4; }
+		if (naPotezi == Igralec.VERTICAL) { vrednostVertical *= 4; }
 		
 		return (jaz == Igralec.VERTICAL ? (vrednostVertical - vrednostHorizontal) : (vrednostHorizontal - vrednostVertical));
 	}
