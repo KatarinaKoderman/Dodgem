@@ -5,20 +5,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.List;
-import java.awt.MouseInfo;
 import java.awt.Polygon;
-import java.awt.Polygon;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
-
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
-
 
 import logika.Igralec;
 import logika.Polje;
