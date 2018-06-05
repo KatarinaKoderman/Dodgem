@@ -6,7 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -20,8 +20,6 @@ import logika.Poteza;
 import logika.Smer;
 
 import java.io.*;
-import java.net.URL;
-import java.nio.charset.Charset;
 
 import javax.sound.sampled.*;
 
@@ -126,14 +124,13 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		velikostPlosca_menu .add(velika);
 		velika.addActionListener(this);
 
-		// gumb za glasbo
-		JButton glasbaButton = new JButton("Glasba");
-		GridBagConstraints glasbaButton_layout = new GridBagConstraints();
-		glasbaButton_layout.gridx = 0;
-		glasbaButton_layout.gridy = 1;
-		glasbaButton_layout.anchor = GridBagConstraints.EAST;
-		getContentPane().add(glasbaButton, glasbaButton_layout);
-		glasbaButton.addActionListener(new ActionListener() {
+		JCheckBox glasbaBox = new JCheckBox("Glasba");
+		GridBagConstraints glasbaBox_layout = new GridBagConstraints();
+		glasbaBox_layout.gridx = 0;
+		glasbaBox_layout.gridy = 1;
+		glasbaBox_layout.anchor = GridBagConstraints.EAST;
+		getContentPane().add(glasbaBox, glasbaBox_layout);
+		glasbaBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -143,7 +140,8 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 				}
 
 			}
-		});
+		}
+				);
 
 		// igralno polje
 		polje = new IgralnoPolje(this);
@@ -233,12 +231,11 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		repaint();
 	}
 
-	//zacne s predvajanjem, ali ga ustavi.
+	// zacne s predvajanjem, ali ga ustavi.
 	public void music() throws Exception, IOException{
 		if (clip.isRunning()) {
 			clip.stop();
 			System.out.println("stop music");
-			// TODO gumb je vdrt ali ne, glede na predvajanje
 		} else {
 			clip.start();
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
