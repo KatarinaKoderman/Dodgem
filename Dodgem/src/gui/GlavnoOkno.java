@@ -20,10 +20,10 @@ import logika.Poteza;
 import logika.Smer;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.net.URL;
+import java.nio.charset.Charset;
 
 import javax.sound.sampled.*;
-
 
 @SuppressWarnings("serial")
 public class GlavnoOkno extends JFrame implements ActionListener {
@@ -36,7 +36,6 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	 * Statusna vrstica v spodnjem delu okna.
 	 */
 	private JLabel status;
-
 
 	/**
 	 * Logika igre, null ce se igra trenutno ne igra.
@@ -52,34 +51,13 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	 * Strateg, ki vlece poteze HORIZONTAL.
 	 */
 	protected Strateg strategHORIZONTAL;
-	
+
 	public int M = 5;
- // TODO
+
 	/**
 	 * Ustvarimo clip.
 	 */
-	 // preberemo pot do datoteke neodvisno od operacijskega sistema
-/*	ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-	static InputStream is = ClassLoader.getSystemResourceAsStream("Insert-Coins-Jake-Wright.wav");
-	
-	// stream to string
-	static StringWriter writer = new StringWriter();
-	IOUtils.copy(is, writer);
-	static String theString = writer.toString();*/
-	
-	static File soundFile = new File(GlavnoOkno.class.getResource("Insert-Coins-Jake-Wright.wav").getFile());
-	static Clip clip;
-	static {
-		try {
-			AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
-			clip = AudioSystem.getClip();
-			clip.open(audioIn);
-		} catch (UnsupportedAudioFileException | IOException e) {
-			e.printStackTrace();
-		} catch (LineUnavailableException e) {
-			e.printStackTrace();
-		}
-	}
+	private Clip clip;
 
 	// Izbire v menujih
 	private JMenuItem igraClovekRacunalnik;
@@ -96,6 +74,20 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(new GridBagLayout());
 
+		// preberemo pot do zvocne datoteke neodvisno od operacijskega sistema
+		String file = GlavnoOkno.class.getResource("/Insert-Coins-Jake-Wright.wav").getFile();
+		File soundFile = new File(file);
+
+		try {
+			AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+			clip = AudioSystem.getClip();
+			clip.open(audioIn);
+		} catch (UnsupportedAudioFileException | IOException e) {
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
+
 		// menu
 		JMenuBar menu_bar = new JMenuBar();
 		this.setJMenuBar(menu_bar);
@@ -103,8 +95,6 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		menu_bar.add(igra_menu);
 		JMenu velikostPlosca_menu = new JMenu("Velikost plošče");
 		menu_bar.add(velikostPlosca_menu);
-
-
 
 		//izbire v igra: 
 		igraClovekClovek = new JMenuItem("Človek Rumeni  -  Človek Rdeči");
@@ -122,7 +112,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		igraRacunalnikRacunalnik = new JMenuItem("Računalnik Rumeni  -  Računalnik Rdeči");
 		igra_menu .add(igraRacunalnikRacunalnik);
 		igraRacunalnikRacunalnik.addActionListener(this);
-		
+
 		//izbire v velikostPlosce: 
 		mala = new JMenuItem("Mala");
 		velikostPlosca_menu .add(mala);
@@ -131,11 +121,11 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		srednja = new JMenuItem("Srednja");
 		velikostPlosca_menu.add(srednja);
 		srednja.addActionListener(this);
-		
+
 		velika = new JMenuItem("Velika");
 		velikostPlosca_menu .add(velika);
 		velika.addActionListener(this);
-		
+
 		// gumb za glasbo
 		JButton glasbaButton = new JButton("Glasba");
 		GridBagConstraints glasbaButton_layout = new GridBagConstraints();
@@ -151,10 +141,9 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-				
+
 			}
 		});
-		
 
 		// igralno polje
 		polje = new IgralnoPolje(this);
@@ -245,7 +234,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	}
 
 	//zacne s predvajanjem, ali ga ustavi.
-	public static void music() throws Exception, IOException{
+	public void music() throws Exception, IOException{
 		if (clip.isRunning()) {
 			clip.stop();
 			System.out.println("stop music");
@@ -305,5 +294,5 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	public Igra copyIgra() {
 		return new Igra(igra);
 	}
-	
+
 }
