@@ -13,6 +13,10 @@ public class Racunalnik extends Strateg {
 	private SwingWorker<Poteza,Object> mislec;
 	private int globina = 6;
 
+	public static int setGlobina(int globina) {
+		return globina;
+	}
+
 	public Racunalnik(GlavnoOkno master, Igralec igralec) {
 		this.master = master;
 		id = igralec;

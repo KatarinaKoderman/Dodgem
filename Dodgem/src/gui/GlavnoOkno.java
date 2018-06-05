@@ -67,6 +67,10 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	private JMenuItem srednja;
 	private JMenuItem velika;
 
+	private JMenuItem lahka;
+	private JMenuItem obicajna;
+	private JMenuItem tezka;
+	
 	public GlavnoOkno() {
 		this.setTitle("Dodgem");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -93,27 +97,29 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		menu_bar.add(igra_menu);
 		JMenu velikostPlosca_menu = new JMenu("Velikost plošče");
 		menu_bar.add(velikostPlosca_menu);
+		JMenu igraTezavnost_menu = new JMenu("Težavnost");
+		menu_bar.add(igraTezavnost_menu);
 
 		//izbire v igra: 
 		igraClovekClovek = new JMenuItem("Človek Rumeni  -  Človek Rdeči");
-		igra_menu .add(igraClovekClovek);
+		igra_menu.add(igraClovekClovek);
 		igraClovekClovek.addActionListener(this);
 
 		igraClovekRacunalnik = new JMenuItem("Računalnik Rumeni  -  Človek Rdeči");
-		igra_menu .add(igraClovekRacunalnik);
+		igra_menu.add(igraClovekRacunalnik);
 		igraClovekRacunalnik.addActionListener(this);
 
 		igraRacunalnikClovek = new JMenuItem("Človek Rumeni  -  Računalnik Rdeči");
-		igra_menu .add(igraRacunalnikClovek);
+		igra_menu.add(igraRacunalnikClovek);
 		igraRacunalnikClovek.addActionListener(this);
 
 		igraRacunalnikRacunalnik = new JMenuItem("Računalnik Rumeni  -  Računalnik Rdeči");
-		igra_menu .add(igraRacunalnikRacunalnik);
+		igra_menu.add(igraRacunalnikRacunalnik);
 		igraRacunalnikRacunalnik.addActionListener(this);
 
 		//izbire v velikostPlosce: 
 		mala = new JMenuItem("Mala");
-		velikostPlosca_menu .add(mala);
+		velikostPlosca_menu.add(mala);
 		mala.addActionListener(this);
 
 		srednja = new JMenuItem("Srednja");
@@ -121,8 +127,21 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		srednja.addActionListener(this);
 
 		velika = new JMenuItem("Velika");
-		velikostPlosca_menu .add(velika);
+		velikostPlosca_menu.add(velika);
 		velika.addActionListener(this);
+		
+		//izbire v tezavnost:
+		lahka = new JMenuItem("Nizka");
+		igraTezavnost_menu.add(lahka);
+		lahka.addActionListener(this);
+		
+		obicajna = new JMenuItem("Povprečna");
+		igraTezavnost_menu.add(obicajna);
+		obicajna.addActionListener(this);
+
+		tezka = new JMenuItem("Visoka");
+		igraTezavnost_menu.add(tezka);
+		tezka.addActionListener(this);
 
 		JCheckBox glasbaBox = new JCheckBox("Glasba");
 		GridBagConstraints glasbaBox_layout = new GridBagConstraints();
@@ -225,6 +244,25 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		else if (e.getSource() == velika) {
 			M = 10;
 			igra = new Igra(10);
+			nova_igra(strategHORIZONTAL, strategVERTICAL);
+		}
+		// zaradi hitrosti globino minimaxa nastavimo na velikostPlosce-2
+		// možnosti so napisane vsaka posebej, če bi si premislili in globino/težavnost nastavili neodvisno od velikosti plošče
+		else if (e.getSource() == lahka) {
+			Racunalnik.setGlobina(M - 2);
+			igra = new Igra(M);
+			nova_igra(strategHORIZONTAL, strategVERTICAL);
+		}
+
+		else if (e.getSource() == obicajna) {
+			Racunalnik.setGlobina(M - 2);
+			igra = new Igra(M);
+			nova_igra(strategHORIZONTAL, strategVERTICAL);
+		}
+
+		else if (e.getSource() == tezka) {
+			Racunalnik.setGlobina(M - 2);
+			igra = new Igra(M);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
 		osveziGUI();
