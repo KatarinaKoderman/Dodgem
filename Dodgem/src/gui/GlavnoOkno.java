@@ -244,9 +244,9 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 			igra = new Igra(M);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
-
+ 
 		else if (e.getSource() == srednja) {
-			M = 5;
+		 	M = 5;
 			igra = new Igra(M);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}

@@ -138,7 +138,7 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		double w = squareWidth();
 		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer HORIZONTAL
 		double x = w * (i + 0.5 * LINE_WIDTH + PADDING);
-		double y = w * (j + 0.5 * LINE_WIDTH + PADDING);
+		double y = w * (j + 0.5 * LINE_WIDTH + PADDING); 
 		g2.setColor(Color.red);
 		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
 		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
