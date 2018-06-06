@@ -130,7 +130,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		velika = new JMenuItem("Velika");
 		velikostPlosca_menu.add(velika);
 		velika.addActionListener(this);
-		
+		 
 		//izbire v tezavnost:
 		// TODO ItemListener
 		lahka = new JCheckBoxMenuItem("Nizka");
