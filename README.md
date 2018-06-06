@@ -1,5 +1,6 @@
 # Dodgem
-## Projekt izdelave igrice pri predmetu Programiranje 2
+## Projekt igrice pri predmetu Programiranje 2
+
 2. letnik matematike, Fakulteta za matematiko in fiziko, Univerza v Ljubljani
 
 V Javi je narejena igrica [Dodgem](https://en.wikipedia.org/wiki/Dodgem). 
