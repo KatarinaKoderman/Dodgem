@@ -11,10 +11,10 @@ public class Racunalnik extends Strateg {
 	private GlavnoOkno master;
 	private Igralec id;
 	private SwingWorker<Poteza,Object> mislec;
-	private int globina = 6;
+	private static int globina = 4;
 
-	public static int setGlobina(int globina) {
-		return globina;
+	public static void setGlobina(int novaGlobina) {
+		globina = novaGlobina;
 	}
 
 	public Racunalnik(GlavnoOkno master, Igralec igralec) {
