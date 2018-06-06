@@ -26,7 +26,7 @@ public class Ocena {
 		switch (igra.stanje()) {
 		case ZMAGA_VERTICAL:
 			return (jaz == Igralec.VERTICAL ? (ZMAGA_PRILAGOJENA) : (ZGUBA_PRILAGOJENA));
-		case ZMAGA_HORIZONTAL: 
+		case ZMAGA_HORIZONTAL:  
 			return (jaz == Igralec.HORIZONTAL ? (ZMAGA_PRILAGOJENA) : (ZGUBA_PRILAGOJENA));
 		case NA_POTEZI_VERTICAL:
 			naPotezi = Igralec.VERTICAL;

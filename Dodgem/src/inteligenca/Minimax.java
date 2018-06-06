@@ -68,7 +68,7 @@ public class Minimax extends SwingWorker<Poteza, Object> {
 		int ocenaNajboljse = 0;
 		List<Poteza> poteze = igra.poteze();
 		for (Poteza p : poteze) {
-			Igra kopijaIgre = new Igra(igra);
+			Igra kopijaIgre = new Igra(igra); 
 			kopijaIgre.odigraj(p);
 			int ocenaP = minimax(k+1, kopijaIgre).vrednost;
 			if (najboljsePoteze.isEmpty() 

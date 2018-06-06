@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
@@ -13,6 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JRadioButton;
+import javax.swing.JRadioButtonMenuItem;
 
 import logika.Igra;
 import logika.Igralec;
@@ -68,9 +71,9 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	private JMenuItem srednja;
 	private JMenuItem velika;
 
-	private JCheckBoxMenuItem  lahka;
-	private JCheckBoxMenuItem  obicajna;
-	private JCheckBoxMenuItem  tezka;
+	private JRadioButtonMenuItem lahka;
+	private JRadioButtonMenuItem obicajna;
+	private JRadioButtonMenuItem tezka;
 	
 	public GlavnoOkno() {
 		this.setTitle("Dodgem");
@@ -132,16 +135,21 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		velika.addActionListener(this);
 		 
 		//izbire v tezavnost:
-		// TODO ItemListener
-		lahka = new JCheckBoxMenuItem("Nizka");
+	    ButtonGroup group = new ButtonGroup();
+	    
+		lahka = new JRadioButtonMenuItem("Nizka");
+		group.add(lahka);
 		igraTezavnost_menu.add(lahka);
 		lahka.addActionListener(this);
 		
-		obicajna = new JCheckBoxMenuItem("Povprečna");
+		obicajna = new JRadioButtonMenuItem("Povprečna");
+		group.add(obicajna);
 		igraTezavnost_menu.add(obicajna);
 		obicajna.addActionListener(this);
+		
 
-		tezka = new JCheckBoxMenuItem("Visoka");
+		tezka = new JRadioButtonMenuItem("Visoka");
+		group.add(tezka);
 		igraTezavnost_menu.add(tezka);
 		tezka.addActionListener(this);
 
@@ -188,7 +196,6 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		// za zacetek nastavimo clovek proti cloveku
 		nova_igra(new Clovek(this, Igralec.HORIZONTAL), new Clovek(this, Igralec.VERTICAL));
 	}
-
 
 	/**
 	 * @return trenutna igralna plosca ali null, ce igra ni aktivna
@@ -250,22 +257,17 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		}
 		// tu nastavljamo globino minimaxa
 		else if (e.getSource() == lahka) {
-			// odkljukamo ostali (med njima prejšnjo) možnosti TODO
-			// obkljukamo izbiro
 			Racunalnik.setGlobina(2);
-			igra = new Igra(M);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
 
 		else if (e.getSource() == obicajna) {
 			Racunalnik.setGlobina(4);
-			igra = new Igra(M);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
 
 		else if (e.getSource() == tezka) {
-			Racunalnik.setGlobina(8);
-			igra = new Igra(M);
+			Racunalnik.setGlobina(7);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
 		osveziGUI();
