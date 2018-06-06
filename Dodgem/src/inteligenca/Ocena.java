@@ -15,13 +15,14 @@ public class Ocena {
 	public static final int ZMAGA = 100000000; // vrednost zmage je najvecja = 100 milijonov 
 	// ce je v definicije zmage igra.N, stevila N ne moremo spreminjati
 	public static final int ZGUBA = -ZMAGA;
-	
+
 	public static int oceniPozicijo(Igralec jaz, Igra igra) {
 		Igralec naPotezi = null;
 		int utez = 10;
 		final int ZMAGA_PRILAGOJENA = ZMAGA - utez * igra.getSteviloOdigranihPotez();
 		final int ZGUBA_PRILAGOJENA = - ZMAGA_PRILAGOJENA;
 		
+		// TODO manj kot je avtomobilckov na plosci, manjsa je razlika v rezultatu
 		switch (igra.stanje()) {
 		case ZMAGA_VERTICAL:
 			return (jaz == Igralec.VERTICAL ? (ZMAGA_PRILAGOJENA) : (ZGUBA_PRILAGOJENA));
@@ -31,17 +32,17 @@ public class Ocena {
 			naPotezi = Igralec.VERTICAL;
 		case NA_POTEZI_HORIZONTAL:
 			naPotezi = Igralec.HORIZONTAL; }
-		
+
 		// Prestejemo, koliko premikov naprej je opravljenih.
 		Polje[][] plosca = igra.getPlosca();
 
 		// da igralec zmaga, mora svoje figure prestaviti naprej (Igra.N * (Igra.N - 1))-krat
-		
+
 		int vrednostVertical = 0;
 		int vrednostHorizontal = 0;
 		int preostalihAvtomobilckovVertical = 0;
 		int preostalihAvtomobilckovHorizontal = 0;
-		
+
 		// Stejemo, kolikokrat se je ze premaknil NAPREJ.
 		for (int i = 0; i < igra.N; i++) {
 			for (int j = 0; j < igra.N; j++) {
@@ -59,14 +60,16 @@ public class Ocena {
 				}
 			}
 		}
-			
+
 		// Upostevamo avtomobilcke, ki so ze zapustili plosco.
 		vrednostVertical = vrednostVertical +  utez * igra.N * (igra.N - 1 - preostalihAvtomobilckovVertical);
 		vrednostHorizontal = vrednostHorizontal + utez * igra.N * (igra.N - 1 - preostalihAvtomobilckovHorizontal);
 
 		if (naPotezi == Igralec.HORIZONTAL) { vrednostHorizontal *= 4; }
 		if (naPotezi == Igralec.VERTICAL) { vrednostVertical *= 4; }
-		
-		return (jaz == Igralec.VERTICAL ? (vrednostVertical - vrednostHorizontal) : (vrednostHorizontal - vrednostVertical));
+
+		return (jaz == Igralec.VERTICAL ? 
+				(vrednostVertical - vrednostHorizontal - igra.getSteviloOdigranihPotez()) : 
+					(vrednostHorizontal - vrednostVertical - igra.getSteviloOdigranihPotez()));
 	}
 }

@@ -1,4 +1,15 @@
 # Dodgem
-Project for course Programiranje 2.
-We'll attempt to programm a simplified version of well known and beloved game Dodegem using Java and $\alpha-\beta$ pruning algorithms.
-https://en.wikipedia.org/wiki/Dodgem
+## Projekt izdelave igrice pri predmetu Programiranje 2
+2. letnik matematike, Fakulteta za matematiko in fiziko, Univerza v Ljubljani
+
+V Javi je narejena igrica [[https://en.wikipedia.org/wiki/Dodgem | Dodgem]]. 
+Ustvarjena je logika igre, ki upošteva pravila igre. 
+
+Uporabniški vmesnik omogoča igro med dvema uporabnikoma, med računalnikom in uporabnikom ter med dvema umetnima inteligencama. 
+Nastavita se lahko velikost plošče in pa težavnost igre.
+
+Igra računalnika temelji na metodi minimax.
+
+Začetna igra je nastavljena na igro med dvema uporabnikoma na plošči velikosti 5×5.
+
+Med igro se lahko sprostimo ob poslušanju glasbe [[http://music.jakewright.net/album/press-start | Insert Coins]] ([[https://creativecommons.org/licenses/by-nc-sa/3.0/legalcode | licenca]]).

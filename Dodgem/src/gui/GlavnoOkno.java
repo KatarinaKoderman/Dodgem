@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -67,9 +68,9 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	private JMenuItem srednja;
 	private JMenuItem velika;
 
-	private JMenuItem lahka;
-	private JMenuItem obicajna;
-	private JMenuItem tezka;
+	private JCheckBoxMenuItem  lahka;
+	private JCheckBoxMenuItem  obicajna;
+	private JCheckBoxMenuItem  tezka;
 	
 	public GlavnoOkno() {
 		this.setTitle("Dodgem");
@@ -131,15 +132,16 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		velika.addActionListener(this);
 		
 		//izbire v tezavnost:
-		lahka = new JMenuItem("Nizka");
+		// TODO ItemListener
+		lahka = new JCheckBoxMenuItem("Nizka");
 		igraTezavnost_menu.add(lahka);
 		lahka.addActionListener(this);
 		
-		obicajna = new JMenuItem("Povprečna");
+		obicajna = new JCheckBoxMenuItem("Povprečna");
 		igraTezavnost_menu.add(obicajna);
 		obicajna.addActionListener(this);
 
-		tezka = new JMenuItem("Visoka");
+		tezka = new JCheckBoxMenuItem("Visoka");
 		igraTezavnost_menu.add(tezka);
 		tezka.addActionListener(this);
 
@@ -183,13 +185,13 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		status_layout.anchor = GridBagConstraints.CENTER;
 		getContentPane().add(status, status_layout);
 
-		// za zacetek clovek proti cloveku
+		// za zacetek nastavimo clovek proti cloveku
 		nova_igra(new Clovek(this, Igralec.HORIZONTAL), new Clovek(this, Igralec.VERTICAL));
 	}
 
 
 	/**
-	 * @return trenutna igralna plosca, ali null, ce igra ni aktivna
+	 * @return trenutna igralna plosca ali null, ce igra ni aktivna
 	 */
 	public Polje[][] getPlosca() {
 		return (igra == null ? null : igra.getPlosca());
@@ -231,37 +233,38 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 
 		else if (e.getSource() == mala) {
 			M = 3;
-			igra = new Igra(3);
+			igra = new Igra(M);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
 
 		else if (e.getSource() == srednja) {
 			M = 5;
-			igra = new Igra(5);
+			igra = new Igra(M);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
 
 		else if (e.getSource() == velika) {
-			M = 10;
-			igra = new Igra(10);
+			M = 8;
+			igra = new Igra(M);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
-		// zaradi hitrosti globino minimaxa nastavimo na velikostPlosce-2
-		// možnosti so napisane vsaka posebej, če bi si premislili in globino/težavnost nastavili neodvisno od velikosti plošče
+		// tu nastavljamo globino minimaxa
 		else if (e.getSource() == lahka) {
-			Racunalnik.setGlobina(M - 2);
+			// odkljukamo ostali (med njima prejšnjo) možnosti TODO
+			// obkljukamo izbiro
+			Racunalnik.setGlobina(2);
 			igra = new Igra(M);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
 
 		else if (e.getSource() == obicajna) {
-			Racunalnik.setGlobina(M - 2);
+			Racunalnik.setGlobina(4);
 			igra = new Igra(M);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
 
 		else if (e.getSource() == tezka) {
-			Racunalnik.setGlobina(M - 2);
+			Racunalnik.setGlobina(8);
 			igra = new Igra(M);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
@@ -269,7 +272,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		repaint();
 	}
 
-	// zacne s predvajanjem, ali ga ustavi.
+	// zacne s predvajanjem zvocne datoteke ali ga ustavi
 	public void music() throws Exception, IOException{
 		if (clip.isRunning()) {
 			clip.stop();

@@ -86,7 +86,7 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		g2.fillPolygon(xpoints, ypoints, npoints);
 
 
-		//mali trikotniki
+		// mali trikotniki
 		g2.setColor(Color.white);
 		int xpointsN[] = {(int) (x+r*0.35), (int) (x+r-r*0.35), (int) (x+r*0.5)};
 		int ypointsN[] = {(int) (y+r*0.4), (int) (y+r*0.4), (int) (y+r*0.1)};
@@ -216,7 +216,6 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 					(int)(i * w));
 		}
 
-
 		g2.setColor(Color.red);
 		g2.drawLine((int)(master.igra.N * w),
 				(int)(LINE_WIDTH * w + LINE_WIDTH),
@@ -228,8 +227,6 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 				(int)(0 * w),
 				(int)((master.igra.N - LINE_WIDTH  + LINE_WIDTH) * w),
 				(int)(0 * w));
-
-
 
 		// avtomobilcki (za igralca VERTICAL in HORIZONTAL)
 		Polje[][] plosca = master.getPlosca();
@@ -293,7 +290,6 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-
 	}
 
 	@Override

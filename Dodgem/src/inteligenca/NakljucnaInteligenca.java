@@ -10,16 +10,16 @@ import logika.Poteza;
 public class NakljucnaInteligenca extends SwingWorker<Poteza, Object> {
 
 	private GlavnoOkno master;
-	
+
 	public NakljucnaInteligenca(GlavnoOkno master) {
 		this.master = master;
 	}
-	
+
 	@Override
 	protected Poteza doInBackground() throws Exception {
 		Igra igra = master.copyIgra();
 		for (int i = 0; i < igra.N ; i++) {
-			System.out.println("mislim...");
+			System.out.println("Mislim...");
 			try {
 				Thread.sleep(200);
 			} catch (InterruptedException e) { }
@@ -34,7 +34,7 @@ public class NakljucnaInteligenca extends SwingWorker<Poteza, Object> {
 		Poteza p = poteze.get(r.nextInt(poteze.size()));
 		return p;
 	}
-	
+
 	@Override
 	public void done() {
 		try {
@@ -43,5 +43,5 @@ public class NakljucnaInteligenca extends SwingWorker<Poteza, Object> {
 		} catch (Exception e) {
 		}
 	}
- 
+
 }

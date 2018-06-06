@@ -26,7 +26,6 @@ public class Racunalnik extends Strateg {
 	public void na_potezi() {
 		mislec = new Minimax(master, globina, id);
 		mislec.execute();
-		
 	}
 
 	@Override
@@ -44,5 +43,4 @@ public class Racunalnik extends Strateg {
 	public boolean semClovek() {
 		return false;
 	}
-
 } 
