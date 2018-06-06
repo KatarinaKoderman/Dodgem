@@ -209,24 +209,36 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 			g2.drawLine((int)(i * w),
 					(int)(LINE_WIDTH * w),
 					(int)(i * w),
-					(int)((master.igra.N - LINE_WIDTH) * w));
+					(int)((master.igra.N) * w));
 			g2.drawLine((int)(LINE_WIDTH * w),
 					(int)(i * w),
-					(int)((master.igra.N - LINE_WIDTH) * w),
+					(int)((master.igra.N) * w),
 					(int)(i * w));
 		}
-
+		// ciljna crta za horizontal
 		g2.setColor(Color.red);
 		g2.drawLine((int)(master.igra.N * w),
-				(int)(LINE_WIDTH * w + LINE_WIDTH),
+				(int)(0),
 				(int)(master.igra.N * w),
-				(int)((master.igra.N - LINE_WIDTH + LINE_WIDTH) * w));
-
+				(int)(master.igra.N * w));
+		// ciljna crta za vertical
 		g2.setColor(Color.orange);
-		g2.drawLine((int)(LINE_WIDTH * w),
-				(int)(0 * w),
-				(int)((master.igra.N - LINE_WIDTH  + LINE_WIDTH) * w),
-				(int)(0 * w));
+		g2.drawLine((int)(0),
+				(int)(0),
+				(int)(master.igra.N * w),
+				(int)(0));
+		// skrajno leva crta
+		g2.setColor(Color.gray);
+		g2.drawLine((int)(0),
+				(int)(0),
+				(int)(0),
+				(int)(master.igra.N * w));
+		// skrajno spodnja crta
+		g2.setColor(Color.gray);
+		g2.drawLine((int)(0),
+				(int)(master.igra.N * w),
+				(int)(master.igra.N * w),
+				(int)(master.igra.N * w));
 
 		// avtomobilcki (za igralca VERTICAL in HORIZONTAL)
 		Polje[][] plosca = master.getPlosca();
