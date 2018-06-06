@@ -8,13 +8,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
 
 import logika.Igra;
@@ -147,7 +145,6 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		igraTezavnost_menu.add(obicajna);
 		obicajna.addActionListener(this);
 		
-
 		tezka = new JRadioButtonMenuItem("Visoka");
 		group.add(tezka);
 		igraTezavnost_menu.add(tezka);
@@ -243,9 +240,9 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 			igra = new Igra(M);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
-
+ 
 		else if (e.getSource() == srednja) {
-			M = 5;
+		 	M = 5;
 			igra = new Igra(M);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}

@@ -7,7 +7,7 @@ import inteligenca.Minimax;
 import logika.Poteza;
 import logika.Smer;
 
-public class Racunalnik extends Strateg {
+public class Racunalnik extends Strateg { 
 	private GlavnoOkno master;
 	private Igralec id;
 	private SwingWorker<Poteza,Object> mislec;
