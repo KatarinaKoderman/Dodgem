@@ -22,7 +22,9 @@ public class Ocena {
 		final int ZMAGA_PRILAGOJENA = ZMAGA - utez * igra.getSteviloOdigranihPotez();
 		final int ZGUBA_PRILAGOJENA = - ZMAGA_PRILAGOJENA;
 		
-		// TODO manj kot je avtomobilckov na plosci, manjsa je razlika v rezultatu
+		// Ko računalnik vidi, da bo izgubil, se neha truditi za zmago. 
+		// Ker nas zanima samo zmaga/zguba, ne zanima pa nas število preostalih premikov naravnost, 
+		// ki bi vodili do zmage, tega pri izračunu ocene ne upoštevamo.
 		switch (igra.stanje()) {
 		case ZMAGA_VERTICAL:
 			return (jaz == Igralec.VERTICAL ? (ZMAGA_PRILAGOJENA) : (ZGUBA_PRILAGOJENA));
@@ -37,7 +39,6 @@ public class Ocena {
 		Polje[][] plosca = igra.getPlosca();
 
 		// da igralec zmaga, mora svoje figure prestaviti naprej (Igra.N * (Igra.N - 1))-krat
-
 		int vrednostVertical = 0;
 		int vrednostHorizontal = 0;
 		int preostalihAvtomobilckovVertical = 0;
