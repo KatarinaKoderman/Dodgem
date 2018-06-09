@@ -1,15 +1,14 @@
 # Dodgem
 ## Projekt igrice pri predmetu Programiranje 2
-
 2. letnik matematike, Fakulteta za matematiko in fiziko, Univerza v Ljubljani
 
-V Javi je narejena igrica [Dodgem](https://en.wikipedia.org/wiki/Dodgem). 
+V programskem jeziku Java je narejena igrica [Dodgem](https://en.wikipedia.org/wiki/Dodgem). 
 Ustvarjena je logika igre, ki upošteva pravila igre. 
 
 Uporabniški vmesnik omogoča igro med dvema uporabnikoma, med računalnikom in uporabnikom ter med dvema umetnima inteligencama. 
 Nastavita se lahko velikost plošče in pa težavnost igre.
 
-Igra računalnika temelji na metodi minimax.
+Igra računalnika temelji na metodi alfa-beta.
 
 Začetna igra je nastavljena na igro med dvema uporabnikoma na plošči velikosti 5×5.
 
