@@ -13,7 +13,6 @@ public class Igra {
 	/**
 	 * Atributi objekta iz razreda igra.
 	 */
-
 	public Polje[][] plosca;
 	public Igralec naPotezi;
 	public int steviloOdigranihPotez = 0;
@@ -66,7 +65,6 @@ public class Igra {
 	public Polje[][] getPlosca() {
 		return plosca; 
 	}
-
 
 	/**
 	 * @return seznam možnih potez za igralca, ki je na potezi
@@ -308,4 +306,3 @@ public class Igra {
 		return false; // Nikoli ne pridemo do sem.
 	}
 }
-

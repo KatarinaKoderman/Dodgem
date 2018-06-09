@@ -21,7 +21,7 @@ public class Ocena {
 		int utez = 10;
 		final int ZMAGA_PRILAGOJENA = ZMAGA - utez * igra.getSteviloOdigranihPotez();
 		final int ZGUBA_PRILAGOJENA = - ZMAGA_PRILAGOJENA;
-		
+
 		// Ko računalnik vidi, da bo izgubil, se neha truditi za zmago. 
 		// Ker nas zanima samo zmaga/zguba, ne zanima pa nas število preostalih premikov naravnost, 
 		// ki bi vodili do zmage, tega pri izračunu ocene ne upoštevamo.

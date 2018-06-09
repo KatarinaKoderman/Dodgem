@@ -72,8 +72,6 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 
 
 	private void paintVERTICAL(Graphics2D g2, int i, int j) {
-
-
 		double w = squareWidth();
 		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // sirina VERTICAL
 		double x = w * (i + 0.5 * LINE_WIDTH + PADDING);
@@ -85,7 +83,6 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		int npoints = 3;
 		g2.fillPolygon(xpoints, ypoints, npoints);
 
-
 		// mali trikotniki
 		g2.setColor(Color.white);
 		int xpointsN[] = {(int) (x+r*0.35), (int) (x+r-r*0.35), (int) (x+r*0.5)};
@@ -94,7 +91,6 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 
 		Polygon poligoncekN = new Polygon(xpointsN, ypointsN, npoints);
 		poligonckiVerticalN .add(poligoncekN);
-
 
 		g2.setColor(Color.white);
 		int xpointsL[] = {(int) (x+r*0.1), (int) (x+r-r*0.58), (int) (x+r*0.25)};
@@ -126,7 +122,6 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		Polygon poligoncekLEVO = new Polygon(xpointsLEVO, ypointsLEVO, npoints);
 		poligonckiVerticalLEVO.add(poligoncekLEVO);
 
-
 		int xpointsDESNO[] = {(int) (x+r*0.55), (int) (x+r+r*0.05), (int) (x+r-r*0.2)};
 		int ypointsDESNO[] = {(int) (y+r*0.95), (int) (y+r*0.95), (int) (y+r*0.5)};
 
@@ -156,7 +151,6 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		Polygon poligoncekN = new Polygon(xpointsN, ypointsN, npoints);
 		poligonckiHorizontalN.add(poligoncekN);
 
-
 		g2.setColor(Color.white);
 		int xpointsL[] = {(int) (x+r*0.05), (int) (x+r*0.05), (int) (x+r*0.3)};
 		int ypointsL[] = {(int) (y+r*0.1), (int) (y+r-r*0.58), (int) (y+r*0.25)};
@@ -164,7 +158,6 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 
 		Polygon poligoncekL = new Polygon(xpointsL, ypointsL, npoints);
 		poligonckiHorizontalL.add(poligoncekL);
-
 
 		g2.setColor(Color.white);
 		int xpointsD[] = {(int) (x+r*0.05), (int) (x+r*0.05), (int) (x+r*0.3)};
@@ -181,13 +174,11 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		Polygon poligoncekNAPREJ = new Polygon(xpointsNAPREJ, ypointsNAPREJ, npoints);
 		poligonckiHorizontalNAPREJ.add(poligoncekNAPREJ);
 
-
 		int xpointsLEVO[] = {(int) (x-r*0.05), (int) (x-r*0.05), (int) (x+r*0.5)};
 		int ypointsLEVO[] = {(int) (y-r*0.05), (int) (y+r-r*0.55), (int) (y+r*0.2)};
 
 		Polygon poligoncekLEVO = new Polygon(xpointsLEVO, ypointsLEVO, npoints);
 		poligonckiHorizontalLEVO.add(poligoncekLEVO);
-
 
 		int xpointsDESNO[] = {(int) (x-r*0.05), (int) (x-r*0.05), (int) (x+r*0.5)};
 		int ypointsDESNO[] = {(int) (y+r+r*0.05), (int) (y+r-r*0.45), (int) (y+r-r*0.2)};

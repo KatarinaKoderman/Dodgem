@@ -43,5 +43,4 @@ public class NakljucnaInteligenca extends SwingWorker<Poteza, Object> {
 		} catch (Exception e) {
 		}
 	}
-
 }

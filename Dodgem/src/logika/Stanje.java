@@ -6,4 +6,3 @@ public enum Stanje {
 	ZMAGA_VERTICAL,
 	ZMAGA_HORIZONTAL;
 }
- 
