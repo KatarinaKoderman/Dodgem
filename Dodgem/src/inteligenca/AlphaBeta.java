@@ -26,6 +26,7 @@ public class AlphaBeta extends SwingWorker<Poteza, Object>  {
 		Igra igra = master.copyIgra();
 		OcenjenaPoteza p = alphaBeta(igra, globina, -100000000, 100000000); // največ je 100 milijonov
 		assert (p.poteza != null);
+		Thread.sleep(100);
 		return p.poteza;
 	}
 
