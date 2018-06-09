@@ -249,19 +249,19 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 			igra = new Igra(M);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
-		// tu nastavljamo globino minimaxa
+		// tu nastavljamo globino minimaxa oz. globino za alfa-beta
 		else if (e.getSource() == lahka) {
 			Racunalnik.setGlobina(2);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
 
 		else if (e.getSource() == obicajna) {
-			Racunalnik.setGlobina(3);
+			Racunalnik.setGlobina(5);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
 
 		else if (e.getSource() == tezka) {
-			Racunalnik.setGlobina(6);
+			Racunalnik.setGlobina(8);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
 		osveziGUI();

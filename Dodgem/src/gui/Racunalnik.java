@@ -3,7 +3,7 @@ package gui;
 import javax.swing.SwingWorker;
 
 import logika.Igralec;
-import inteligenca.Minimax;
+import inteligenca.AlphaBeta;
 import logika.Poteza;
 import logika.Smer;
 
@@ -24,7 +24,7 @@ public class Racunalnik extends Strateg {
 	
 	@Override
 	public void na_potezi() {
-		mislec = new Minimax(master, globina, id);
+		mislec = new AlphaBeta(master, globina, id);
 		mislec.execute();
 	}
 
