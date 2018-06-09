@@ -22,6 +22,7 @@ import logika.Poteza;
 import logika.Smer;
 
 import java.io.*;
+import java.net.URL;
 
 import javax.sound.sampled.*;
 
@@ -79,10 +80,8 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		this.setLayout(new GridBagLayout());
 
 		// preberemo pot do zvocne datoteke neodvisno od operacijskega sistema
-		String file = GlavnoOkno.class.getResource("/Insert-Coins-Jake-Wright.wav").getFile();
-		File soundFile = new File(file);
-
 		try {
+			URL soundFile = GlavnoOkno.class.getResource("/Insert-Coins-Jake-Wright.wav");
 			AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
 			clip = AudioSystem.getClip();
 			clip.open(audioIn);
