@@ -164,7 +164,6 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-
 			}
 		}
 				);
@@ -234,7 +233,6 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 			nova_igra(new Clovek(this, Igralec.HORIZONTAL),
 					new Clovek(this, Igralec.VERTICAL));
 		}
-
 		else if (e.getSource() == mala) {
 			M = 3;
 			igra = new Igra(M);
@@ -246,9 +244,8 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 			igra = new Igra(M);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
-
 		else if (e.getSource() == velika) {
-			M = 8;
+			M = 7;
 			igra = new Igra(M);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
@@ -259,12 +256,12 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		}
 
 		else if (e.getSource() == obicajna) {
-			Racunalnik.setGlobina(4);
+			Racunalnik.setGlobina(3);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
 
 		else if (e.getSource() == tezka) {
-			Racunalnik.setGlobina(7);
+			Racunalnik.setGlobina(6);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
 		osveziGUI();
@@ -331,5 +328,4 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	public Igra copyIgra() {
 		return new Igra(igra);
 	}
-
 }
