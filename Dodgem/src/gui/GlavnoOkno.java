@@ -81,8 +81,8 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 
 		// preberemo pot do zvocne datoteke neodvisno od operacijskega sistema
 		try {
-			URL soundFile = GlavnoOkno.class.getResource("/Insert-Coins-Jake-Wright.wav");
-			AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+			URL urlSoundFile = GlavnoOkno.class.getResource("/Insert-Coins-Jake-Wright.wav");
+			AudioInputStream audioIn = AudioSystem.getAudioInputStream(urlSoundFile);
 			clip = AudioSystem.getClip();
 			clip.open(audioIn);
 		} catch (UnsupportedAudioFileException | IOException e) {
