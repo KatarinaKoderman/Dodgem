@@ -76,7 +76,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	private JRadioButtonMenuItem obicajna;
 	private JRadioButtonMenuItem tezka;
 
-	private ButtonGroup group;
+	private ButtonGroup group; 
 
 	public GlavnoOkno() {
 		this.setTitle("Dodgem");
