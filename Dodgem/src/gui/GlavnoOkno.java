@@ -143,6 +143,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		group.add(obicajna);
 		igraTezavnost_menu.add(obicajna);
 		obicajna.addActionListener(this);
+		obicajna.setSelected(true);
 		
 		tezka = new JRadioButtonMenuItem("Visoka");
 		group.add(tezka);
