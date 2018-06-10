@@ -204,7 +204,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		return (igra == null ? null : igra.getPlosca());
 	}
 
-	public void nova_igra(Strateg horizontal, Strateg vertical) {
+	public void nova_igra(Strateg vertical, Strateg horizontal) {
 		if (strategHORIZONTAL != null) { strategHORIZONTAL.prekini(); }
 		if (strategVERTICAL != null) { strategVERTICAL.prekini(); }
 		this.igra = new Igra(M);
@@ -233,55 +233,56 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == igraRacunalnikClovek) {
-			nova_igra(new Clovek(this, Igralec.HORIZONTAL),
-					new Racunalnik(this, Igralec.VERTICAL));
+			nova_igra(new Racunalnik(this, Igralec.VERTICAL),
+					new Clovek(this, Igralec.HORIZONTAL));
 			omogociIzbiroTezavnosti(true);
 		}
 		else if (e.getSource() == igraClovekRacunalnik) {
-			nova_igra(new Racunalnik(this, Igralec.HORIZONTAL),
-					new Clovek(this, Igralec.VERTICAL));
+			nova_igra(new Clovek(this, Igralec.VERTICAL), 
+					new Racunalnik(this, Igralec.HORIZONTAL)
+					);
 			omogociIzbiroTezavnosti(true);
 		}
-		else if (e.getSource() == igraRacunalnikRacunalnik) {
-			nova_igra(new Racunalnik(this, Igralec.HORIZONTAL),
-					new Racunalnik(this, Igralec.VERTICAL));
+		else if (e.getSource() == igraRacunalnikRacunalnik) { 
+			nova_igra(new Racunalnik(this, Igralec.VERTICAL),
+					new Racunalnik(this, Igralec.HORIZONTAL));
 			omogociIzbiroTezavnosti(true);
 		}
 		else if (e.getSource() == igraClovekClovek) {
-			nova_igra(new Clovek(this, Igralec.HORIZONTAL),
-					new Clovek(this, Igralec.VERTICAL));
+			nova_igra(new Clovek(this, Igralec.VERTICAL),
+					new Clovek(this, Igralec.HORIZONTAL));
 			omogociIzbiroTezavnosti(false);
 		}
 		else if (e.getSource() == mala) {
 			M = 3;
 			igra = new Igra(M);
-			nova_igra(strategHORIZONTAL, strategVERTICAL);
+			nova_igra(strategVERTICAL, strategHORIZONTAL);
 		}
 
 		else if (e.getSource() == srednja) {
 			M = 5;
 			igra = new Igra(M);
-			nova_igra(strategHORIZONTAL, strategVERTICAL);
+			nova_igra(strategVERTICAL, strategHORIZONTAL);
 		}
 		else if (e.getSource() == velika) {
 			M = 7;
 			igra = new Igra(M);
-			nova_igra(strategHORIZONTAL, strategVERTICAL);
+			nova_igra(strategVERTICAL, strategHORIZONTAL);
 		}
 		// tu nastavljamo globino minimaxa oz. globino za alfa-beta
 		else if (e.getSource() == lahka) {
 			Racunalnik.setGlobina(2);
-			nova_igra(strategHORIZONTAL, strategVERTICAL);
+			nova_igra(strategVERTICAL, strategHORIZONTAL);
 		}
 
 		else if (e.getSource() == obicajna) {
 			Racunalnik.setGlobina(5);
-			nova_igra(strategHORIZONTAL, strategVERTICAL);
+			nova_igra(strategVERTICAL, strategHORIZONTAL);
 		}
 
 		else if (e.getSource() == tezka) {
 			Racunalnik.setGlobina(8);
-			nova_igra(strategHORIZONTAL, strategVERTICAL);
+			nova_igra(strategVERTICAL, strategHORIZONTAL);
 		}
 		osveziGUI();
 		repaint();

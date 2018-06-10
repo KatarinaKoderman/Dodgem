@@ -52,9 +52,9 @@ public class AlphaBeta extends SwingWorker<Poteza, Object>  {
 			naPotezi = Igralec.VERTICAL; 
 			break;
 		case ZMAGA_HORIZONTAL:
-			return new OcenjenaPoteza(null, (jaz == Igralec.HORIZONTAL ? Ocena.ZMAGA + globina : Ocena.ZGUBA - globina));
+			return new OcenjenaPoteza(null, Ocena.oceniPozicijo(jaz, igra));
 		case ZMAGA_VERTICAL:
-			return new OcenjenaPoteza(null, (jaz == Igralec.VERTICAL ? Ocena.ZMAGA + globina : Ocena.ZGUBA - globina));
+			return new OcenjenaPoteza(null, Ocena.oceniPozicijo(jaz, igra));
 		default:
 			break;
 		}
