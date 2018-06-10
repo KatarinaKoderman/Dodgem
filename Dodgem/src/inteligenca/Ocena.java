@@ -19,23 +19,11 @@ public class Ocena {
 	public static int oceniPozicijo(Igralec jaz, Igra igra) {
 		Igralec naPotezi = null;
 		int utez = 10;
-		final int ZMAGA_PRILAGOJENA = ZMAGA - utez * igra.getSteviloOdigranihPotez();
-		final int ZGUBA_PRILAGOJENA = - ZMAGA_PRILAGOJENA;
-
-		// Ko računalnik vidi, da bo izgubil, se neha truditi za zmago. 
-		// Ker nas zanima samo zmaga/zguba, ne zanima pa nas število preostalih premikov naravnost, 
-		// ki bi vodili do zmage, tega pri izračunu ocene ne upoštevamo.
-		switch (igra.stanje()) {
-		case ZMAGA_VERTICAL:
-			return (jaz == Igralec.VERTICAL ? (ZMAGA_PRILAGOJENA) : (ZGUBA_PRILAGOJENA));
-		case ZMAGA_HORIZONTAL:  
-			return (jaz == Igralec.HORIZONTAL ? (ZMAGA_PRILAGOJENA) : (ZGUBA_PRILAGOJENA));
-		case NA_POTEZI_VERTICAL:
-			naPotezi = Igralec.VERTICAL;
-		case NA_POTEZI_HORIZONTAL:
-			naPotezi = Igralec.HORIZONTAL; }
-
-		// Prestejemo, koliko premikov naprej je opravljenih.
+		
+		// Da racunalnik igra na zmago, tudi ce vidi, da bo izgubil, 
+		// upostevamo vrednost premikov naprej in preostalih avtomobilckov 
+		// ne glede na to, kaksno bo stanje igre.
+		
 		Polje[][] plosca = igra.getPlosca();
 
 		// da igralec zmaga, mora svoje figure prestaviti naprej (Igra.N * (Igra.N - 1))-krat
@@ -65,7 +53,20 @@ public class Ocena {
 		// Upostevamo avtomobilcke, ki so ze zapustili plosco.
 		vrednostVertical = vrednostVertical +  utez * igra.N * (igra.N - 1 - preostalihAvtomobilckovVertical);
 		vrednostHorizontal = vrednostHorizontal + utez * igra.N * (igra.N - 1 - preostalihAvtomobilckovHorizontal);
-
+		
+		// Upostevamo stanje igre in določimo oceno.
+		switch (igra.stanje()) {
+		case ZMAGA_VERTICAL:
+			return (jaz == Igralec.VERTICAL ? (ZMAGA - vrednostHorizontal- igra.getSteviloOdigranihPotez()) : 
+				(ZGUBA + vrednostHorizontal + igra.getSteviloOdigranihPotez()));
+		case ZMAGA_HORIZONTAL:  
+			return (jaz == Igralec.HORIZONTAL ? (ZMAGA - vrednostVertical - igra.getSteviloOdigranihPotez()) : 
+				(ZGUBA + vrednostVertical + igra.getSteviloOdigranihPotez()));
+		case NA_POTEZI_VERTICAL:
+			naPotezi = Igralec.VERTICAL;
+		case NA_POTEZI_HORIZONTAL:
+			naPotezi = Igralec.HORIZONTAL; }
+		
 		if (naPotezi == Igralec.HORIZONTAL) { vrednostHorizontal *= 4; }
 		if (naPotezi == Igralec.VERTICAL) { vrednostVertical *= 4; }
 
