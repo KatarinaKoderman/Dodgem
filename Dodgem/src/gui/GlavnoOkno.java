@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -23,6 +24,7 @@ import logika.Smer;
 
 import java.io.*;
 import java.net.URL;
+import java.util.Enumeration;
 
 import javax.sound.sampled.*;
 
@@ -61,8 +63,8 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	private Clip clip;
 
 	// Izbire v menujih
-	private JMenuItem igraClovekRacunalnik;
 	private JMenuItem igraRacunalnikClovek;
+	private JMenuItem igraClovekRacunalnik;
 	private JMenuItem igraClovekClovek;
 	private JMenuItem igraRacunalnikRacunalnik;
 
@@ -73,7 +75,9 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	private JRadioButtonMenuItem lahka;
 	private JRadioButtonMenuItem obicajna;
 	private JRadioButtonMenuItem tezka;
-	
+
+	private ButtonGroup group;
+
 	public GlavnoOkno() {
 		this.setTitle("Dodgem");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -106,13 +110,13 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		igra_menu.add(igraClovekClovek);
 		igraClovekClovek.addActionListener(this);
 
-		igraClovekRacunalnik = new JMenuItem("Računalnik Rumeni  -  Človek Rdeči");
-		igra_menu.add(igraClovekRacunalnik);
-		igraClovekRacunalnik.addActionListener(this);
-
-		igraRacunalnikClovek = new JMenuItem("Človek Rumeni  -  Računalnik Rdeči");
+		igraRacunalnikClovek = new JMenuItem("Računalnik Rumeni  -  Človek Rdeči");
 		igra_menu.add(igraRacunalnikClovek);
 		igraRacunalnikClovek.addActionListener(this);
+
+		igraClovekRacunalnik = new JMenuItem("Človek Rumeni  -  Računalnik Rdeči");
+		igra_menu.add(igraClovekRacunalnik);
+		igraClovekRacunalnik.addActionListener(this);
 
 		igraRacunalnikRacunalnik = new JMenuItem("Računalnik Rumeni  -  Računalnik Rdeči");
 		igra_menu.add(igraRacunalnikRacunalnik);
@@ -130,21 +134,21 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		velika = new JMenuItem("Velika");
 		velikostPlosca_menu.add(velika);
 		velika.addActionListener(this);
-		 
+
 		//izbire v tezavnost:
-	    ButtonGroup group = new ButtonGroup();
-	    
+		group = new ButtonGroup();
+
 		lahka = new JRadioButtonMenuItem("Nizka");
 		group.add(lahka);
 		igraTezavnost_menu.add(lahka);
 		lahka.addActionListener(this);
-		
+
 		obicajna = new JRadioButtonMenuItem("Povprečna");
 		group.add(obicajna);
 		igraTezavnost_menu.add(obicajna);
 		obicajna.addActionListener(this);
 		obicajna.setSelected(true);
-		
+
 		tezka = new JRadioButtonMenuItem("Visoka");
 		group.add(tezka);
 		igraTezavnost_menu.add(tezka);
@@ -189,8 +193,8 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		status_layout.anchor = GridBagConstraints.CENTER;
 		getContentPane().add(status, status_layout);
 
-		// za zacetek nastavimo clovek proti cloveku
-		nova_igra(new Clovek(this, Igralec.HORIZONTAL), new Clovek(this, Igralec.VERTICAL));
+		// za zacetek nastavimo clovek proti racunalniku
+		nova_igra(new Clovek(this, Igralec.HORIZONTAL), new Racunalnik(this, Igralec.VERTICAL));
 	}
 
 	/**
@@ -215,32 +219,47 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		repaint();
 	}
 
+	/*
+	 * Če ni nobeden od igralcev racunalnik, ni smiselno, da lahko spreminjamo tezavnost. To ne bi imelo pomena.
+	 * Metoda omogoci ali onemogoci nastavljanje tezavnosti.
+	 */
+	public void omogociIzbiroTezavnosti(boolean omogoceno) {
+		Enumeration<AbstractButton> enumeration = group.getElements();
+		while (enumeration.hasMoreElements()) {
+			enumeration.nextElement().setEnabled(omogoceno);
+		}
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == igraClovekRacunalnik) {
+		if (e.getSource() == igraRacunalnikClovek) {
 			nova_igra(new Clovek(this, Igralec.HORIZONTAL),
 					new Racunalnik(this, Igralec.VERTICAL));
+			omogociIzbiroTezavnosti(true);
 		}
-		else if (e.getSource() == igraRacunalnikClovek) {
+		else if (e.getSource() == igraClovekRacunalnik) {
 			nova_igra(new Racunalnik(this, Igralec.HORIZONTAL),
 					new Clovek(this, Igralec.VERTICAL));
+			omogociIzbiroTezavnosti(true);
 		}
 		else if (e.getSource() == igraRacunalnikRacunalnik) {
 			nova_igra(new Racunalnik(this, Igralec.HORIZONTAL),
 					new Racunalnik(this, Igralec.VERTICAL));
+			omogociIzbiroTezavnosti(true);
 		}
 		else if (e.getSource() == igraClovekClovek) {
 			nova_igra(new Clovek(this, Igralec.HORIZONTAL),
 					new Clovek(this, Igralec.VERTICAL));
+			omogociIzbiroTezavnosti(false);
 		}
 		else if (e.getSource() == mala) {
 			M = 3;
 			igra = new Igra(M);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
- 
+
 		else if (e.getSource() == srednja) {
-		 	M = 5;
+			M = 5;
 			igra = new Igra(M);
 			nova_igra(strategHORIZONTAL, strategVERTICAL);
 		}
